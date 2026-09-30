@@ -9,13 +9,16 @@ uv pip install -e .                 # local install
 python scripts/build_template.py    # matplotlib default rc -> template.mplstyle
 rose-pine-bloom -t template.mplstyle -o src/matplotlib_rosepine/styles -f hex-ns
 python scripts/preview.py           # regenerate assets/preview-*.{svg,png}
+uv run pytest                       # tests/test_style.py
 ```
 
-There is no test suite or linter config.
+No linter config.
 
 ## Architecture
 
-- `src/matplotlib_rosepine/style.py` holds the whole public API: `VARIANTS`, `style_path`, `register`, `apply_style`.
+- `src/matplotlib_rosepine/style.py` holds the whole public API: `VARIANTS`, `FORMATS`, `style_path`, `register`, `apply_style`, `despine`, `label_points`, `save_figure`.
+- Styling follows the user's `matplotlib-style` skill. rc-level rules (font stack, no top/right spines, inward ticks, `svg.fonttype: none`, constrained layout) live in `FIXED_VALUES`; data-dependent rules live in the helpers. `savefig.format` MUST stay unset because `save_figure` writes SVG and PNG.
+- `label_points` imports `adjustText` lazily; it ships as the optional `labels` extra.
 - `__init__.py` calls `register()` on import, so importing the package adds all three styles to `mpl.style.library`.
 - `apply_style()` also forces the Agg backend and resets to `default` before applying the style.
 
@@ -23,8 +26,8 @@ There is no test suite or linter config.
 
 The `.mplstyle` files under `src/matplotlib_rosepine/styles/` are generated. You MUST NOT hand-edit them. To change the theme:
 
-1. Edit `COLOR_TOKENS`, `CYCLE`, or `FIXED_VALUES` in `scripts/build_template.py`.
-2. Run the three commands above in order. Commit the template, styles, and previews together.
+1. Edit `COLOR_TOKENS`, `CYCLE`, or `FIXED_VALUES` in `scripts/build_template.py`. The script exits with an error if any listed key is not set in the template.
+2. Run `build_template.py`, `rose-pine-bloom`, and `preview.py` in order, then `uv run pytest`. Commit the template, styles, and previews together.
 
 Gotchas:
 

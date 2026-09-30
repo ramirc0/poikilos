@@ -9,6 +9,7 @@ variants (`rose-pine`, `rose-pine-moon`, `rose-pine-dawn`).
 
 ```bash
 uv add matplotlib-rosepine        # or: uv pip install matplotlib-rosepine
+uv add "matplotlib-rosepine[labels]"   # adds adjustText for label_points()
 ```
 
 From a local checkout:
@@ -26,11 +27,14 @@ rp.apply_style("rose-pine")       # rose-pine | rose-pine-moon | rose-pine-dawn
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 ax.plot([0, 1, 2], [0, 1, 0])
-fig.savefig("plot.svg")
+rp.despine(ax)
+rp.save_figure(fig, "plot")      # writes plot.svg and plot.png
 ```
 
-`apply_style()` sets the Agg backend and applies the style. Importing the
-package alone registers every style, so you can select one by name instead:
+`apply_style()` sets the Agg backend and applies the style, so it MUST run
+before `matplotlib.pyplot` is imported. The style removes the top and right
+spines and points ticks inward. Importing the package alone registers every
+style, so you can select one by name instead:
 
 ```python
 import matplotlib_rosepine        # noqa: F401  (registers styles)
@@ -38,7 +42,18 @@ import matplotlib.pyplot as plt
 plt.style.use("rose-pine-moon")
 ```
 
-Helpers: `rp.VARIANTS`, `rp.style_path(variant)`, `rp.register()`.
+### Helpers
+
+- `despine(ax, categorical_x=False, categorical_y=False)`: call after drawing.
+  Fits each continuous axis to its data, widens it to the enclosing ticks, and
+  offsets the left and bottom spines by 10 pt, trimmed to the end ticks. Pass
+  `categorical_x=True` for bar charts, `categorical_y=True` for horizontal bars,
+  both for heatmaps.
+- `save_figure(fig, path)`: writes `path.svg` and `path.png`.
+- `label_points(ax, points, labels, **text_kwargs)`: labels the collection
+  `ax.scatter` returns without overlaps. Call last on the figure. Needs the
+  `labels` extra.
+- `VARIANTS`, `style_path(variant)`, `register()`.
 
 ### Fonts
 
@@ -58,6 +73,7 @@ Styles are generated from matplotlib's default rc with
 python scripts/build_template.py   # default rc -> template.mplstyle
 rose-pine-bloom -t template.mplstyle -o src/matplotlib_rosepine/styles -f hex-ns
 python scripts/preview.py          # regenerate assets/preview-*.{svg,png}
+uv run pytest
 ```
 
 `-f hex-ns` is required: matplotlib only honors `#` inside double quotes, so
