@@ -4,14 +4,13 @@ from pathlib import Path
 
 import numpy as np
 
-from matplotlib_rosepine import VARIANTS, apply_style
+from matplotlib_rosepine import VARIANTS, apply_style, despine, save_figure
 import matplotlib.pyplot as plt
 
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 
 
 def main():
-    ASSETS.mkdir(exist_ok=True)
     x = np.linspace(0, 2 * np.pi, 100)
     for variant in VARIANTS:
         apply_style(variant)
@@ -23,9 +22,8 @@ def main():
         ax.set_ylabel("y")
         ax.grid(True)
         ax.legend(ncol=3, fontsize=6)
-        for ext in ("svg", "png"):
-            out = ASSETS / f"preview-{variant}.{ext}"
-            fig.savefig(out)
+        despine(ax)
+        for out in save_figure(fig, ASSETS / f"preview-{variant}"):
             print(f"wrote {out}")
         plt.close(fig)
 
