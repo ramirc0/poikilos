@@ -63,7 +63,7 @@ FIXED_VALUES = {
 }
 
 LINE = re.compile(
-    r"^#?(?P<key>[\w.]+)(?P<sep>\s*:\s*)(?P<val>.*?)(?P<comment>\s+#.*)?$"
+    r"^#?(?P<key>[\w.-]+)(?P<sep>\s*:\s*)(?P<val>.*?)(?P<comment>\s+#.*)?$"
 )
 
 
@@ -94,11 +94,14 @@ def main():
         body = "".join(rewrite(line) for line in f)
     TEMPLATE.write_text(header + body)
 
-    seen = set(re.findall(r"\$(\w+)", body))
-    missing = (set(COLOR_TOKENS.values()) | set(CYCLE)) - seen
+    missing = [
+        key
+        for key in {**COLOR_TOKENS, **FIXED_VALUES}
+        if not re.search(rf"^{re.escape(key)}\s*:", body, re.M)
+    ]
     if missing:
-        raise SystemExit(f"template missing variables: {sorted(missing)}")
-    print(f"wrote {TEMPLATE} with variables: {sorted(seen)}")
+        raise SystemExit(f"template left keys unset: {missing}")
+    print(f"wrote {TEMPLATE}")
 
 
 if __name__ == "__main__":
