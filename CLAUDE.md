@@ -16,7 +16,7 @@ uv run python scripts/preview.py               # regenerate assets/preview-*.{sv
 
 ## Architecture
 
-- `src/matplotlib_rosepine/style.py` holds the whole public API: `VARIANTS`, `FORMATS`, `style_path`, `register`, `apply_style`, `despine`, `label_points`, `save_figure`.
+- `src/matplotlib_rosepine/style.py` holds the whole public API: `VARIANTS`, `style_path`, `register`, `apply_style`, `despine`, `label_points`, `save_figure`.
 - `__init__.py` calls `register()` on import, adding all three styles to `mpl.style.library`.
 - `apply_style()` forces the Agg backend, resets to `default`, then applies the style. It MUST run before `matplotlib.pyplot` is imported.
 - No fonts ship with the package. The style sets `font.sans-serif` to a fallback chain resolved from system fonts.

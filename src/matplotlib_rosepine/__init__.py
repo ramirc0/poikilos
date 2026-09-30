@@ -6,7 +6,6 @@ setup (Agg backend + style).
 """
 
 from .style import (
-    FORMATS,
     VARIANTS,
     apply_style,
     despine,
@@ -17,7 +16,6 @@ from .style import (
 )
 
 __all__ = [
-    "FORMATS",
     "VARIANTS",
     "apply_style",
     "despine",

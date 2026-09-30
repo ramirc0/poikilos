@@ -7,7 +7,6 @@ import matplotlib.style  # noqa: F401  (registers mpl.style)
 import numpy as np
 
 VARIANTS = ("rose-pine", "rose-pine-moon", "rose-pine-dawn")
-FORMATS = ("svg", "png")
 
 _STYLES = Path(__file__).resolve().parent / "styles"
 
@@ -176,12 +175,12 @@ def save_figure(fig, path, **kwargs):
     Returns
     -------
     list of pathlib.Path
-        The paths written, in :data:`FORMATS` order.
+        The SVG path, then the PNG path.
     """
     stem = Path(path).with_suffix("")
     stem.parent.mkdir(parents=True, exist_ok=True)
     written = []
-    for fmt in FORMATS:
+    for fmt in ("svg", "png"):
         out = stem.with_suffix(f".{fmt}")
         fig.savefig(out, format=fmt, **kwargs)
         written.append(out)
