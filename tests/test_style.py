@@ -205,7 +205,7 @@ def test_label_points_leader_lines_use_edge_color():
     points = ax.scatter([0.5, 0.5, 0.51], [0.5, 0.51, 0.5])
     despine(ax)
     label_points(ax, points, ["alpha", "beta", "gamma"])
-    arrows = [p for p in ax.patches if hasattr(p, "get_arrowstyle")]
+    arrows = ax.patches
     assert arrows
     assert all(np.allclose(a.get_edgecolor()[:3], to_rgb(plt.rcParams["axes.edgecolor"])) for a in arrows)
     plt.close(fig)
