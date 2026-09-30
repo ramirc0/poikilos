@@ -15,7 +15,6 @@ keywords = ["matplotlib", "rose-pine", "theme", "style", "plotting"]
 dependencies = ["matplotlib>=3.6"]
 
 [project.optional-dependencies]
-preview = ["numpy"]
 labels = [
     "adjusttext>=1.4.0",
 ]

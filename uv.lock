@@ -1050,12 +1050,6 @@ dependencies = [
 labels = [
     { name = "adjusttext" },
 ]
-preview = [
-    { name = "numpy", version = "2.0.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
-    { name = "numpy", version = "2.5.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
-]
 
 [package.dev-dependencies]
 dev = [
@@ -1072,9 +1066,8 @@ dev = [
 requires-dist = [
     { name = "adjusttext", marker = "extra == 'labels'", specifier = ">=1.4.0" },
     { name = "matplotlib", specifier = ">=3.6" },
-    { name = "numpy", marker = "extra == 'preview'" },
 ]
-provides-extras = ["preview", "labels"]
+provides-extras = ["labels"]
 
 [package.metadata.requires-dev]
 dev = [
