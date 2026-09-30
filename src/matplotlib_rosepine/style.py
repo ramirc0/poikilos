@@ -90,35 +90,27 @@ def despine(ax, categorical_x=False, categorical_y=False):
     fitted = ax.get_autoscalex_on() and ax.get_autoscaley_on()
     ax.margins(0)
     ax.autoscale_view()
-    hidden = {"top", "right"}
-    if categorical_x:
-        hidden.add("bottom")
-    if categorical_y:
-        hidden.add("left")
-    for side, spine in ax.spines.items():
-        spine.set_visible(side not in hidden)
-        spine.set_position(("outward", 10))
-    axes = []
-    if not categorical_y:
-        axes.append((ax.yaxis, ax.get_ylim, ax.set_ylim, "left"))
-    if not categorical_x:
-        axes.append((ax.xaxis, ax.get_xlim, ax.set_xlim, "bottom"))
-    for axis, get_lim, set_lim, spine in axes:
-        lo, hi = sorted(get_lim())
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.spines[:].set_position(("outward", 10))
+    for axis, set_lim, spine, categorical in [
+        (ax.yaxis, ax.set_ylim, ax.spines["left"], categorical_y),
+        (ax.xaxis, ax.set_xlim, ax.spines["bottom"], categorical_x),
+    ]:
+        spine.set_visible(not categorical)
+        if categorical:
+            axis.set_tick_params(length=0)
+            continue
+        lo, hi = sorted(axis.get_view_interval())
         # Calling the locator reads the view limits itself; date locators reject raw floats.
         ticks = axis.get_major_locator()()
         lo = max((t for t in ticks if t <= lo), default=lo)
         hi = min((t for t in ticks if t >= hi), default=hi)
         axis.set_ticks(sorted({lo, hi, *(t for t in ticks if lo <= t <= hi)}))
         set_lim(sorted((lo, hi), reverse=axis.get_inverted()))
-        ax.spines[spine].set_bounds(lo, hi)
+        spine.set_bounds(lo, hi)
     if fitted:
         for artist in [*ax.lines, *ax.collections, *ax.patches]:
             artist.set_clip_on(False)
-    if categorical_x:
-        ax.tick_params(axis="x", length=0)
-    if categorical_y:
-        ax.tick_params(axis="y", length=0)
 
 
 def label_points(ax, points, labels, **kwargs):
