@@ -70,9 +70,9 @@ Styles are generated from matplotlib's default rc with
 [rose-pine-bloom](https://github.com/rose-pine/rose-pine-bloom):
 
 ```bash
-python scripts/build_template.py   # default rc -> template.mplstyle
+uv run python scripts/build_template.py   # default rc -> template.mplstyle
 rose-pine-bloom -t template.mplstyle -o src/matplotlib_rosepine/styles -f hex-ns
-python scripts/preview.py          # regenerate assets/preview-*.{svg,png}
+uv run python scripts/preview.py          # regenerate assets/preview-*.{svg,png}
 uv run pytest
 ```
 
