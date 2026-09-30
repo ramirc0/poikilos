@@ -389,7 +389,7 @@ text.color: "#575279"
 ## Following are default face and edge colors, default tick sizes,
 ## default font sizes for tick labels, and so on.  See
 ## https://matplotlib.org/stable/api/axes_api.html#module-matplotlib.axes
-axes.facecolor:     "#fffaf3"   # axes background color
+axes.facecolor:     "#faf4ed"   # axes background color
 axes.edgecolor:     "#9893a5"   # axes edge color
 #axes.linewidth:     0.8     # edge line width
 #axes.grid:          False   # display grid or not
@@ -576,7 +576,7 @@ grid.color:     "#f2e9e1"  # grid color
 #legend.loc:           best
 #legend.frameon:       True     # if True, draw the legend on a background patch
 #legend.framealpha:    0.8      # legend patch transparency
-legend.facecolor:     "#fffaf3"  # inherit from axes.facecolor; or color spec
+legend.facecolor:     "#faf4ed"  # inherit from axes.facecolor; or color spec
 legend.edgecolor:     "#9893a5"      # background patch boundary color
 #legend.linewidth:     None     # line width of the legend frame, None means inherit from patch.linewidth
 #legend.fancybox:      True     # if True, use a rounded box for the

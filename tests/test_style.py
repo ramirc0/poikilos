@@ -27,6 +27,13 @@ def test_style_file_sets_skill_rc(variant):
     assert "savefig.format" not in rc
 
 
+@pytest.mark.parametrize("variant", VARIANTS)
+def test_style_file_uses_one_background_without_grid(variant):
+    rc = mpl.rc_params_from_file(style_path(variant), use_default_template=False)
+    assert rc["axes.facecolor"] == rc["legend.facecolor"] == rc["figure.facecolor"]
+    assert not rc.get("axes.grid", False)
+
+
 def test_save_figure_writes_svg_and_png(tmp_path):
     fig, ax = plt.subplots()
     written = save_figure(fig, tmp_path / "sub" / "plot")
