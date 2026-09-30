@@ -66,18 +66,19 @@ embed the glyphs and always render correctly.
 
 ## Development
 
-Styles are generated from matplotlib's default rc with
-[rose-pine-bloom](https://github.com/rose-pine/rose-pine-bloom):
+`template.mplstyle` lists every setting the theme changes, with `$role`
+placeholders for the colors.
+[rose-pine-bloom](https://github.com/rose-pine/rose-pine-bloom) fills in the
+placeholders and writes one style per variant. Edit the template, then run:
 
 ```bash
-uv run python scripts/build_template.py   # default rc -> template.mplstyle
 rose-pine-bloom -t template.mplstyle -o src/matplotlib_rosepine/styles -f hex-ns
 uv run python scripts/preview.py          # regenerate assets/preview-*.{svg,png}
 uv run pytest
 ```
 
-`-f hex-ns` is required: matplotlib only honors `#` inside double quotes, so
-`prop_cycle` needs bare hex.
+`-f hex-ns` is required. matplotlib treats `#` as a comment unless it sits
+inside double quotes, so `prop_cycle` entries need bare hex.
 
 ## License
 

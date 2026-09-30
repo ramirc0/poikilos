@@ -16,6 +16,12 @@ from matplotlib.transforms import Bbox  # noqa: E402
 
 
 @pytest.mark.parametrize("variant", VARIANTS)
+def test_style_file_loads_without_warnings(variant, caplog):
+    mpl.rc_params_from_file(style_path(variant), use_default_template=False)
+    assert not caplog.records
+
+
+@pytest.mark.parametrize("variant", VARIANTS)
 def test_style_file_sets_skill_rc(variant):
     rc = mpl.rc_params_from_file(style_path(variant), use_default_template=False)
     assert rc["font.family"] == ["sans-serif"]
