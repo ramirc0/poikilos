@@ -20,7 +20,6 @@ def main():
         ax.set_title(variant)
         ax.set_xlabel("x")
         ax.set_ylabel("y")
-        ax.grid(True)
         ax.legend(ncol=3, fontsize=6)
         despine(ax)
         for out in save_figure(fig, ASSETS / f"preview-{variant}"):
