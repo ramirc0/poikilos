@@ -110,7 +110,7 @@ def despine(ax, categorical_x=False, categorical_y=False):
         lo = max((t for t in ticks if t <= lo), default=lo)
         hi = min((t for t in ticks if t >= hi), default=hi)
         axis.set_ticks(sorted({lo, hi, *(t for t in ticks if lo <= t <= hi)}))
-        set_lim(lo, hi)
+        set_lim(sorted((lo, hi), reverse=axis.get_inverted()))
         ax.spines[spine].set_bounds(lo, hi)
     if fitted:
         for artist in [*ax.lines, *ax.collections, *ax.patches]:

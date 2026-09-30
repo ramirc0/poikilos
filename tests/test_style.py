@@ -105,6 +105,14 @@ def test_despine_keeps_clipping_with_explicit_limits():
     plt.close(fig)
 
 
+def test_despine_keeps_inverted_axis():
+    fig, ax = plt.subplots()
+    ax.imshow(np.arange(12).reshape(3, 4))
+    despine(ax)
+    assert ax.yaxis_inverted()
+    plt.close(fig)
+
+
 def test_despine_categorical_y_drops_left_spine():
     fig, ax = plt.subplots()
     ax.barh(["a", "b", "c"], [3.2, 1.0, 7.5])
