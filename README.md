@@ -1,9 +1,7 @@
 # matplotlib-rosepine
 
 [Rosé Pine](https://rosepinetheme.com) styles for matplotlib, in all three
-variants (`rose-pine`, `rose-pine-moon`, `rose-pine-dawn`), with the
-[Google Sans Flex](https://fonts.google.com/specimen/Google+Sans+Flex) font
-vendored so plots look the same everywhere.
+variants (`rose-pine`, `rose-pine-moon`, `rose-pine-dawn`).
 
 ![rose-pine](assets/preview-rose-pine.png)
 
@@ -31,28 +29,25 @@ ax.plot([0, 1, 2], [0, 1, 0])
 fig.savefig("plot.svg")
 ```
 
-`apply_style()` sets the Agg backend, registers the vendored font, and applies
-the style. Importing the package alone also registers everything, so you can
-select a style by name instead:
+`apply_style()` sets the Agg backend and applies the style. Importing the
+package alone registers every style, so you can select one by name instead:
 
 ```python
-import matplotlib_rosepine        # noqa: F401  (registers styles + font)
+import matplotlib_rosepine        # noqa: F401  (registers styles)
 import matplotlib.pyplot as plt
 plt.style.use("rose-pine-moon")
 ```
 
-Helpers: `rp.VARIANTS`, `rp.style_path(variant)`, `rp.register()`,
-`rp.register_fonts()`.
+Helpers: `rp.VARIANTS`, `rp.style_path(variant)`, `rp.register()`.
 
-### Fonts in saved figures
+### Fonts
+
+No font ships with the package. Matplotlib uses the first installed family
+from: Anthropic Sans Text, Google Sans Flex, Arimo, Arial, DejaVu Sans.
 
 The styles use `svg.fonttype: none`, so SVGs reference the font by name rather
-than embedding it; a viewer needs Google Sans Flex installed to render it. PNGs
-embed the glyphs and always render correctly. To install the font system-wide:
-
-```bash
-cp src/matplotlib_rosepine/fonts/*.ttf ~/.local/share/fonts/ && fc-cache -f
-```
+than embedding it; a viewer needs the same font installed to render it. PNGs
+embed the glyphs and always render correctly.
 
 ## Development
 
@@ -70,5 +65,4 @@ python scripts/preview.py          # regenerate assets/preview-*.{svg,png}
 
 ## License
 
-MIT (see `LICENSE`). The vendored Google Sans Flex font is licensed separately
-under the SIL Open Font License 1.1 (`src/matplotlib_rosepine/fonts/OFL.txt`).
+MIT (see `LICENSE`).
