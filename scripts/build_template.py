@@ -52,13 +52,17 @@ COLOR_TOKENS = {
 # axes.prop_cycle accent order. Single-quoted, no '#', per the rc format.
 CYCLE = ("love", "gold", "pine", "foam", "iris", "rose")
 
-# Non-color keys pinned to project values (matches the original apply_style).
+# Non-color keys pinned to project values.
 FIXED_VALUES = {
     "figure.dpi": "300",
-    "font.family": "Google Sans Flex",
-    "savefig.format": "svg",
+    "font.family": "sans-serif",
+    "font.sans-serif": "Anthropic Sans Text, Google Sans Flex, Arimo, Arial, DejaVu Sans",
     "svg.fonttype": "none",
     "figure.constrained_layout.use": "True",
+    "axes.spines.top": "False",
+    "axes.spines.right": "False",
+    "xtick.direction": "in",
+    "ytick.direction": "in",
     "axes.prop_cycle": "cycler('color', [%s])" % ", ".join(f"'${r}'" for r in CYCLE),
 }
 
