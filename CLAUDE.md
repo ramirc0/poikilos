@@ -15,8 +15,7 @@ uv run python scripts/preview.py               # regenerate assets/preview-*.{sv
 
 ## Architecture
 
-- `src/matplotlib_rosepine/style.py` holds the whole public API: `VARIANTS`, `style_path`, `register`, `apply_style`, `despine`, `label_points`, `save_figure`.
-- `__init__.py` calls `register()` on import, adding all three styles to `mpl.style.library`.
+- `src/matplotlib_rosepine/style.py` holds the whole public API. `__init__.py` re-exports it and calls `register()` on import, which adds all three styles to `mpl.style.library`.
 - `apply_style()` forces the Agg backend, resets to `default`, then applies the style. It MUST run before `matplotlib.pyplot` is imported.
 - No fonts ship with the package. The style sets `font.sans-serif` to a fallback chain resolved from system fonts.
 
@@ -46,6 +45,4 @@ Gotchas:
 
 ## Tests
 
-- `tests/test_style.py` calls `apply_style()` (variant `rose-pine`) at import, before importing pyplot. Tests share that global rc state.
-- `test_style_file_sets_skill_rc` reads each `.mplstyle` directly, so it catches template or bloom regressions.
-- `edge_marker_pixels` matches the drawn line's own color, not a fixed hex, so it survives palette changes.
+`tests/test_style.py` calls `apply_style()` (variant `rose-pine`) at import, before importing pyplot. Tests share that global rc state.
