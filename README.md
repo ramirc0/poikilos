@@ -14,11 +14,12 @@ look takes any palette.
 
 | Light | Dark |
 | --- | --- |
-| ![plain](assets/gallery/plain.png) | ![plain-dark](assets/gallery/plain-dark.png) |
-| ![rose-pine-dawn](assets/gallery/rose-pine-dawn.png) | ![rose-pine](assets/gallery/rose-pine.png) |
-| ![lilaq](assets/gallery/lilaq.png) | ![lilaq-moon](assets/gallery/lilaq-moon.png) |
+| ![plain](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/plain.png) | ![plain-dark](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/plain-dark.png) |
+| ![rose-pine-dawn](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/rose-pine-dawn.png) | ![rose-pine](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/rose-pine.png) |
+| ![lilaq](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/lilaq.png) | ![lilaq-moon](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/lilaq-moon.png) |
 
-[`rose-pine-moon`](assets/gallery/rose-pine-moon.png) is in the same folder.
+[`rose-pine-moon`](https://github.com/ramirc0/poikilos/blob/main/assets/gallery/rose-pine-moon.png)
+has its own gallery image.
 
 ## Install
 
@@ -202,7 +203,8 @@ uv run python scripts/gallery.py       # regenerate assets/gallery
 uv run python scripts/lilaq_parity.py  # compare with lilaq 0.6.0 in build/parity
 ```
 
-[CHANGELOG.md](CHANGELOG.md) has the version history and the versioning rules.
+[CHANGELOG.md](https://github.com/ramirc0/poikilos/blob/main/CHANGELOG.md) has
+the version history and the versioning rules.
 
 ## License
 
