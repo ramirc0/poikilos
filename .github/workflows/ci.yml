@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked
+      - run: uv run ruff check
+      - run: uv run ruff format --check
+      - run: uv run pytest
+      # The editable install reads files from src/, so only the wheel shows missing package data.
+      - run: uv build --wheel
+      - run: |
+          files=$(unzip -Z1 dist/*.whl)
+          for f in poikilos/base.mplstyle poikilos/looks/ poikilos/palettes/; do
+            grep -q "^$f" <<< "$files" || { echo "wheel lacks $f"; exit 1; }
+          done
+
+  lowest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.11"
+      - run: uv run --resolution lowest-direct pytest -m "not images"
