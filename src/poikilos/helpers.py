@@ -50,7 +50,8 @@ def despine(ax, categorical_x=False, categorical_y=False):
         lo = max((t for t in ticks if t <= lo), default=lo)
         hi = min((t for t in ticks if t >= hi), default=hi)
         axis.set_ticks(sorted({lo, hi, *(t for t in ticks if lo <= t <= hi)}))
-        set_lim(sorted((lo, hi), reverse=axis.get_inverted()))
+        # Python 3.11 reads reverse= through __index__, which numpy >= 2.3 rejects on np.bool_.
+        set_lim(sorted((lo, hi), reverse=bool(axis.get_inverted())))
         spine.set_bounds(lo, hi)
     if fitted:
         # An empty line's marker-padded extent sits at the figure origin. Unclipped,

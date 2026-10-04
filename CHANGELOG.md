@@ -59,3 +59,7 @@ The distribution and the import package are both `poikilos`.
 
 - `template.mplstyle`, the generated `.mplstyle` files and the rose-pine-bloom
   step. Palettes are TOML files now.
+
+### Fixed
+
+- `despine` raised `TypeError` on Python 3.11 with numpy 2.3 or later.
