@@ -256,3 +256,51 @@ def test_save_figure_keeps_dotted_stems(tmp_path):
     ]
     assert all(p.exists() for p in written)
     plt.close(fig)
+
+
+def test_despine_keeps_empty_lines_out_of_the_layout():
+    # A boxplot without outliers has an empty flier line. Its marker-padded extent sits at
+    # the figure origin. Unclipped, it dragged constrained layout down to that corner.
+    fig, ax = plt.subplots(figsize=(3, 3))
+    parts = ax.boxplot([0.33, 0.35, 0.36, 0.41, 0.46])
+    despine(ax, categorical_x=True)
+    fig.canvas.draw()
+    assert parts["fliers"][0].get_clip_on() is True
+    assert all(line.get_clip_on() is False for line in parts["whiskers"])
+    assert ax.get_tightbbox(fig.canvas.get_renderer()).y0 >= 0
+    plt.close(fig)
+
+
+def test_despine_hides_mirrored_ticks():
+    with mpl.rc_context(
+        {
+            "xtick.top": True,
+            "ytick.right": True,
+            "xtick.minor.visible": True,
+            "ytick.minor.visible": True,
+        }
+    ):
+        fig, ax = plt.subplots()
+    ax.plot([0.3, 9.2], [1.1, 7.7])
+    despine(ax)
+    fig.canvas.draw()
+    ticks = [
+        *ax.xaxis.get_major_ticks(),
+        *ax.xaxis.get_minor_ticks(),
+        *ax.yaxis.get_major_ticks(),
+        *ax.yaxis.get_minor_ticks(),
+    ]
+    assert not any(t.tick2line.get_visible() for t in ticks)
+    assert all(t.tick1line.get_visible() for t in ticks)
+    plt.close(fig)
+
+
+def test_despine_categorical_axis_drops_minor_ticks():
+    with mpl.rc_context({"xtick.minor.visible": True}):
+        fig, ax = plt.subplots()
+    ax.bar(["a", "b", "c"], [3.2, 1.0, 7.5])
+    despine(ax, categorical_x=True)
+    fig.canvas.draw()
+    ticks = [*ax.xaxis.get_major_ticks(), *ax.xaxis.get_minor_ticks()]
+    assert all(t.tick1line.get_markersize() == 0 for t in ticks)
+    plt.close(fig)

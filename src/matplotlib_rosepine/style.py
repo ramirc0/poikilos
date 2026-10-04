@@ -70,12 +70,13 @@ def despine(ax, categorical_x=False, categorical_y=False):
     to the nearest ticks enclosing the data, so the trimmed spine never ends
     short of the data. When the locator has no enclosing tick (e.g. dates),
     the data edge becomes the end tick. A categorical axis has no spine or
-    tick marks; its labels carry the categories.
+    tick marks, major or minor; its labels carry the categories. Top and
+    right tick marks are hidden with their spines.
 
     When both axes are fitted to the data, the plotted artists are unclipped
     so markers and lines at the limits draw whole into the spine offset.
-    Explicit limits set by the caller keep clipping on. Call after everything
-    is drawn on ``ax``.
+    Lines without data stay clipped. Explicit limits set by the caller keep
+    clipping on. Call after everything is drawn on ``ax``.
 
     Parameters
     ----------
@@ -91,13 +92,14 @@ def despine(ax, categorical_x=False, categorical_y=False):
     ax.autoscale_view()
     ax.spines[["top", "right"]].set_visible(False)
     ax.spines[:].set_position(("outward", 10))
+    ax.tick_params(which="both", top=False, right=False)
     for axis, set_lim, spine, categorical in [
         (ax.yaxis, ax.set_ylim, ax.spines["left"], categorical_y),
         (ax.xaxis, ax.set_xlim, ax.spines["bottom"], categorical_x),
     ]:
         spine.set_visible(not categorical)
         if categorical:
-            axis.set_tick_params(length=0)
+            axis.set_tick_params(which="both", length=0)
             continue
         lo, hi = sorted(axis.get_view_interval())
         # Calling the locator reads the view limits itself; date locators reject raw floats.
@@ -108,7 +110,10 @@ def despine(ax, categorical_x=False, categorical_y=False):
         set_lim(sorted((lo, hi), reverse=axis.get_inverted()))
         spine.set_bounds(lo, hi)
     if fitted:
-        for artist in [*ax.lines, *ax.collections, *ax.patches]:
+        # An empty line's marker-padded extent sits at the figure origin. Unclipped,
+        # it drags constrained layout there (e.g. boxplot fliers with no outliers).
+        lines = [line for line in ax.lines if len(line.get_xydata())]
+        for artist in [*lines, *ax.collections, *ax.patches]:
             artist.set_clip_on(False)
 
 
