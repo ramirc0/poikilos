@@ -24,7 +24,9 @@ comparison.
   two differ in edge cases.
 - A figure size that gives lilaq's 6 × 4 cm data area for a plot with a title
   and both axis labels. rcParams cannot fix the data area itself, so a plot
-  without labels gets a larger one.
+  without labels gets a larger one. Leave out `figsize` for a single plot, so
+  it matches lilaq figures in the same document. Pass it only for several
+  panels.
 
 `lilaq-moon` uses lilaq's moon colors on `#242424`, with white text, spines and
 ticks.

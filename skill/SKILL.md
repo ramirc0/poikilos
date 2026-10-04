@@ -13,8 +13,8 @@ finish a figure: `despine`, `label_points` and `save_figure`.
 uv add "poikilos[labels] @ git+https://github.com/ramirc0/poikilos"
 ```
 
-The `labels` extra pulls in adjustText for `label_points`. Needs Python 3.11 and
-matplotlib 3.11.
+The `labels` extra pulls in adjustText for `label_points`. Needs Python 3.11 or
+later and matplotlib 3.11 or later.
 
 ## Rules
 
@@ -27,17 +27,22 @@ matplotlib 3.11.
    (`svg.fonttype: none`), and the PNG is for viewers without the fonts.
 3. **Keep constrained layout.** The themes turn it on. Never call
    `tight_layout()`, which fights it.
-4. **Do not style per script.** Settings outside the theme go in
-   `pk.use(theme, rc={...})`, so every figure in a project stays consistent and
-   one line shows what deviates. If many scripts need the same override,
-   change the theme in poikilos instead.
+4. **Do not style per script.** Style settings outside the theme (fonts,
+   sizes, colors, tick and spine looks) go in `pk.use(theme, rc={...})`, so
+   every figure in a project stays consistent and one line shows what
+   deviates. If many scripts need the same override, change the theme in
+   poikilos instead. Choices that depend on the data are fine per axes:
+   legend placement (`ax.legend(loc="upper left")` when the data fills the
+   default corner), `figsize`, limits, titles and labels.
 5. **Plain look: call `pk.despine(ax)` on every axes**, after everything is
    drawn on it. It is what makes the plain look: spines offset by 10 pt and
    trimmed to the end ticks. See [references/plain.md](references/plain.md)
    for categorical axes.
 6. **Label scatter points with `pk.label_points(ax, points, labels)`**, never
    with `ax.annotate` or `ax.text` per point. Fixed offsets collide as soon as
-   two points sit close together. Call it last on the figure.
+   two points sit close together. Call it last on the figure. With several
+   labelled panels, finish every panel first (drawing, `despine`, titles,
+   legends, suptitle), then call `label_points` once per panel.
 7. **lilaq look: apply the tick and dot recipes** from
    [references/lilaq.md](references/lilaq.md).
 
@@ -83,7 +88,6 @@ Take colors from `pk.PALETTES` rather than copying hex values. A palette's
 
 ```python
 import matplotlib.pyplot as plt
-
 import poikilos as pk
 
 pk.use("plain")

@@ -69,8 +69,8 @@ findfont(FontProperties(family="NewComputerModern"), fallback_to_default=False)
 
 - **SVG.** Themes set `svg.fonttype: none`, so an SVG names its font instead of
   embedding outlines. A viewer without the font shows a substitute. For an SVG
-  that leaves the project, ship the PNG next to it or save that one with
-  `rc={"svg.fonttype": "path"}`.
+  that leaves the project, ship the PNG next to it, or draw and save that
+  figure inside `with pk.context(theme, rc={"svg.fonttype": "path"}):`.
 - **PNG.** Glyphs are rasterized, so PNGs look the same everywhere.
 - **PDF.** Themes leave `pdf.fonttype` at matplotlib's default, Type 3.
   `pdf.fonttype: 42` embeds TrueType and suits only TrueType fonts. Anthropic

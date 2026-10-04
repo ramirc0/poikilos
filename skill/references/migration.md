@@ -24,8 +24,8 @@ entry. `uv add` writes the new one. Drop `[labels]` if the project never calls
 `label_points`. A copied `style.py` needed seaborn for `despine`. Remove seaborn
 too if nothing else uses it.
 
-poikilos needs Python 3.11 and matplotlib 3.11. Raise `requires-python` if it
-is lower.
+poikilos needs Python 3.11 or later and matplotlib 3.11 or later. Raise
+`requires-python` if it is lower.
 
 ## 2. Calls
 
