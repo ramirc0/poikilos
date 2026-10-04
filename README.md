@@ -22,13 +22,15 @@ uv pip install .
 
 ```python
 import matplotlib_rosepine as rp
-rp.apply_style("rose-pine")       # rose-pine | rose-pine-moon | rose-pine-dawn
+
+rp.apply_style("rose-pine")  # rose-pine | rose-pine-moon | rose-pine-dawn
 
 import matplotlib.pyplot as plt
+
 fig, ax = plt.subplots()
 ax.plot([0, 1, 2], [0, 1, 0])
 rp.despine(ax)
-rp.save_figure(fig, "plot")      # writes plot.svg and plot.png
+rp.save_figure(fig, "plot")  # writes plot.svg and plot.png
 ```
 
 `apply_style()` sets the Agg backend and applies the style, so it MUST run
@@ -37,8 +39,9 @@ spines and points ticks inward. Importing the package alone registers every
 style, so you can select one by name instead:
 
 ```python
-import matplotlib_rosepine        # noqa: F401  (registers styles)
+import matplotlib_rosepine  # noqa: F401  (registers styles)
 import matplotlib.pyplot as plt
+
 plt.style.use("rose-pine-moon")
 ```
 

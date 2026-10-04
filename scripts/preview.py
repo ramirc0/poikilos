@@ -2,10 +2,10 @@
 
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 from matplotlib_rosepine import VARIANTS, apply_style, despine, save_figure
-import matplotlib.pyplot as plt
 
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 

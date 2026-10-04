@@ -3,7 +3,7 @@
 from pathlib import Path
 
 import matplotlib as mpl
-import matplotlib.style  # noqa: F401  (registers mpl.style)
+import matplotlib.style
 import numpy as np
 
 VARIANTS = ("rose-pine", "rose-pine-moon", "rose-pine-dawn")
@@ -144,7 +144,10 @@ def label_points(ax, points, labels, **kwargs):
     # so a 300 dpi figure does not pull labels back onto their markers.
     px = ax.figure.dpi / 72
     clear = (np.sqrt(points.get_sizes().max()) / 2 + 2) * px
-    texts = [ax.text(x, y, label, **kwargs) for (x, y), label in zip(points.get_offsets(), labels)]
+    texts = [
+        ax.text(x, y, label, **kwargs)
+        for (x, y), label in zip(points.get_offsets(), labels)
+    ]
     adjust_text(
         texts,
         objects=points,
@@ -154,7 +157,11 @@ def label_points(ax, points, labels, **kwargs):
         pull_threshold=clear,
         max_move=10 * px,
         min_arrow_len=clear,
-        arrowprops={"arrowstyle": "-", "color": mpl.rcParams["axes.edgecolor"], "lw": 0.5},
+        arrowprops={
+            "arrowstyle": "-",
+            "color": mpl.rcParams["axes.edgecolor"],
+            "lw": 0.5,
+        },
     )
     return texts
 

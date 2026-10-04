@@ -4,15 +4,22 @@ from itertools import combinations
 import matplotlib as mpl
 import pytest
 
-from matplotlib_rosepine import VARIANTS, apply_style, despine, label_points, save_figure, style_path
+from matplotlib_rosepine import (
+    VARIANTS,
+    apply_style,
+    despine,
+    label_points,
+    save_figure,
+    style_path,
+)
 
 apply_style()
 
-import matplotlib.dates as mdates  # noqa: E402
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-from matplotlib.colors import to_rgb  # noqa: E402
-from matplotlib.transforms import Bbox  # noqa: E402
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import to_rgb
+from matplotlib.transforms import Bbox
 
 
 @pytest.mark.parametrize("variant", VARIANTS)
@@ -25,7 +32,13 @@ def test_style_file_loads_without_warnings(variant, caplog):
 def test_style_file_sets_skill_rc(variant):
     rc = mpl.rc_params_from_file(style_path(variant), use_default_template=False)
     assert rc["font.family"] == ["sans-serif"]
-    assert rc["font.sans-serif"] == ["Anthropic Sans Text", "Google Sans Flex", "Arimo", "Arial", "DejaVu Sans"]
+    assert rc["font.sans-serif"] == [
+        "Anthropic Sans Text",
+        "Google Sans Flex",
+        "Arimo",
+        "Arial",
+        "DejaVu Sans",
+    ]
     assert not rc["axes.spines.top"] and not rc["axes.spines.right"]
     assert rc["xtick.direction"] == rc["ytick.direction"] == "in"
     assert rc["svg.fonttype"] == "none"
@@ -41,7 +54,7 @@ def test_style_file_uses_one_background_without_grid(variant):
 
 
 def test_save_figure_writes_svg_and_png(tmp_path):
-    fig, ax = plt.subplots()
+    fig = plt.figure()
     written = save_figure(fig, tmp_path / "sub" / "plot")
     assert [p.name for p in written] == ["plot.svg", "plot.png"]
     assert all(p.stat().st_size > 0 for p in written)
@@ -67,7 +80,8 @@ def test_despine_numeric_axis_ends_on_ticks():
 
 def test_despine_date_axis():
     fig, ax = plt.subplots()
-    days = [dt.datetime(2026, 8, 27) + dt.timedelta(days=i) for i in range(30)]
+    start = dt.datetime(2026, 8, 27, tzinfo=dt.timezone.utc)
+    days = [start + dt.timedelta(days=i) for i in range(30)]
     ax.plot(days, range(30))
     ax.xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=mdates.MO))
     despine(ax)
@@ -86,9 +100,10 @@ def edge_marker_pixels(ax, point, color):
     fig.canvas.draw()
     img = np.asarray(fig.canvas.buffer_rgba())[..., :3].astype(int)
     x, y = ax.transData.transform(point)
-    col, row = int(round(x)), int(round(img.shape[0] - y))
+    col, row = round(x), round(img.shape[0] - y)
     match = (np.abs(img - np.array(to_rgb(color)) * 255) < 40).all(axis=-1)
-    return match[row - 20:row + 20, col - 20:col].sum(), match[row - 20:row + 20, col:col + 20].sum()
+    rows = slice(row - 20, row + 20)
+    return match[rows, col - 20 : col].sum(), match[rows, col : col + 20].sum()
 
 
 def test_despine_does_not_clip_edge_markers():
@@ -175,10 +190,22 @@ def test_label_points_keeps_labels_off_markers_at_print_dpi():
     # adjustText sizes its pull and move steps in pixels; at 300 dpi its screen-sized
     # defaults pulled labels back onto their own markers on this real figure.
     panels = [
-        ([0.677, 0.585, 0.722, 0.529, 0.695, 0.592, 0.545, 0.499], [0.67, 0.572, 0.722, 0.514, 0.692, 0.571, 0.528, 0.481]),
-        ([0.24, 0.309, 0.235, 0.263, 0.225, 0.238, 0.244, 0.335], [0.247, 0.317, 0.238, 0.269, 0.228, 0.243, 0.25, 0.347]),
-        ([0.65, 0.637, 0.695, 0.856, 0.627, 0.947, 0.775, 0.614], [0.638, 0.588, 0.688, 0.853, 0.601, 0.929, 0.753, 0.562]),
-        ([0.58, 0.447, 0.664, 0.173, 0.886, 0.125, 0.202, 0.448], [0.971, 0.902, 0.994, 0.32, 1.354, 0.196, 0.54, 1.456]),
+        (
+            [0.677, 0.585, 0.722, 0.529, 0.695, 0.592, 0.545, 0.499],
+            [0.67, 0.572, 0.722, 0.514, 0.692, 0.571, 0.528, 0.481],
+        ),
+        (
+            [0.24, 0.309, 0.235, 0.263, 0.225, 0.238, 0.244, 0.335],
+            [0.247, 0.317, 0.238, 0.269, 0.228, 0.243, 0.25, 0.347],
+        ),
+        (
+            [0.65, 0.637, 0.695, 0.856, 0.627, 0.947, 0.775, 0.614],
+            [0.638, 0.588, 0.688, 0.853, 0.601, 0.929, 0.753, 0.562],
+        ),
+        (
+            [0.58, 0.447, 0.664, 0.173, 0.886, 0.125, 0.202, 0.448],
+            [0.971, 0.902, 0.994, 0.32, 1.354, 0.196, 0.54, 1.456],
+        ),
     ]
     labels = ["HepG2", "MCF-7", "A549", "SK-N-SH", "HeLa-S3", "H1", "K562", "GM12878"]
     fig, axes = plt.subplots(1, 4, figsize=(16, 4))
@@ -195,7 +222,9 @@ def test_label_points_keeps_labels_off_markers_at_print_dpi():
     radius = plt.rcParams["lines.markersize"] / 2 * fig.dpi / 72
     for ax in axes:
         for px, py in ax.transData.transform(ax.collections[0].get_offsets()):
-            marker = Bbox.from_extents(px - radius, py - radius, px + radius, py + radius)
+            marker = Bbox.from_extents(
+                px - radius, py - radius, px + radius, py + radius
+            )
             assert not any(t.get_window_extent().overlaps(marker) for t in ax.texts)
     plt.close(fig)
 
@@ -207,5 +236,8 @@ def test_label_points_leader_lines_use_edge_color():
     label_points(ax, points, ["alpha", "beta", "gamma"])
     arrows = ax.patches
     assert arrows
-    assert all(np.allclose(a.get_edgecolor()[:3], to_rgb(plt.rcParams["axes.edgecolor"])) for a in arrows)
+    assert all(
+        np.allclose(a.get_edgecolor()[:3], to_rgb(plt.rcParams["axes.edgecolor"]))
+        for a in arrows
+    )
     plt.close(fig)
