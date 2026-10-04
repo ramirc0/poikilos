@@ -2,55 +2,21 @@ import datetime as dt
 from itertools import combinations
 
 import matplotlib as mpl
-import pytest
-
-from poikilos import (
-    VARIANTS,
-    apply_style,
-    despine,
-    label_points,
-    save_figure,
-    style_path,
-)
-
-apply_style()
-
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
+import pytest
 from matplotlib.colors import to_rgb
 from matplotlib.transforms import Bbox
 
-
-@pytest.mark.parametrize("variant", VARIANTS)
-def test_style_file_loads_without_warnings(variant, caplog):
-    mpl.rc_params_from_file(style_path(variant), use_default_template=False)
-    assert not caplog.records
+import poikilos as pk
+from poikilos import despine, label_points, save_figure
 
 
-@pytest.mark.parametrize("variant", VARIANTS)
-def test_style_file_sets_skill_rc(variant):
-    rc = mpl.rc_params_from_file(style_path(variant), use_default_template=False)
-    assert rc["font.family"] == ["sans-serif"]
-    assert rc["font.sans-serif"] == [
-        "Anthropic Sans Text",
-        "Google Sans Flex",
-        "Arimo",
-        "Arial",
-        "DejaVu Sans",
-    ]
-    assert not rc["axes.spines.top"] and not rc["axes.spines.right"]
-    assert rc["xtick.direction"] == rc["ytick.direction"] == "in"
-    assert rc["svg.fonttype"] == "none"
-    assert rc["figure.constrained_layout.use"]
-    assert "savefig.format" not in rc
-
-
-@pytest.mark.parametrize("variant", VARIANTS)
-def test_style_file_uses_one_background_without_grid(variant):
-    rc = mpl.rc_params_from_file(style_path(variant), use_default_template=False)
-    assert rc["axes.facecolor"] == rc["legend.facecolor"] == rc["figure.facecolor"]
-    assert not rc.get("axes.grid", False)
+@pytest.fixture(autouse=True)
+def theme():
+    with pk.context("rose-pine"):
+        yield
 
 
 def test_save_figure_writes_svg_and_png(tmp_path):
@@ -107,7 +73,7 @@ def edge_marker_pixels(ax, point, color):
 
 
 def test_despine_does_not_clip_edge_markers():
-    fig, ax = plt.subplots(figsize=(3, 2))
+    fig, ax = plt.subplots(figsize=(3, 2), dpi=300)
     (line,) = ax.plot([0, 1, 2, 3], [0, 1, 4, 9], marker="o", markersize=8, linewidth=3)
     despine(ax)
     assert line.get_clip_on() is False
@@ -208,7 +174,7 @@ def test_label_points_keeps_labels_off_markers_at_print_dpi():
         ),
     ]
     labels = ["HepG2", "MCF-7", "A549", "SK-N-SH", "HeLa-S3", "H1", "K562", "GM12878"]
-    fig, axes = plt.subplots(1, 4, figsize=(16, 4))
+    fig, axes = plt.subplots(1, 4, figsize=(16, 4), dpi=300)
     fig.suptitle("title")
     scatters = []
     for ax, (x, y) in zip(axes, panels):

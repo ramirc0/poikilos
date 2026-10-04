@@ -1,28 +1,15 @@
-"""Rosé Pine matplotlib styles.
+"""Matplotlib themes and figure helpers."""
 
-Importing this package adds every style to matplotlib's library, so
-``plt.style.use("rose-pine")`` works. Use :func:`apply_style` for the full
-setup (Agg backend + style).
-"""
-
-from .style import (
-    VARIANTS,
-    apply_style,
-    despine,
-    label_points,
-    register,
-    save_figure,
-    style_path,
-)
+from .helpers import despine, label_points, save_figure
+from .themes import PALETTES, THEMES, context, rc_params, use
 
 __all__ = [
-    "VARIANTS",
-    "apply_style",
+    "PALETTES",
+    "THEMES",
+    "context",
     "despine",
     "label_points",
-    "register",
+    "rc_params",
     "save_figure",
-    "style_path",
+    "use",
 ]
-
-register()

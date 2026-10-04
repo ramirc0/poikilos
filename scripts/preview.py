@@ -5,15 +5,15 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from poikilos import VARIANTS, apply_style, despine, save_figure
+from poikilos import THEMES, despine, save_figure, use
 
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 
 
 def main():
     x = np.linspace(0, 2 * np.pi, 100)
-    for variant in VARIANTS:
-        apply_style(variant)
+    for variant in THEMES:
+        use(variant)
         fig, ax = plt.subplots(figsize=(4, 3))
         for k in range(6):
             ax.plot(x, np.sin(x + k / 2), label=f"s{k}")

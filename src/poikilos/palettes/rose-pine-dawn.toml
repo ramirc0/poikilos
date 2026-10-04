@@ -1,0 +1,28 @@
+# Rosé Pine Dawn. Hex values: https://rosepinetheme.com/palette/ingredients/
+[colors]
+base = "#faf4ed"
+surface = "#fffaf3"
+overlay = "#f2e9e1"
+muted = "#9893a5"
+subtle = "#797593"
+text = "#575279"
+love = "#b4637a"
+gold = "#ea9d34"
+rose = "#d7827e"
+pine = "#286983"
+foam = "#56949f"
+iris = "#907aa9"
+highlight_low = "#f4ede8"
+highlight_med = "#dfdad9"
+highlight_high = "#cecacd"
+
+[roles]
+background = "base"
+foreground = "text"
+frame = "muted"
+ticks = "subtle"
+grid = "overlay"
+legend_edge = "muted"
+median = "love"
+mean = "foam"
+cycle = ["love", "gold", "pine", "foam", "iris", "rose"]

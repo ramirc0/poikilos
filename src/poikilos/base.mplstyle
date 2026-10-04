@@ -1,0 +1,6 @@
+# Applied under every look. rc keys and defaults:
+# https://matplotlib.org/stable/users/explain/customizing.html#the-default-matplotlibrc-file
+
+figure.constrained_layout.use: True
+savefig.dpi: 300
+svg.fonttype: none

@@ -1,0 +1,10 @@
+# Sans-serif text, no top or right spine, ticks pointing in. Pair with despine().
+
+font.family: sans-serif
+font.sans-serif: Anthropic Sans Text, Google Sans Flex, Arimo, Arial, DejaVu Sans
+
+axes.spines.top: False
+axes.spines.right: False
+
+xtick.direction: in
+ytick.direction: in
