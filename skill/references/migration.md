@@ -70,9 +70,12 @@ Notes:
 
 - **DPI.** The old styles set `figure.dpi: 300`. Themes now set
   `savefig.dpi: 300` and leave `figure.dpi` at 100. Saved files keep 300 dpi,
-  including `PdfPages.savefig`. Code that reads `fig.dpi` to compute pixel
-  sizes now gets 100. Use `mpl.rcParams["savefig.dpi"]` for output pixels.
-  Tests that pass only because `fig.dpi` was 300 need updating.
+  including `PdfPages.savefig`. A figure made with `dpi=150` used to save at
+  150 dpi and now saves at 300. Pass `dpi=` to `save_figure` instead. Code
+  that reads `fig.dpi` to compute pixel sizes now gets 100. Use
+  `mpl.rcParams["savefig.dpi"]` for output pixels. A test that multiplies
+  `fig.get_size_inches()` by `fig.dpi` still passes, but it now checks 100 dpi
+  instead of the 300 dpi output.
 - **`pdf.fonttype: 42`.** Projects often force it after applying the style.
   With the default fonts this is wrong. They are CFF (`.otf`), and Type 42 is
   for TrueType. Remove the override, or pass a TrueType font with it:
@@ -91,7 +94,9 @@ Notes:
 - **Leader lines.** `label_points` draws leader lines in `axes.edgecolor`. The
   copied `style.py` drew them grey (`0.5`). On `plain` they are now black.
 - **Title, legend and savefig colors** inherit from the palette's root colors.
-  Rosé Pine figures render pixel-identical at the same dpi.
+  2D Rosé Pine figures render pixel-identical at the same save dpi.
+- **3D panes** take the background color instead of matplotlib's translucent
+  grey.
 
 ## 4. Checks
 
@@ -100,6 +105,6 @@ Notes:
 2. Run the project's tests. Fix tests that assume `fig.dpi == 300` or the old
    `save_figure` names.
 3. Regenerate the figures and compare them with the old ones. Expect the same
-   look. Differences come from the DPI and font notes above.
+   look. Differences come from the DPI, font and 3D pane notes above.
 4. Check that the theme's font resolves on the machine, as in
    [fonts.md](fonts.md).

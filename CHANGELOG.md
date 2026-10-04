@@ -36,6 +36,9 @@ The distribution and the import package are both `poikilos`.
 - The themes set `savefig.dpi: 300` instead of `figure.dpi: 300`. Saved files
   keep their resolution. Figures on screen and in notebooks use matplotlib's
   100 dpi, and `fig.dpi` reads 100 unless you pass `dpi=`.
+- A figure's own dpi no longer sets the saved resolution. `plt.figure(dpi=150)`
+  used to save at 150 dpi and now saves at 300. Pass `dpi=` to `save_figure`
+  to change it.
 - As before, no theme sets `pdf.fonttype`, so PDFs use matplotlib's Type 3 fonts.
   `rc={"pdf.fonttype": 42}` gives TrueType, but only works with a TrueType font.
   The default fonts are CFF.
@@ -51,8 +54,9 @@ The distribution and the import package are both `poikilos`.
 - `save_figure` keeps dots in the stem: `x.curve` gives `x.curve.svg` and
   `x.curve.png`. It used to write `x.svg` and `x.png`.
 - Title, legend label, legend face and `savefig` face colors now inherit from
-  the palette's root colors instead of repeating them. Rendered Rosé Pine
-  figures are pixel-identical at the same dpi.
+  the palette's root colors instead of repeating them. 2D Rosé Pine figures
+  render pixel-identical at the same save dpi.
+- 3D panes take the background color instead of matplotlib's translucent grey.
 - Needs Python 3.11 and matplotlib 3.11.
 
 ### Removed
