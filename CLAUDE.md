@@ -22,6 +22,10 @@ Ruff is pinned in the dev group and has no config. CI (`.github/workflows/ci.yml
 - `savefig.format` MUST stay unset because `save_figure` writes SVG and PNG. `figure.dpi` stays at matplotlib's 100; the base sets `savefig.dpi`.
 - Per-axes behavior (lilaq tick steps, dots on lines, `despine`) is a documented recipe, not a look setting.
 
+## Skill
+
+`skill/` is the `poikilos` user skill, symlinked from `~/.claude/skills/poikilos`. It replaced the `matplotlib-style` skill, whose last version is in git history. Keep its theme table, API block and `references/` in step with the package.
+
 ## Adding a theme
 
 1. New palette: add `palettes/<name>.toml` (`[colors]` may be empty; `[roles]` names every role) and a `THEMES` entry.

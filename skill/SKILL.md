@@ -1,137 +1,136 @@
 ---
-name: matplotlib-style
-description: Apply the project's matplotlib figure style. Use when creating, editing or reviewing any matplotlib or seaborn figure, including axis spines, ticks, fonts, DPI and figure export.
+name: poikilos
+description: Style matplotlib and seaborn figures with the poikilos package (themes plain, plain-dark, rose-pine, rose-pine-moon, rose-pine-dawn, lilaq, lilaq-moon) and its helpers despine, label_points and save_figure. Use whenever you create, edit, review or migrate any matplotlib or seaborn figure or plotting code, including spines, ticks, fonts, colors, DPI, legends, labelled scatter plots and figure export, even if the user never names poikilos. Also use when a project imports matplotlib_rosepine or a copied style.py with apply_style().
 ---
 
-# Matplotlib Style
+# poikilos
 
-Every figure MUST use this style. Call `apply_style()` before importing `pyplot`.
+Every figure uses a poikilos theme. A theme is a look (fonts, spines, ticks,
+sizes) plus a palette (colors). The package also has the three helpers that
+finish a figure: `despine`, `label_points` and `save_figure`.
+
+```bash
+uv add "poikilos[labels] @ git+https://github.com/ramirc0/poikilos"
+```
+
+The `labels` extra pulls in adjustText for `label_points`. Needs Python 3.11 and
+matplotlib 3.11.
 
 ## Rules
 
-1. `apply_style()` MUST run before `import matplotlib.pyplot`. The backend cannot change afterwards.
-2. Figures MUST be saved as **both** SVG and PNG. Use `save_figure()`; do not set `savefig.format`.
-3. Text in SVG MUST stay text (`svg.fonttype = "none"`), never paths.
-4. The top and right spines MUST be removed on every axes.
-5. Every axes MUST go through `despine()` after everything is drawn on it.
-6. Layout MUST be constrained, never `tight_layout()`.
-7. Figures MUST NOT be styled per-script. Change this skill instead.
-8. Labelled scatter points MUST go through `label_points()`, never `ax.annotate` or `ax.text` per point.
+1. **Apply a theme with `pk.use(theme)` before drawing.** Keep the theme the
+   project already uses. Otherwise pick `plain` for papers and reports. `use()`
+   resets every style rcParam first, so it can run before or after importing
+   pyplot. Anything set by hand before it is lost.
+2. **Save with `pk.save_figure(fig, path)`.** It writes SVG and PNG side by
+   side. Never set `savefig.format`. The SVG keeps text as text
+   (`svg.fonttype: none`), and the PNG is for viewers without the fonts.
+3. **Keep constrained layout.** The themes turn it on. Never call
+   `tight_layout()`, which fights it.
+4. **Do not style per script.** Settings outside the theme go in
+   `pk.use(theme, rc={...})`, so every figure in a project stays consistent and
+   one line shows what deviates. If many scripts need the same override,
+   change the theme in poikilos instead.
+5. **Plain look: call `pk.despine(ax)` on every axes**, after everything is
+   drawn on it. It is what makes the plain look: spines offset by 10 pt and
+   trimmed to the end ticks. See [references/plain.md](references/plain.md)
+   for categorical axes.
+6. **Label scatter points with `pk.label_points(ax, points, labels)`**, never
+   with `ax.annotate` or `ax.text` per point. Fixed offsets collide as soon as
+   two points sit close together. Call it last on the figure.
+7. **lilaq look: apply the tick and dot recipes** from
+   [references/lilaq.md](references/lilaq.md).
 
-## Spines and ticks
+## Themes
 
-All ticks, major and minor, point inward. `apply_style()` sets this through `xtick.direction` and
-`ytick.direction`, so it also covers colorbars.
-
-`despine(ax)` offsets the left and bottom spines by 10 pt and trims them to the end ticks:
-
-| Plot | Call | Result |
+| Theme | Look | Use for |
 | --- | --- | --- |
-| Default, scatter, line, histogram, hexbin | `despine(ax)` | left and bottom spines, offset and trimmed |
-| Bar (categorical x) | `despine(ax, categorical_x=True)` | left spine only; no x spine or tick marks |
-| Horizontal bar (categorical y) | `despine(ax, categorical_y=True)` | bottom spine only; no y spine or tick marks |
-| Heatmap (both categorical) | `despine(ax, categorical_x=True, categorical_y=True)` | no spines or tick marks |
+| `plain` | plain | default; matplotlib colors (tab10) on white |
+| `plain-dark` | plain | dark slides; tab10 on `#242424` |
+| `rose-pine-dawn` | plain | Rosé Pine, light |
+| `rose-pine`, `rose-pine-moon` | plain | Rosé Pine, dark |
+| `lilaq` | lilaq | figures next to Typst documents that use lilaq |
+| `lilaq-moon` | lilaq | lilaq's dark moon theme |
 
-Bar charts and heatmaps carry categories in the tick labels, so that axis needs no spine.
-Give a heatmap colorbar its own `subplot_mosaic` cell; `fig.colorbar(ax=...)` sizes it
-from the heatmap, so a heatmap with few rows gets a colorbar too small for its labels.
+`palette=` mixes them: `pk.use("lilaq", palette="rose-pine-dawn")` is the lilaq
+look in Rosé Pine Dawn colors.
 
-### Why `despine()` and not `sns.despine(trim=True)`
-
-`trim` cuts a spine at the outermost ticks inside the axis limits. Two things go wrong:
-
-- **Trim too aggressive.** If the data runs past the last tick, the spine ends short of the data.
-- **Axis too wide.** Matplotlib's default margins push the limits past a tick, so widening to the
-  next tick adds a whole empty step (for example -20 on an axis whose data starts at 0).
-
-`despine()` fixes both. It fits each continuous axis to its data with `margins(0)`, widens it to
-the nearest ticks enclosing the data, fixes the ticks there, then offsets and trims. The spine
-always spans the data and ends on a tick. When the locator has no tick beyond the data (date
-axes), the data edge becomes the end tick, so the first and last dates are labelled. An edge
-date one day from a locator tick can overlap its label; start the window on a locator tick
-or widen the figure.
-
-Data at the limits sits on the axes edge, and matplotlib clips every artist there, cutting markers
-and line widths in half. When both axes were fitted to the data, `despine()` turns clipping off so
-edge markers draw whole into the 10 pt offset. Explicit limits set before `despine()` keep clipping,
-so zoomed or cropped data stays hidden. Markers wider than the offset can still reach titles or
-tick labels.
-
-Keep data edges on round numbers where you can. Integer histogram bins centred on whole numbers
-put the first edge at -0.5, which widens the axis to the tick below 0. Start such bins at 0.
-
-## Point labels
-
-`label_points(ax, points, labels)` takes the collection `ax.scatter` returns and places each label
-at its marker. [adjustText](https://github.com/Phlya/adjustText) then moves the labels apart and
-off the markers' full extent, not just their centres, keeps a small gap between labels, and draws
-a thin grey leader line back to each one. Fixed offsets such as `xytext=(4, 2)` overlap as soon as
-two points sit close together.
-
-Call it last, after `despine()` and every title, axis label, suptitle and legend on the figure.
-adjustText places labels in pixel positions; anything added afterwards makes constrained layout
-reshape the axes, which moves the labels back into each other. `label_points` settles the layout
-before placing labels, so only later additions break this. Extra keyword arguments go to `ax.text`
-(for example `fontsize=8`). The project environment needs `adjustText` installed.
-
-adjustText sizes its steps in pixels with defaults tuned for screen resolution. At 300 dpi those
-defaults stop pulling a label only when its anchor is within 2.4 pt of the marker centre, inside
-the marker, so `label_points` converts them from points. It also pushes labels apart harder than
-the default, which leaves near-identical labels stacked. Past about 10 labels per panel in a dense
-cluster, adjustText cannot keep them readable; label only the points that matter, or use a
-categorical plot with the names on an axis.
-
-## Fonts
-
-The fallback chain is ordered by preference. Matplotlib walks it until a family resolves:
-
-1. `Anthropic Sans Text`
-2. `Google Sans Flex`
-3. `Arimo`
-4. `Arial`
-5. `DejaVu Sans`
-
-Use the exact family names above. There is no family called `Anthropic Sans`; the installed families are `Anthropic Sans Text` (body) and `Anthropic Sans Display` (headings). Prefer `Text` for figures.
-
-`Arimo` is metric-compatible with `Arial` and is the practical fallback on Linux, where `Arial` is usually absent. Keep `Arial` in the chain for macOS and Windows.
-
-Because `svg.fonttype = "none"`, the SVG references fonts by name rather than embedding outlines. Anyone opening the SVG without these fonts sees a substitute. For figures leaving the project, either ship the PNG or set `svg.fonttype = "path"` for that export.
-
-## Multi-page PDF
-
-For a report of plots only, collect the same figures with
-`matplotlib.backends.backend_pdf.PdfPages`, one `pdf.savefig(fig)` per page, beside the per-figure
-`save_figure()` call. Use typst instead when the report needs text pages or tables.
-
-## Reference implementation
-
-`scripts/style.py` holds `apply_style()`, `despine()`, `label_points()` and `save_figure()`. Copy it into the project rather than importing across repositories.
+## API
 
 ```python
-from style import apply_style, despine, label_points, save_figure
+import poikilos as pk
 
-apply_style()
+pk.use(theme, *, palette=None, rc=None)      # apply globally
+pk.context(theme, *, palette=None, rc=None)  # with-block; restores rcParams on exit
+pk.rc_params(theme, palette=None)            # dict, applies nothing
+pk.THEMES                                    # name -> (look, palette)
+pk.PALETTES["rose-pine-dawn"].colors["love"] # palette colors as hex
+pk.PALETTES["plain"].cycle                   # cycle colors, in order
+pk.despine(ax, categorical_x=False, categorical_y=False)
+pk.label_points(ax, points, labels, **text_kwargs)
+pk.save_figure(fig, path, **savefig_kwargs)  # -> [svg path, png path]
+```
 
+Unknown theme or palette names raise `ValueError` with the valid names. A bad
+key in `rc` raises `KeyError` before anything changes.
+
+Take colors from `pk.PALETTES` rather than copying hex values. A palette's
+`colors` holds its own names (Rosé Pine's `love`, `pine`, ...). Its roles
+(`background`, `foreground`, `frame`, `ticks`, `grid`, `legend_edge`,
+`median`, `mean`) and `cycle` are the colors the theme applies.
+
+## Example
+
+```python
 import matplotlib.pyplot as plt
+
+import poikilos as pk
+
+pk.use("plain")
 
 fig, ax = plt.subplots(figsize=(4, 3))
 ax.bar(df["condition"], df["value"])
-despine(ax, categorical_x=True)
-save_figure(fig, "results/expression")
-
-fig, ax = plt.subplots(figsize=(4, 3))
-ax.hist(values, bins=bins)
-despine(ax)
-save_figure(fig, "results/distribution")
+ax.set_ylabel("expression")
+pk.despine(ax, categorical_x=True)
+pk.save_figure(fig, "results/expression")
 
 fig, ax = plt.subplots(figsize=(4, 4))
 points = ax.scatter(df["x"], df["y"])
-despine(ax)
-label_points(ax, points, df["name"], fontsize=8)
-save_figure(fig, "results/labelled")
+ax.set(xlabel="x", ylabel="y", title="Cell lines")
+pk.despine(ax)
+pk.label_points(ax, points, df["name"], fontsize=8)  # last: after despine and titles
+pk.save_figure(fig, "results/labelled")
 ```
 
-`save_figure` writes `.svg` and `.png` beside each other. It takes the path with or without a
-`.svg` or `.png` extension. A Snakemake rule can therefore pass its declared SVG output. Dots in
-the stem are kept: `x.curve` gives `x.curve.svg` and `x.curve.png`.
-`despine` imports seaborn inside the function, because importing seaborn loads `pyplot`.
+`save_figure` accepts the path with or without `.svg` or `.png`, so a Snakemake
+rule can pass its declared SVG output. Other dots stay in the name.
+
+For one figure in another theme, wrap it in `with pk.context("lilaq"):` and save
+inside the block. matplotlib reads `savefig.dpi` when saving.
+
+## Gotchas
+
+- Themes set `savefig.dpi: 300` and leave `figure.dpi` at 100. Saved files are
+  300 dpi. `fig.dpi` reads 100 unless you pass `dpi=`.
+- poikilos never sets the backend. A batch script on a machine with a display
+  may need `matplotlib.use("Agg")` before importing pyplot.
+- seaborn: `sns.set_theme()` resets rcParams too. Call it before `pk.use()`, or
+  not at all.
+- Do not force `pdf.fonttype: 42` with the default fonts. They are CFF
+  (`.otf`), and Type 42 is for TrueType. See [references/fonts.md](references/fonts.md).
+- For a multi-page PDF of plots, collect the figures with
+  `matplotlib.backends.backend_pdf.PdfPages`, one `pdf.savefig(fig)` per page,
+  next to the per-figure `save_figure` call. Use Typst when the report needs
+  text pages or tables.
+
+## References
+
+- [references/plain.md](references/plain.md): `despine` per plot type and why
+  it beats `sns.despine(trim=True)`, plus `label_points` details. Read it when
+  using the plain look.
+- [references/lilaq.md](references/lilaq.md): what the lilaq look reproduces
+  and the per-axes recipes. Read it when using `lilaq` or `lilaq-moon`.
+- [references/fonts.md](references/fonts.md): font chains, installing New
+  Computer Modern, checking that a font resolves, PDF and SVG font output.
+- [references/migration.md](references/migration.md): moving a project from
+  `matplotlib_rosepine` or a copied `style.py` to poikilos.
