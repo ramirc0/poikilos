@@ -62,11 +62,12 @@ def despine(ax, categorical_x=False, categorical_y=False):
 
 
 def label_points(ax, points, labels, **kwargs):
-    """Label scatter markers so no label overlaps another label or a marker.
+    """Label scatter markers, moving the labels off each other and the markers.
 
     Each label starts at its marker; adjustText then moves labels apart and
     off the markers' full extent and draws a leader line, in the axes edge
-    color, back to each marker. Call last on the figure, after
+    color, back to each marker. Labels stay inside the axes, so a label near
+    the axes edge can still touch a marker. Call last on the figure, after
     :func:`despine` and every title, label and legend: anything added later
     reshapes the constrained layout and moves the labels back together.
     Requires the ``labels`` extra (``adjustText``).

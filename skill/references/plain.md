@@ -81,6 +81,10 @@ adjustText sizes its steps in pixels, with defaults tuned for the screen. At
 `label_points` converts them from points. It also pushes labels apart harder
 than the default, which leaves near-identical labels stacked.
 
+Labels stay inside the axes. `despine` fits the axes to the data, so the
+outermost points sit at or near the edge. Their labels can only move inward,
+and one may still touch a marker. Check those points in the PNG.
+
 Past about 10 labels per panel in a dense cluster, adjustText cannot keep them
 readable. Label only the points that matter, or use a categorical plot with the
 names on an axis.

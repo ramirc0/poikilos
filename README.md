@@ -107,8 +107,10 @@ color therefore carries through to them.
   `categorical_y=True` for horizontal bars, and both for heatmaps. Call it after
   everything is drawn.
 - `label_points(ax, points, labels, **text_kwargs)` labels the collection
-  `ax.scatter` returns, with no label over another label or a marker. Call it
-  last, after `despine` and every title and legend. Needs the `labels` extra.
+  `ax.scatter` returns. It moves labels off each other and off the markers,
+  but a label can still touch a marker. That happens most near the edge of the
+  axes, since labels stay inside them. Call it last, after `despine` and every
+  title and legend. Needs the `labels` extra.
 - `save_figure(fig, path, **savefig_kwargs)` writes `path.svg` and `path.png`.
   It drops a `.svg` or `.png` suffix and keeps any other dots, so `x.curve`
   gives `x.curve.svg` and `x.curve.png`.
