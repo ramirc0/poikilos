@@ -3,7 +3,7 @@
 [Rosé Pine](https://rosepinetheme.com) styles for matplotlib, in all three
 variants (`rose-pine`, `rose-pine-moon`, `rose-pine-dawn`).
 
-![rose-pine](assets/preview-rose-pine.png)
+![rose-pine](assets/gallery/rose-pine.png)
 
 ## Install
 
