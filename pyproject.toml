@@ -25,6 +25,7 @@ dev = [
     "numpy",
     "pytest>=8.4.2",
     "ruff==0.16.9",
+    "typst>=0.15",
 ]
 
 [tool.hatch.build.targets.wheel]
