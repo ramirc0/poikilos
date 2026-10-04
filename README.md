@@ -1,4 +1,4 @@
-# matplotlib-rosepine
+# poikilos
 
 [Rosé Pine](https://rosepinetheme.com) styles for matplotlib, in all three
 variants (`rose-pine`, `rose-pine-moon`, `rose-pine-dawn`).
@@ -8,8 +8,8 @@ variants (`rose-pine`, `rose-pine-moon`, `rose-pine-dawn`).
 ## Install
 
 ```bash
-uv add matplotlib-rosepine        # or: uv pip install matplotlib-rosepine
-uv add "matplotlib-rosepine[labels]"   # adds adjustText for label_points()
+uv add poikilos        # or: uv pip install poikilos
+uv add "poikilos[labels]"   # adds adjustText for label_points()
 ```
 
 From a local checkout:
@@ -21,7 +21,7 @@ uv pip install .
 ## Usage
 
 ```python
-import matplotlib_rosepine as rp
+import poikilos as rp
 
 rp.apply_style("rose-pine")  # rose-pine | rose-pine-moon | rose-pine-dawn
 
@@ -39,7 +39,7 @@ spines and points ticks inward. Importing the package alone registers every
 style, so you can select one by name instead:
 
 ```python
-import matplotlib_rosepine  # noqa: F401  (registers styles)
+import poikilos  # noqa: F401  (registers styles)
 import matplotlib.pyplot as plt
 
 plt.style.use("rose-pine-moon")
@@ -75,7 +75,7 @@ placeholders for the colors.
 placeholders and writes one style per variant. Edit the template, then run:
 
 ```bash
-rose-pine-bloom -t template.mplstyle -o src/matplotlib_rosepine/styles -f hex-ns
+rose-pine-bloom -t template.mplstyle -o src/poikilos/styles -f hex-ns
 uv run python scripts/preview.py          # regenerate assets/preview-*.{svg,png}
 uv run pytest
 ```

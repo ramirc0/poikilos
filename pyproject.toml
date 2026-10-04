@@ -3,16 +3,16 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "matplotlib-rosepine"
-version = "0.2.0"
-description = "Rosé Pine matplotlib styles"
+name = "poikilos"
+version = "0.1.0"
+description = "Matplotlib themes and figure helpers"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Christian Samuel Ramirez", email = "chrisram0403@proton.me" }]
-keywords = ["matplotlib", "rose-pine", "theme", "style", "plotting"]
-dependencies = ["matplotlib>=3.6"]
+keywords = ["matplotlib", "rose-pine", "lilaq", "theme", "style", "plotting"]
+dependencies = ["matplotlib>=3.11"]
 
 [project.optional-dependencies]
 labels = [
@@ -27,4 +27,4 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/matplotlib_rosepine"]
+packages = ["src/poikilos"]

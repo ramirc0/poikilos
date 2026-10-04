@@ -1,5 +1,5 @@
 # Rosé Pine for matplotlib. Edit template.mplstyle, then regenerate the styles:
-# rose-pine-bloom -t template.mplstyle -o src/matplotlib_rosepine/styles -f hex-ns
+# rose-pine-bloom -t template.mplstyle -o src/poikilos/styles -f hex-ns
 # All rc keys and defaults: https://matplotlib.org/stable/users/explain/customizing.html#the-default-matplotlibrc-file
 
 patch.edgecolor: "#e0def4"
@@ -18,13 +18,13 @@ font.family: sans-serif
 font.sans-serif: Anthropic Sans Text, Google Sans Flex, Arimo, Arial, DejaVu Sans
 text.color: "#e0def4"
 
-axes.facecolor: "#191724"
+axes.facecolor: "#232136"
 axes.edgecolor: "#6e6a86"
 axes.titlecolor: "#e0def4"
 axes.labelcolor: "#e0def4"
 axes.spines.top: False
 axes.spines.right: False
-axes.prop_cycle: cycler('color', ['eb6f92', 'f6c177', '31748f', '9ccfd8', 'c4a7e7', 'ebbcba'])
+axes.prop_cycle: cycler('color', ['eb6f92', 'f6c177', '3e8fb0', '9ccfd8', 'c4a7e7', 'ea9a97'])
 
 xtick.color: "#908caa"
 xtick.labelcolor: "#e0def4"
@@ -33,18 +33,18 @@ ytick.color: "#908caa"
 ytick.labelcolor: "#e0def4"
 ytick.direction: in
 
-grid.color: "#26233a"
+grid.color: "#393552"
 
-legend.facecolor: "#191724"
+legend.facecolor: "#232136"
 legend.edgecolor: "#6e6a86"
 legend.labelcolor: "#e0def4"
 
 figure.dpi: 300
-figure.facecolor: "#191724"
-figure.edgecolor: "#191724"
+figure.facecolor: "#232136"
+figure.edgecolor: "#232136"
 figure.constrained_layout.use: True
 
-savefig.facecolor: "#191724"
-savefig.edgecolor: "#191724"
+savefig.facecolor: "#232136"
+savefig.edgecolor: "#232136"
 
 svg.fonttype: none

@@ -4,7 +4,7 @@ from itertools import combinations
 import matplotlib as mpl
 import pytest
 
-from matplotlib_rosepine import (
+from poikilos import (
     VARIANTS,
     apply_style,
     despine,
@@ -80,7 +80,7 @@ def test_despine_numeric_axis_ends_on_ticks():
 
 def test_despine_date_axis():
     fig, ax = plt.subplots()
-    start = dt.datetime(2026, 8, 27, tzinfo=dt.timezone.utc)
+    start = dt.datetime(2026, 8, 27, tzinfo=dt.UTC)
     days = [start + dt.timedelta(days=i) for i in range(30)]
     ax.plot(days, range(30))
     ax.xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=mdates.MO))

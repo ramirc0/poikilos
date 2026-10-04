@@ -7,7 +7,7 @@ Rosé Pine matplotlib styles (`rose-pine`, `rose-pine-moon`, `rose-pine-dawn`) p
 ```bash
 uv sync                                        # dev env (pytest, adjustText, numpy)
 uv run pytest                                  # tests/test_style.py
-rose-pine-bloom -t template.mplstyle -o src/matplotlib_rosepine/styles -f hex-ns
+rose-pine-bloom -t template.mplstyle -o src/poikilos/styles -f hex-ns
 uv run python scripts/preview.py               # regenerate assets/preview-*.{svg,png}
 ```
 
@@ -15,7 +15,7 @@ uv run python scripts/preview.py               # regenerate assets/preview-*.{sv
 
 ## Architecture
 
-- `src/matplotlib_rosepine/style.py` holds the whole public API. `__init__.py` re-exports it and calls `register()` on import, which adds all three styles to `mpl.style.library`.
+- `src/poikilos/style.py` holds the whole public API. `__init__.py` re-exports it and calls `register()` on import, which adds all three styles to `mpl.style.library`.
 - `apply_style()` forces the Agg backend, resets to `default`, then applies the style. It MUST run before `matplotlib.pyplot` is imported.
 - No fonts ship with the package. The style sets `font.sans-serif` to a fallback chain resolved from system fonts.
 
@@ -31,7 +31,7 @@ rc-level rules live in `template.mplstyle`; data-dependent rules live in the hel
 
 ## Style generation pipeline
 
-`template.mplstyle` is the source. It lists only the rc keys the theme sets, with Rosé Pine `$role` placeholders for colors. Bloom writes one `.mplstyle` per variant into `src/matplotlib_rosepine/styles/`. You MUST NOT hand-edit those. To change the theme:
+`template.mplstyle` is the source. It lists only the rc keys the theme sets, with Rosé Pine `$role` placeholders for colors. Bloom writes one `.mplstyle` per variant into `src/poikilos/styles/`. You MUST NOT hand-edit those. To change the theme:
 
 1. Edit `template.mplstyle`. Look up keys and defaults in matplotlib's [default `matplotlibrc`](https://matplotlib.org/stable/users/explain/customizing.html#the-default-matplotlibrc-file). For the copy matching the installed version, run `uv run python -c "import matplotlib; print(matplotlib.matplotlib_fname())"`.
 2. Run `rose-pine-bloom` and `preview.py`, then `uv run pytest`. Commit template, styles, and previews together.

@@ -1,5 +1,5 @@
 # Rosé Pine for matplotlib. Edit template.mplstyle, then regenerate the styles:
-# rose-pine-bloom -t template.mplstyle -o src/matplotlib_rosepine/styles -f hex-ns
+# rose-pine-bloom -t template.mplstyle -o src/poikilos/styles -f hex-ns
 # All rc keys and defaults: https://matplotlib.org/stable/users/explain/customizing.html#the-default-matplotlibrc-file
 
 patch.edgecolor: "#$text"
