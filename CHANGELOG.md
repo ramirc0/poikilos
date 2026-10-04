@@ -44,6 +44,10 @@ The distribution and the import package are both `poikilos`.
 - `despine` leaves lines without data clipped, such as the flier line of a
   boxplot with no outliers. Unclipped, it pulled constrained layout to the
   figure corner.
+- `label_points` runs a fixed 1000 adjustText iterations instead of adjustText's
+  1 s time limit, so the same figure gets the same labels on any machine.
+  Markers push labels away twice as hard as adjustText's default, which keeps
+  labels off markers in dense clusters and with wide fonts.
 - `save_figure` keeps dots in the stem: `x.curve` gives `x.curve.svg` and
   `x.curve.png`. It used to write `x.svg` and `x.png`.
 - Title, legend label, legend face and `savefig` face colors now inherit from

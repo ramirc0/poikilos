@@ -102,9 +102,12 @@ def label_points(ax, points, labels, **kwargs):
         ax=ax,
         expand=(1.3, 1.6),
         force_text=(0.5, 1.0),
+        force_static=(0.2, 0.4),
         pull_threshold=clear,
         max_move=10 * px,
         min_arrow_len=clear,
+        # adjustText's default is a 1 s time limit, which made placement depend on CPU speed.
+        iter_lim=1000,
         arrowprops={
             "arrowstyle": "-",
             "color": mpl.rcParams["axes.edgecolor"],

@@ -15,7 +15,8 @@ from poikilos import despine, label_points, save_figure
 
 @pytest.fixture(autouse=True)
 def theme():
-    with pk.context("rose-pine"):
+    # Label placement depends on text widths; a bundled font keeps it the same everywhere.
+    with pk.context("rose-pine", rc={"font.sans-serif": ["DejaVu Sans"]}):
         yield
 
 
