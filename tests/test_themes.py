@@ -48,6 +48,7 @@ def test_public_api():
         "rose-pine-moon",
         "rose-pine-dawn",
         "lilaq",
+        "lilaq-moon",
     ]
 
 
