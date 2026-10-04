@@ -42,6 +42,7 @@ Ruff is pinned in the dev group and has no config. CI (`.github/workflows/ci.yml
 - matplotlib names New Computer Modern `NewComputerModern`. The 8 pt, 10 pt and Book cuts share family and weight, so install only the 10 pt cuts. `test_lilaq_font_is_the_10_pt_cut` checks this and skips without the font.
 - `lines.markeredgewidth: 0` hides errorbar caps, since caps are markers.
 - Image baselines pin DejaVu fonts and are tied to one matplotlib minor version. The tests skip on another version.
+- `scripts/gallery.py` writes byte-identical files on reruns with the same fonts, so `git diff assets/gallery` shows only visual changes.
 - `tests/conftest.py` sets Agg and wraps every test in `mpl.rc_context()`.
 - `ruff format` also formats Python blocks in Markdown, and CI checks them.
 
