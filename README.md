@@ -133,8 +133,10 @@ for axis in (ax.xaxis, ax.yaxis):
 ax.xaxis.set_minor_locator(NullLocator())  # instead, on a categorical axis
 ```
 
-lilaq aims for about five ticks and rounds the step to 1, 2 or 5. `nbins=7`
-switches steps at nearly the same data ranges. The dots stay out of the look
+lilaq rounds the step to 1, 2 or 5 and scales the tick count with the axis
+length. That gives about five ticks on its default 6 × 4 cm plot, where
+`nbins=7` switches steps at nearly the same data ranges. On axes of another
+size, lilaq picks a different count. The dots stay out of the look
 on purpose. A `marker` in `axes.prop_cycle` makes `plot(color="k")` use up a
 cycle slot and beads dense lines, and seaborn ignores it.
 

@@ -50,10 +50,11 @@ for axis in (ax.xaxis, ax.yaxis):
   for dense lines with hundreds of points. A marker in `axes.prop_cycle` would
   make `plot(color="k")` use up a cycle slot and bead every dense line. seaborn
   ignores it anyway.
-- **Tick steps.** lilaq aims for about five ticks and rounds the step to 1, 2
-  or 5. matplotlib's default locator also allows 2.5. `MaxNLocator(7, steps=[1,
-  2, 5, 10])` switches steps at nearly the same data ranges as lilaq. Set it on
-  every continuous axis.
+- **Tick steps.** lilaq rounds the step to 1, 2 or 5. matplotlib's default
+  locator also allows 2.5. lilaq aims for one tick per 3.3 em of x axis and per
+  2 em of y axis, about five ticks on its 6 × 4 cm plot. At that size
+  `MaxNLocator(7, steps=[1, 2, 5, 10])` switches steps at nearly the same data
+  ranges as lilaq. Set it on every continuous axis.
 - **Categorical axes.** Bars, boxplots and heatmaps should not get minor ticks.
   Set `axis.set_minor_locator(NullLocator())` on the categorical axis instead
   of the `MaxNLocator`. Heatmaps also need `ax.grid(False)`, or the grid draws
@@ -69,5 +70,7 @@ one axes must differ.
   legend padding.
 - lilaq-moon's legend fill is translucent black. The poikilos legend uses the
   background color.
-- lilaq picks the tick count from the data range alone. `MaxNLocator` with a
-  fixed `nbins` comes close but can pick a different step near a switch point.
+- lilaq scales the tick count with the axis length, while `nbins=7` stays
+  fixed. Axes larger or smaller than the default get a different count than in
+  lilaq. Near a switch point the two can pick different steps even at the
+  default size.
