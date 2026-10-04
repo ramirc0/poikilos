@@ -72,7 +72,8 @@ findfont(FontProperties(family="NewComputerModern"), fallback_to_default=False)
   that leaves the project, ship the PNG next to it, or draw and save that
   figure inside `with pk.context(theme, rc={"svg.fonttype": "path"}):`.
 - **PNG.** Glyphs are rasterized, so PNGs look the same everywhere.
-- **PDF.** Themes leave `pdf.fonttype` at matplotlib's default, Type 3.
+- **PDF.** Themes leave `pdf.fonttype` at matplotlib's default, Type 3. Its
+  text stays searchable, and `pdftotext` extracts it.
   `pdf.fonttype: 42` embeds TrueType and suits only TrueType fonts. Anthropic
   Sans Text and New Computer Modern are CFF (`.otf`) fonts, and Type 42 would
   write their CFF outlines into a stream meant for TrueType. Set

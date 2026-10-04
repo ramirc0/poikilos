@@ -58,7 +58,8 @@ Notes:
   for example `pk.rc_params("rose-pine-dawn")["font.sans-serif"]` for the font
   chain. Typst code that shares the plot fonts can keep reading it from there.
 - **Copied palette values.** A dict of Rosé Pine hex values duplicates
-  `pk.PALETTES[name].colors`. Replace it. The palette's roles give the colors the
+  `pk.PALETTES[name].colors`. Replace it. Hex values typed into plotting calls,
+  such as `color="#797593"`, are copies too. The palette's roles give the colors the
   theme applies: `.background`, `.foreground`, `.frame`, `.ticks`, `.grid`,
   `.cycle`. Colors the project chose itself, such as a nine-color batch list,
   can stay but should come from `.colors[...]` names.
@@ -76,9 +77,11 @@ Notes:
   `mpl.rcParams["savefig.dpi"]` for output pixels. A test that multiplies
   `fig.get_size_inches()` by `fig.dpi` still passes, but it now checks 100 dpi
   instead of the 300 dpi output.
-- **`pdf.fonttype: 42`.** Projects often force it after applying the style.
-  With the default fonts this is wrong. They are CFF (`.otf`), and Type 42 is
-  for TrueType. Remove the override, or pass a TrueType font with it:
+- **`pdf.fonttype: 42`.** Projects often force it after applying the style,
+  some to keep PDF text searchable. matplotlib's default Type 3 output is
+  already searchable, and `pdftotext` extracts its text. With the default fonts
+  Type 42 is wrong. They are CFF (`.otf`), and Type 42 is for TrueType. Remove
+  the override, or pass a TrueType font with it:
   `pk.use(theme, rc={"font.sans-serif": ["Arimo"], "pdf.fonttype": 42})`. A
   logging tweak that silences fontTools subsetting for Type 42 can go too. See
   [fonts.md](fonts.md).
@@ -101,9 +104,11 @@ Notes:
 ## 4. Checks
 
 1. Search for leftovers. None of these should match:
-   `rg -n "matplotlib_rosepine|matplotlib-rosepine|apply_style|style_path|VARIANTS|from style import"`
-2. Run the project's tests. Fix tests that assume `fig.dpi == 300` or the old
-   `save_figure` names.
+   `rg -n "matplotlib_rosepine|matplotlib-rosepine|apply_style|style_path|rp\.VARIANTS|from style import"`
+   Then list hard-coded colors with `rg -n "#[0-9a-fA-F]{6}"` and replace the
+   Rosé Pine ones with palette names.
+2. Run the project's tests. Fix tests that assume `fig.dpi == 300`, the old
+   `save_figure` names or a forced `pdf.fonttype` of 42.
 3. Regenerate the figures and compare them with the old ones. Expect the same
    look. Differences come from the DPI, font and 3D pane notes above.
 4. Check that the theme's font resolves on the machine, as in
