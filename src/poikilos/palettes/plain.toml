@@ -1,0 +1,23 @@
+# matplotlib's default colors, with tab10 as the cycle.
+[colors]
+blue = "#1f77b4"
+orange = "#ff7f0e"
+green = "#2ca02c"
+red = "#d62728"
+purple = "#9467bd"
+brown = "#8c564b"
+pink = "#e377c2"
+gray = "#7f7f7f"
+olive = "#bcbd22"
+cyan = "#17becf"
+
+[roles]
+background = "white"
+foreground = "black"
+frame = "black"
+ticks = "black"
+grid = "#b0b0b0"
+legend_edge = "#cccccc"
+median = "orange"
+mean = "green"
+cycle = ["blue", "orange", "green", "red", "purple", "brown", "pink", "gray", "olive", "cyan"]

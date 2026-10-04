@@ -40,7 +40,13 @@ def test_public_api():
         "save_figure",
         "use",
     ]
-    assert list(pk.THEMES) == ["rose-pine", "rose-pine-moon", "rose-pine-dawn"]
+    assert list(pk.THEMES) == [
+        "plain",
+        "plain-dark",
+        "rose-pine",
+        "rose-pine-moon",
+        "rose-pine-dawn",
+    ]
 
 
 def test_import_has_no_side_effects():

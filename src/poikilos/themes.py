@@ -112,6 +112,8 @@ PALETTES = MappingProxyType(
 
 THEMES = MappingProxyType(
     {
+        "plain": ("plain", "plain"),
+        "plain-dark": ("plain", "plain-dark"),
         "rose-pine": ("plain", "rose-pine"),
         "rose-pine-moon": ("plain", "rose-pine-moon"),
         "rose-pine-dawn": ("plain", "rose-pine-dawn"),

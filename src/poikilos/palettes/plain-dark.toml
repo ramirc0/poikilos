@@ -1,0 +1,23 @@
+# tab10 on a dark grey background.
+[colors]
+blue = "#1f77b4"
+orange = "#ff7f0e"
+green = "#2ca02c"
+red = "#d62728"
+purple = "#9467bd"
+brown = "#8c564b"
+pink = "#e377c2"
+gray = "#7f7f7f"
+olive = "#bcbd22"
+cyan = "#17becf"
+
+[roles]
+background = "#242424"
+foreground = "#e6e6e6"
+frame = "#e6e6e6"
+ticks = "#e6e6e6"
+grid = "#4c4c4c"
+legend_edge = "#4c4c4c"
+median = "orange"
+mean = "green"
+cycle = ["blue", "orange", "green", "red", "purple", "brown", "pink", "gray", "olive", "cyan"]
