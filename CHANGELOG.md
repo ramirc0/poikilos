@@ -40,8 +40,8 @@ The distribution and the import package are both `poikilos`.
   used to save at 150 dpi and now saves at 300. Pass `dpi=` to `save_figure`
   to change it.
 - As before, no theme sets `pdf.fonttype`, so PDFs use matplotlib's Type 3 fonts.
-  `rc={"pdf.fonttype": 42}` gives TrueType, but only works with a TrueType font.
-  The default fonts are CFF.
+  `rc={"pdf.fonttype": 42}` gives TrueType. The default fonts are CFF, and with
+  them it writes a PDF that breaks the spec.
 - `despine` hides top and right tick marks, so it works on looks that mirror
   ticks. On a categorical axis it hides minor ticks too.
 - `despine` leaves lines without data clipped, such as the flier line of a

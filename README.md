@@ -144,7 +144,9 @@ the legend, and without `hue` takes the marker from the wrong cycle slot.
 
 **PDF text as TrueType.** `rc={"pdf.fonttype": 42}` embeds fonts as TrueType.
 Use it only with a TrueType font. Anthropic Sans Text and New Computer Modern
-are CFF (`.otf`) fonts, which a Type 42 stream cannot hold.
+are CFF (`.otf`) fonts. With them, matplotlib writes CFF outlines into a
+TrueType font stream. Common viewers still render that PDF, but it breaks the
+PDF spec and strict checkers flag it.
 
 ## Fonts
 
