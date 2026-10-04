@@ -30,3 +30,6 @@ dev = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/poikilos"]
+
+[tool.pytest.ini_options]
+markers = ["images: compare rendered figures with tests/baseline"]
