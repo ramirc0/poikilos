@@ -241,3 +241,18 @@ def test_label_points_leader_lines_use_edge_color():
         for a in arrows
     )
     plt.close(fig)
+
+
+def test_save_figure_keeps_dotted_stems(tmp_path):
+    fig = plt.figure()
+    written = save_figure(fig, tmp_path / "a.curve.svg") + save_figure(
+        fig, tmp_path / "b.curve"
+    )
+    assert [p.name for p in written] == [
+        "a.curve.svg",
+        "a.curve.png",
+        "b.curve.svg",
+        "b.curve.png",
+    ]
+    assert all(p.exists() for p in written)
+    plt.close(fig)

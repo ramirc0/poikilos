@@ -174,8 +174,9 @@ def save_figure(fig, path, **kwargs):
     fig : matplotlib.figure.Figure
         Figure to save.
     path : str or pathlib.Path
-        Output path without suffix; one is added per format. Missing parent
-        directories are created.
+        Output path, with or without a ``.svg`` or ``.png`` suffix. Any other
+        suffix is part of the stem, so ``x.curve`` gives ``x.curve.svg`` and
+        ``x.curve.png``. Missing parent directories are created.
     **kwargs
         Passed to ``fig.savefig``.
 
@@ -184,11 +185,12 @@ def save_figure(fig, path, **kwargs):
     list of pathlib.Path
         The SVG path, then the PNG path.
     """
-    stem = Path(path).with_suffix("")
+    path = Path(path)
+    stem = path.with_suffix("") if path.suffix.lower() in (".svg", ".png") else path
     stem.parent.mkdir(parents=True, exist_ok=True)
     written = []
     for fmt in ("svg", "png"):
-        out = stem.with_suffix(f".{fmt}")
+        out = Path(f"{stem}.{fmt}")
         fig.savefig(out, format=fmt, **kwargs)
         written.append(out)
     return written
