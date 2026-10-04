@@ -12,7 +12,7 @@ uv run python scripts/gallery.py       # assets/gallery/<theme>.{svg,png}, print
 uv run python scripts/lilaq_parity.py  # build/parity/, lilaq 0.6.0 via typst-py vs the lilaq looks
 ```
 
-Ruff is pinned in the dev group and has no config. CI (`.github/workflows/ci.yml`) runs ruff, pytest, a wheel content check, and pytest at `--resolution lowest-direct`.
+Ruff is pinned in the dev group and has no config. CI (`.github/workflows/ci.yml`) runs ruff, pytest on Python 3.11 and 3.14, a wheel content check, and pytest at `--resolution lowest-direct`.
 
 ## Composition
 
