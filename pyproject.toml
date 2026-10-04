@@ -34,3 +34,7 @@ packages = ["src/poikilos"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = ["images: compare rendered figures with tests/baseline"]
+
+[tool.uv]
+# uv.lock records this window, so `uv sync --locked` needs it on every machine.
+exclude-newer = "1 week"
