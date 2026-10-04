@@ -13,7 +13,6 @@ from poikilos.themes import _ROLES, _contrast
 
 PACKAGE = Path(pk.__file__).parent
 STYLES = [PACKAGE / "base.mplstyle", *sorted((PACKAGE / "looks").glob("*.mplstyle"))]
-PALETTE_KEYS = {key for keys in _ROLES.values() for key in keys} | {"axes.prop_cycle"}
 
 
 def test_public_api():
@@ -54,9 +53,9 @@ def test_style_file_loads_without_warnings(path, caplog):
 
 
 @pytest.mark.parametrize("path", STYLES, ids=lambda p: p.stem)
-def test_style_file_sets_no_palette_key(path):
+def test_style_file_sets_no_color(path):
     rc = mpl.rc_params_from_file(path, use_default_template=False)
-    assert not PALETTE_KEYS & set(rc)
+    assert not [key for key in rc if "color" in key or key == "axes.prop_cycle"]
 
 
 @pytest.mark.parametrize("theme", pk.THEMES)

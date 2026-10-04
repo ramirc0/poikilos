@@ -19,7 +19,7 @@ Ruff is pinned in the dev group and has no config. CI (`.github/workflows/ci.yml
 - `src/poikilos/themes.py` holds the theme API. `helpers.py` holds the helpers. `__init__.py` only re-exports. Importing MUST NOT change rcParams.
 - `themes._contrast` computes the WCAG contrast ratio. The text contrast test and `scripts/gallery.py` import it. The package itself never calls it.
 - `rc_params()` merges `base.mplstyle`, then `looks/<look>.mplstyle`, then the palette's colors. `use()` validates with `mpl.RcParams` first, then calls `style.use(["default", params])`. That keeps the backend.
-- Looks MUST NOT set a palette key or `axes.prop_cycle`. A palette sets root color keys only (`_ROLES` in `themes.py`). Inheriting keys such as `legend.facecolor: inherit` and `axes.titlecolor: auto` then follow them.
+- Looks MUST NOT set `axes.prop_cycle` or any key containing `color`. A palette sets root color keys only (`_ROLES` in `themes.py`). Inheriting keys such as `legend.facecolor: inherit` and `axes.titlecolor: auto` then follow them.
 - `savefig.format` MUST stay unset because `save_figure` writes SVG and PNG. `figure.dpi` stays at matplotlib's 100; the base sets `savefig.dpi`.
 - Per-axes behavior (lilaq tick steps, dots on lines, `despine`) is a documented recipe, not a look setting.
 
