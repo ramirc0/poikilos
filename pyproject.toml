@@ -31,6 +31,9 @@ dev = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/poikilos"]
 
+[tool.hatch.build.targets.sdist]
+exclude = ["/assets"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = ["images: compare rendered figures with tests/baseline"]
