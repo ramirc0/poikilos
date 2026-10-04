@@ -49,7 +49,9 @@ for axis in (ax.xaxis, ax.yaxis):
 - **Dots on lines.** Pass `marker="o"` to `plot` and `errorbar`. Leave it off
   for dense lines with hundreds of points. A marker in `axes.prop_cycle` would
   make `plot(color="k")` use up a cycle slot and bead every dense line. seaborn
-  ignores it anyway.
+  would also apply it unevenly. `scatterplot` and `pointplot` drop it.
+  `lineplot` keeps it but leaves it out of the legend, and without `hue` takes
+  the marker from the wrong cycle slot.
 - **Tick steps.** lilaq rounds the step to 1, 2 or 5. matplotlib's default
   locator also allows 2.5. lilaq aims for one tick per 3.3 em of x axis and per
   2 em of y axis, about five ticks on its 6 × 4 cm plot. At that size

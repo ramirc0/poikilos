@@ -138,7 +138,9 @@ length. That gives about five ticks on its default 6 × 4 cm plot, where
 `nbins=7` switches steps at nearly the same data ranges. On axes of another
 size, lilaq picks a different count. The dots stay out of the look
 on purpose. A `marker` in `axes.prop_cycle` makes `plot(color="k")` use up a
-cycle slot and beads dense lines, and seaborn ignores it.
+cycle slot and beads dense lines. seaborn would also apply it unevenly.
+`scatterplot` and `pointplot` drop it. `lineplot` keeps it but leaves it out of
+the legend, and without `hue` takes the marker from the wrong cycle slot.
 
 **PDF text as TrueType.** `rc={"pdf.fonttype": 42}` embeds fonts as TrueType.
 Use it only with a TrueType font. Anthropic Sans Text and New Computer Modern
