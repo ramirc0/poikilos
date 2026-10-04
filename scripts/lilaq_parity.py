@@ -47,6 +47,12 @@ CASES = {
             ("errorbar", x * 10, np.round(x * 7 + 10, 4), "fit"),
         ],
     },
+    "exponent": {
+        "title": "Shared exponents",
+        "xlabel": "length (m)",
+        "ylabel": "count",
+        "plots": [("plot", x / 2000, np.round(x**2 * 40 + 1000), "growth")],
+    },
 }
 
 
@@ -85,11 +91,12 @@ def render_matplotlib(theme, case, path):
             if kind == "scatter":
                 ax.scatter(xs, ys, label=label)
             elif kind == "errorbar":
-                ax.errorbar(xs, ys, yerr=8, marker="o", label=label)
+                # scatter draws from its own color cycle; lilaq shares one.
+                ax.errorbar(xs, ys, yerr=8, marker="o", color="C1", label=label)
             else:
                 ax.plot(xs, ys, marker="o", label=label)
         for axis in (ax.xaxis, ax.yaxis):
-            axis.set_major_locator(MaxNLocator(steps=[1, 2, 5, 10]))
+            axis.set_major_locator(MaxNLocator(7, steps=[1, 2, 5, 10]))
         ax.set(title=case["title"], xlabel=case["xlabel"], ylabel=case["ylabel"])
         ax.legend()
         fig.savefig(path, dpi=PPI)

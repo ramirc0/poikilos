@@ -8,6 +8,7 @@ import matplotlib as mpl
 import numpy as np
 import pytest
 from matplotlib.colors import to_rgb
+from matplotlib.font_manager import FontProperties, findfont
 
 import poikilos as pk
 from poikilos.themes import _ROLES
@@ -46,6 +47,7 @@ def test_public_api():
         "rose-pine",
         "rose-pine-moon",
         "rose-pine-dawn",
+        "lilaq",
     ]
 
 
@@ -176,3 +178,12 @@ def test_bad_rc_changes_nothing(rc, error):
 def test_unknown_name_lists_choices(kwargs):
     with pytest.raises(ValueError, match="choose from .*rose-pine-dawn"):
         pk.rc_params(**kwargs)
+
+
+def test_lilaq_font_is_the_10_pt_cut():
+    family = pk.rc_params("lilaq")["font.serif"][0]
+    try:
+        path = findfont(FontProperties(family=family), fallback_to_default=False)
+    except ValueError:
+        pytest.skip(f"{family} is not installed")
+    assert Path(path).name == "NewCM10-Regular.otf"

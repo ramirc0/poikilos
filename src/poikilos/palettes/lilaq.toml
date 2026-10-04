@@ -1,0 +1,13 @@
+# lilaq's default colors, with petroff10 as the cycle. Source: https://github.com/lilaq-project/lilaq
+[colors]
+
+[roles]
+background = "white"
+foreground = "black"
+frame = "black"
+ticks = "black"
+grid = "#cccccc"
+legend_edge = "#aaaaaa"
+median = "#ff851b"
+mean = "#3f90da"
+cycle = ["#3f90da", "#ffa90e", "#bd1f01", "#94a4a2", "#832db6", "#a96b59", "#e76300", "#b9ac70", "#717581", "#92dadd"]

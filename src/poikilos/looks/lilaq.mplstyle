@@ -1,0 +1,53 @@
+# lilaq's diagram look (https://lilaq.org, @preview/lilaq:0.6.0). Lengths in points at 11 pt text.
+
+font.family: serif
+font.serif: NewComputerModern, DejaVu Serif
+font.size: 11
+mathtext.fontset: cm
+
+figure.figsize: 2.9, 2.3
+
+axes.linewidth: 0.5
+axes.grid: True
+axes.axisbelow: True
+axes.xmargin: 0.06
+axes.ymargin: 0.06
+axes.titlesize: medium
+axes.titlepad: 5.5
+axes.labelpad: 5.0
+axes.formatter.limits: -4, 3
+axes.formatter.use_mathtext: True
+
+grid.linewidth: 0.5
+
+xtick.top: True
+xtick.direction: in
+xtick.major.size: 3
+xtick.minor.size: 1.5
+xtick.major.width: 0.5
+xtick.minor.width: 0.5
+xtick.major.pad: 4.3
+xtick.minor.pad: 4.3
+xtick.minor.visible: True
+ytick.right: True
+ytick.direction: in
+ytick.major.size: 3
+ytick.minor.size: 1.5
+ytick.major.width: 0.5
+ytick.minor.width: 0.5
+ytick.major.pad: 5.5
+ytick.minor.pad: 5.5
+ytick.minor.visible: True
+
+lines.linewidth: 0.7
+lines.markersize: 1.9
+lines.markeredgewidth: 0.7
+
+legend.loc: upper right
+legend.linewidth: 0.5
+legend.borderaxespad: 0.18
+legend.borderpad: 0.3
+legend.labelspacing: 0.1
+legend.handletextpad: 0.6
+
+errorbar.capsize: 1.25
