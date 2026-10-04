@@ -8,9 +8,10 @@ from pathlib import Path
 from types import MappingProxyType
 
 import matplotlib as mpl
+import numpy as np
 from cycler import cycler
 from matplotlib import style
-from matplotlib.colors import to_hex
+from matplotlib.colors import to_hex, to_rgb
 
 _HERE = Path(__file__).resolve().parent
 
@@ -219,3 +220,15 @@ def context(theme, *, palette=None, rc=None):
     with mpl.rc_context():
         use(theme, palette=palette, rc=rc)
         yield
+
+
+def _luminance(color):
+    rgb = np.array(to_rgb(color))
+    linear = np.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
+    return linear @ [0.2126, 0.7152, 0.0722]
+
+
+def _contrast(a, b):
+    """WCAG 2 contrast ratio between two colors."""
+    hi, lo = sorted([_luminance(a), _luminance(b)], reverse=True)
+    return (hi + 0.05) / (lo + 0.05)

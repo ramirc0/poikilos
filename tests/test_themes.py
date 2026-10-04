@@ -5,29 +5,15 @@ from itertools import permutations
 from pathlib import Path
 
 import matplotlib as mpl
-import numpy as np
 import pytest
-from matplotlib.colors import to_rgb
 from matplotlib.font_manager import FontProperties, findfont
 
 import poikilos as pk
-from poikilos.themes import _ROLES
+from poikilos.themes import _ROLES, _contrast
 
 PACKAGE = Path(pk.__file__).parent
 STYLES = [PACKAGE / "base.mplstyle", *sorted((PACKAGE / "looks").glob("*.mplstyle"))]
 PALETTE_KEYS = {key for keys in _ROLES.values() for key in keys} | {"axes.prop_cycle"}
-
-
-def luminance(color):
-    rgb = np.array(to_rgb(color))
-    linear = np.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
-    return linear @ [0.2126, 0.7152, 0.0722]
-
-
-def contrast(a, b):
-    """WCAG 2 contrast ratio between two colors."""
-    hi, lo = sorted([luminance(a), luminance(b)], reverse=True)
-    return (hi + 0.05) / (lo + 0.05)
 
 
 def test_public_api():
@@ -92,7 +78,7 @@ def test_palette_colors_are_hex(name):
 @pytest.mark.parametrize("name", pk.PALETTES)
 def test_text_contrast(name):
     palette = pk.PALETTES[name]
-    assert contrast(palette.foreground, palette.background) >= 4.5
+    assert _contrast(palette.foreground, palette.background) >= 4.5
 
 
 @pytest.mark.parametrize("theme", pk.THEMES)

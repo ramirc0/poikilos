@@ -12,32 +12,20 @@ mpl.use("Agg")
 
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.colors import to_rgb
 from matplotlib.ticker import MaxNLocator, NullLocator
 
 import poikilos as pk
+from poikilos.themes import _contrast
 
 OUT = Path(__file__).resolve().parent.parent / "assets" / "gallery"
-
-
-def luminance(color):
-    rgb = np.array(to_rgb(color))
-    linear = np.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
-    return linear @ [0.2126, 0.7152, 0.0722]
-
-
-def contrast(a, b):
-    """WCAG 2 contrast ratio between two colors."""
-    hi, lo = sorted([luminance(a), luminance(b)], reverse=True)
-    return (hi + 0.05) / (lo + 0.05)
 
 
 def report_contrast(theme):
     palette = pk.PALETTES[pk.THEMES[theme][1]]
     ratios = {
-        "frame": contrast(palette.frame, palette.background),
-        "ticks": contrast(palette.ticks, palette.background),
-        **{c: contrast(c, palette.background) for c in palette.cycle},
+        "frame": _contrast(palette.frame, palette.background),
+        "ticks": _contrast(palette.ticks, palette.background),
+        **{c: _contrast(c, palette.background) for c in palette.cycle},
     }
     low = [name for name, ratio in ratios.items() if ratio < 3]
     print(
