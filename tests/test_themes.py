@@ -100,6 +100,12 @@ def test_theme_never_sets_savefig_format(theme):
     assert "savefig.format" not in pk.rc_params(theme)
 
 
+@pytest.mark.parametrize("theme", pk.THEMES)
+def test_figure_edge_matches_background(theme):
+    pk.use(theme)
+    assert mpl.rcParams["figure.edgecolor"] == mpl.rcParams["figure.facecolor"]
+
+
 @pytest.mark.parametrize(
     "theme", [t for t, (look, _) in pk.THEMES.items() if look == "plain"]
 )

@@ -18,6 +18,7 @@ _HERE = Path(__file__).resolve().parent
 _ROLES = {
     "background": (
         "figure.facecolor",
+        "figure.edgecolor",
         "axes.facecolor",
         "axes3d.xaxis.panecolor",
         "axes3d.yaxis.panecolor",
@@ -55,7 +56,7 @@ class Palette:
     Attributes
     ----------
     background : str
-        Figure and axes face.
+        Figure face and edge, axes face and 3D panes.
     foreground : str
         Text, tick labels, patch edges and boxplot lines.
     frame : str
