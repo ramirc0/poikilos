@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  # uv.lock records this window; without it, `uv sync --locked` sees a stale lockfile.
+  UV_EXCLUDE_NEWER: "1 week"
+
 jobs:
   test:
     runs-on: ubuntu-latest
