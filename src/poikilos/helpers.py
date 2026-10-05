@@ -21,7 +21,8 @@ def despine(ax, categorical_x=False, categorical_y=False):
     When both axes are fitted to the data, the plotted artists are unclipped
     so markers and lines at the limits draw whole into the spine offset.
     Lines without data stay clipped. Explicit limits set by the caller keep
-    clipping on. Call after everything is drawn on ``ax``.
+    clipping on. So does a log axis with values at or below 0, such as a
+    bar's base. Call after everything is drawn on ``ax``.
 
     Parameters
     ----------
@@ -55,7 +56,8 @@ def despine(ax, categorical_x=False, categorical_y=False):
         # Python 3.11 reads reverse= through __index__, which numpy >= 2.3 rejects on np.bool_.
         set_lim(sorted((lo, hi), reverse=bool(axis.get_inverted())))
         spine.set_bounds(lo, hi)
-    if fitted:
+    # A log axis leaves values <= 0 out of its limits, such as a bar's base at 0.
+    if fitted and all(ax.viewLim.contains(*xy) for xy in ax.dataLim.get_points()):
         # An empty line's marker-padded extent sits at the figure origin. Unclipped,
         # it drags constrained layout there (e.g. boxplot fliers with no outliers).
         lines = [line for line in ax.lines if len(line.get_xydata())]

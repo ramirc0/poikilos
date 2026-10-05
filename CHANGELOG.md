@@ -69,3 +69,6 @@ The distribution and the import package are both `poikilos`.
 ### Fixed
 
 - `despine` raised `TypeError` on Python 3.11 with numpy 2.3 or later.
+- `despine` keeps clipping on when a log axis leaves out values at or below 0,
+  such as the base of each bar. Unclipped, log bar charts collapsed constrained
+  layout and lost tick labels.

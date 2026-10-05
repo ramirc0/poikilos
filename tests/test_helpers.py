@@ -93,6 +93,36 @@ def test_despine_keeps_clipping_with_explicit_limits():
     plt.close(fig)
 
 
+@pytest.mark.parametrize(
+    "draw",
+    [
+        lambda ax: ax.bar([0, 1], [1e7, 1e5]),
+        lambda ax: ax.errorbar([1, 2], [10, 1e3], yerr=20),
+    ],
+    ids=["bar", "errorbar"],
+)
+def test_despine_keeps_clipping_when_a_log_axis_drops_data(draw):
+    # A log axis leaves values <= 0 out of its limits. Unclipped, a bar's base at 0
+    # drew 90,000 px below the axes and collapsed constrained layout.
+    fig, ax = plt.subplots(figsize=(6, 3.5))
+    draw(ax)
+    ax.set_yscale("log")
+    despine(ax)
+    fig.canvas.draw()
+    assert all(a.get_clip_on() for a in [*ax.lines, *ax.collections, *ax.patches])
+    assert ax.get_tightbbox(fig.canvas.get_renderer()).y0 >= 0
+    plt.close(fig)
+
+
+def test_despine_unclips_positive_data_on_a_log_axis():
+    fig, ax = plt.subplots()
+    (line,) = ax.plot([1, 2, 3], [10, 1e3, 1e4], marker="o")
+    ax.set_yscale("log")
+    despine(ax)
+    assert line.get_clip_on() is False
+    plt.close(fig)
+
+
 def test_despine_keeps_inverted_axis():
     fig, ax = plt.subplots()
     ax.imshow(np.arange(12).reshape(3, 4))
