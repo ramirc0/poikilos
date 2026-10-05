@@ -6,6 +6,7 @@ from pathlib import Path
 
 import matplotlib as mpl
 import pytest
+from matplotlib.figure import Figure
 from matplotlib.font_manager import FontProperties, findfont
 
 import poikilos as pk
@@ -128,6 +129,14 @@ def test_pgl_look_keeps_skill_rules():
     assert rc["axes.grid"] and rc["axes.axisbelow"] is True
     assert rc["grid.linestyle"] == "--"
     assert not rc["legend.frameon"]
+
+
+def test_pgl_zero_line_is_solid_black_at_1_6_pt():
+    pk.use("pgl")
+    (line,) = pk.zero_line(Figure().subplots())
+    assert line.get_color() == "#000000"
+    assert line.get_linewidth() == 1.6
+    assert line.get_linestyle() == "-"
 
 
 @pytest.mark.parametrize(("first", "second"), list(permutations(pk.THEMES, 2)))
