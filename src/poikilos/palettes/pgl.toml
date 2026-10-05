@@ -1,4 +1,4 @@
-# seaborn's whitegrid greys, with tab10 as the cycle.
+# seaborn's whitegrid greys, with tab10 as the cycle. The frame is black, like the lab's zero lines.
 [colors]
 blue = "#1f77b4"
 orange = "#ff7f0e"
@@ -14,7 +14,6 @@ cyan = "#17becf"
 [roles]
 background = "white"
 foreground = "#262626"
-# Spines are off; frame colors the zero line, colorbar outline and leader lines.
 frame = "black"
 ticks = "#262626"
 grid = "#cccccc"
