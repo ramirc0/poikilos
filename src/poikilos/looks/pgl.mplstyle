@@ -2,7 +2,7 @@
 # dashed grid lines in place of ticks. Do not pair with despine().
 
 font.family: sans-serif
-font.sans-serif: Arial, Arimo, DejaVu Sans
+font.sans-serif: Overpass, Arial, Arimo, DejaVu Sans
 
 axes.spines.left: False
 axes.spines.bottom: False

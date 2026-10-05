@@ -118,7 +118,7 @@ def test_pgl_look_keeps_skill_rules():
     pk.use("pgl")
     rc = mpl.rcParams
     assert rc["font.family"] == ["sans-serif"]
-    assert rc["font.sans-serif"] == ["Arial", "Arimo", "DejaVu Sans"]
+    assert rc["font.sans-serif"] == ["Overpass", "Arial", "Arimo", "DejaVu Sans"]
     assert not any(
         rc[f"axes.spines.{side}"] for side in ("left", "bottom", "top", "right")
     )

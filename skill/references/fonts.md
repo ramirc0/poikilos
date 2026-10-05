@@ -24,8 +24,10 @@ in the chain for macOS and Windows.
 **lilaq** (`font.serif`): `NewComputerModern`, then `DejaVu Serif`. Math uses
 matplotlib's bundled Computer Modern (`mathtext.fontset: cm`).
 
-**pgl** (`font.sans-serif`): `Arial`, `Arimo`, `DejaVu Sans`. All three are
-TrueType, so `pdf.fonttype: 42` suits this chain.
+**pgl** (`font.sans-serif`): `Overpass`, `Arial`, `Arimo`, `DejaVu Sans`. The
+lab's papers use Arial. Overpass is a free variable font, and matplotlib uses
+its regular weight. All four are TrueType, so `pdf.fonttype: 42` suits this
+chain.
 
 ## New Computer Modern
 

@@ -190,7 +190,7 @@ DejaVu family bundled with matplotlib, so a missing font falls back silently.
 - plain: Anthropic Sans Text, Google Sans Flex, Arimo, Arial, DejaVu Sans.
 - lilaq: New Computer Modern, then DejaVu Serif. Math uses matplotlib's bundled
   Computer Modern.
-- pgl: Arial, Arimo, DejaVu Sans.
+- pgl: Overpass, Arial, Arimo, DejaVu Sans.
 
 matplotlib knows New Computer Modern as `NewComputerModern`. From
 [CTAN](https://ctan.org/pkg/newcomputermodern), install only the 10 pt cuts

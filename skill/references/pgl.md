@@ -6,8 +6,8 @@ seaborn's `whitegrid` style with every spine removed.
 
 ## What the look sets
 
-- Arial at matplotlib's default sizes. Arimo has Arial's metrics and stands in
-  on Linux.
+- Overpass at matplotlib's default sizes. The papers use Arial, which comes
+  next in the chain, then Arimo with Arial's metrics.
 - No spines and no tick marks. The grid takes their place. Tick labels stay,
   7 pt from the data area.
 - A dashed `#cccccc` grid on both axes, below the data.
