@@ -25,9 +25,11 @@ in the chain for macOS and Windows.
 matplotlib's bundled Computer Modern (`mathtext.fontset: cm`).
 
 **pgl** (`font.sans-serif`): `Overpass`, `Arial`, `Arimo`, `DejaVu Sans`. The
-lab's papers use Arial. Overpass is a free variable font, and matplotlib uses
-its regular weight. All four are TrueType, so `pdf.fonttype: 42` suits this
-chain.
+lab's papers use Arial. Google Fonts ships Overpass as a variable TrueType
+font. matplotlib reads only its default instance, so bold text renders at the
+regular weight. Debian's `fonts-overpass` package installs static CFF (`.otf`)
+cuts instead. `pdf.fonttype: 42` suits this chain only when Overpass resolves
+to a `.ttf` file.
 
 ## New Computer Modern
 

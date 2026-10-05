@@ -178,9 +178,10 @@ need `ax.grid(False)`.
 
 **PDF text as TrueType.** `rc={"pdf.fonttype": 42}` embeds fonts as TrueType.
 Use it only with a TrueType font. Anthropic Sans Text and New Computer Modern
-are CFF (`.otf`) fonts. With them, matplotlib writes CFF outlines into a
-TrueType font stream. Common viewers still render that PDF, but it breaks the
-PDF spec and strict checkers flag it.
+are CFF (`.otf`) fonts. So is Overpass from Debian's `fonts-overpass` package.
+With them, matplotlib writes CFF outlines into a TrueType font stream. Common
+viewers still render that PDF, but it breaks the PDF spec and strict checkers
+flag it.
 
 ## Fonts
 
