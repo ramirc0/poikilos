@@ -35,6 +35,7 @@ def test_public_api():
         "rose-pine-dawn",
         "lilaq",
         "lilaq-moon",
+        "pgl",
     ]
 
 
@@ -111,6 +112,22 @@ def test_plain_look_keeps_skill_rules(theme):
     assert rc["figure.constrained_layout.use"]
     assert rc["savefig.dpi"] == 300
     assert not rc.get("axes.grid", False)
+
+
+def test_pgl_look_keeps_skill_rules():
+    pk.use("pgl")
+    rc = mpl.rcParams
+    assert rc["font.family"] == ["sans-serif"]
+    assert rc["font.sans-serif"] == ["Arial", "Arimo", "DejaVu Sans"]
+    assert not any(
+        rc[f"axes.spines.{side}"] for side in ("left", "bottom", "top", "right")
+    )
+    assert not any(
+        rc[key] for key in ("xtick.bottom", "xtick.top", "ytick.left", "ytick.right")
+    )
+    assert rc["axes.grid"] and rc["axes.axisbelow"] is True
+    assert rc["grid.linestyle"] == "--"
+    assert not rc["legend.frameon"]
 
 
 @pytest.mark.parametrize(("first", "second"), list(permutations(pk.THEMES, 2)))

@@ -114,6 +114,12 @@ def render(theme):
             cat_x, cat_y = categorical.get(name, (False, False))
             if look == "plain":
                 pk.despine(ax, categorical_x=cat_x, categorical_y=cat_y)
+            elif look == "pgl":
+                for axis, cat in ((ax.xaxis, cat_x), (ax.yaxis, cat_y)):
+                    if cat:
+                        axis.grid(False)
+                if name == "band":
+                    pk.zero_line(ax)
             else:
                 for axis, cat in ((ax.xaxis, cat_x), (ax.yaxis, cat_y)):
                     if cat:

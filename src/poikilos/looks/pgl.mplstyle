@@ -1,0 +1,19 @@
+# The Programmable Genomics Laboratory look: seaborn's whitegrid without spines,
+# dashed grid lines in place of ticks. Do not pair with despine().
+
+font.family: sans-serif
+font.sans-serif: Arial, Arimo, DejaVu Sans
+
+axes.spines.left: False
+axes.spines.bottom: False
+axes.spines.top: False
+axes.spines.right: False
+axes.grid: True
+axes.axisbelow: True
+
+grid.linestyle: --
+
+xtick.bottom: False
+ytick.left: False
+
+legend.frameon: False

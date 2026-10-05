@@ -14,8 +14,8 @@ The distribution and the import package are both `poikilos`.
 
 ### Added
 
-- Themes `plain`, `plain-dark`, `lilaq` and `lilaq-moon`, next to the three Rosé
-  Pine themes.
+- Themes `plain`, `plain-dark`, `lilaq`, `lilaq-moon` and `pgl`, next to the
+  three Rosé Pine themes.
 - `use(theme, *, palette=None, rc=None)`, `context(...)` and `rc_params(...)`.
   Any look takes any palette, and `rc` overrides any rcParam.
 - `PALETTES`, with each palette's colors as hex, and `THEMES`.
@@ -29,7 +29,7 @@ The distribution and the import package are both `poikilos`.
 | `import matplotlib_rosepine as rp` | `import poikilos as pk` |
 | `rp.apply_style(v)` before importing pyplot | `pk.use(v)`, before or after importing pyplot |
 | `rp.style_path(v)` | `pk.rc_params(v)` returns the settings as a dict |
-| `rp.VARIANTS` | `pk.THEMES` (now 7 themes) |
+| `rp.VARIANTS` | `pk.THEMES` (now 8 themes) |
 | `rp.register()`, `plt.style.use("rose-pine")` | removed; use `pk.use("rose-pine")` |
 | Rosé Pine hex values copied by hand | `pk.PALETTES["rose-pine-dawn"].colors["love"]` |
 

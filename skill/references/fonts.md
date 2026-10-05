@@ -24,6 +24,9 @@ in the chain for macOS and Windows.
 **lilaq** (`font.serif`): `NewComputerModern`, then `DejaVu Serif`. Math uses
 matplotlib's bundled Computer Modern (`mathtext.fontset: cm`).
 
+**pgl** (`font.sans-serif`): `Arial`, `Arimo`, `DejaVu Sans`. All three are
+TrueType, so `pdf.fonttype: 42` suits this chain.
+
 ## New Computer Modern
 
 Typst calls it `New Computer Modern`. matplotlib names the family

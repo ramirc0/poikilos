@@ -36,7 +36,7 @@ poikilos needs Python 3.11 or later and matplotlib 3.11 or later. Raise
 | `from style import apply_style, despine, label_points, save_figure` | `import poikilos as pk`, then delete `style.py` |
 | `rp.apply_style("rose-pine-dawn")` | `pk.use("rose-pine-dawn")` |
 | `apply_style()` from `style.py` | `pk.use("plain")` |
-| `rp.VARIANTS` | `pk.THEMES` (7 themes, Rosé Pine and others) |
+| `rp.VARIANTS` | `pk.THEMES` (8 themes, Rosé Pine and others) |
 | `rp.style_path(v)` with `mpl.rc_params_from_file(...)` | `pk.rc_params(v)` |
 | `rp.register()` and `plt.style.use("rose-pine")` | `pk.use("rose-pine")` |
 | Rosé Pine hex values typed into the code | `pk.PALETTES["rose-pine-dawn"].colors["love"]` |

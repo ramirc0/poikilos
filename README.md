@@ -11,12 +11,14 @@ look takes any palette.
 | `plain`, `plain-dark` | plain | matplotlib's tab10 on white or `#242424` |
 | `rose-pine`, `rose-pine-moon`, `rose-pine-dawn` | plain | [Rosé Pine](https://rosepinetheme.com) |
 | `lilaq`, `lilaq-moon` | lilaq | [lilaq](https://lilaq.org) 0.6.0, default and moon |
+| `pgl` | pgl | seaborn's whitegrid greys, tab10 |
 
 | Light | Dark |
 | --- | --- |
 | ![plain](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/plain.png) | ![plain-dark](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/plain-dark.png) |
 | ![rose-pine-dawn](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/rose-pine-dawn.png) | ![rose-pine](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/rose-pine.png) |
 | ![lilaq](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/lilaq.png) | ![lilaq-moon](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/lilaq-moon.png) |
+| ![pgl](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/pgl.png) | |
 
 [`rose-pine-moon`](https://github.com/ramirc0/poikilos/blob/main/assets/gallery/rose-pine-moon.png)
 has its own gallery image.
@@ -147,6 +149,33 @@ cycle slot and beads dense lines. seaborn would also apply it unevenly.
 `scatterplot` and `pointplot` drop it. `lineplot` keeps it but leaves it out of
 the legend, and without `hue` takes the marker from the wrong cycle slot.
 
+**pgl.** The look of the Programmable Genomics Laboratory's papers: seaborn's
+`whitegrid` with no spines and a dashed grid in place of tick marks. Never call
+`despine` on it, because that brings the spines back.
+
+```python
+ax.xaxis.grid(False)  # categorical x; seaborn's categorical plots already do this
+pk.zero_line(ax)  # values change sign; axis="x" for x = 0
+```
+
+To sign positive tick labels on a scale that runs from − to +:
+
+```python
+from matplotlib.ticker import ScalarFormatter
+
+
+class SignedFormatter(ScalarFormatter):
+    def __call__(self, x, pos=None):
+        text = super().__call__(x, pos)
+        return f"+{text}" if x > 0 and text.strip("0.") else text
+
+
+ax.xaxis.set_major_formatter(SignedFormatter())
+```
+
+It keeps matplotlib's formatting, so `+1.50` sits next to `−0.50`. Heatmaps
+need `ax.grid(False)`.
+
 **PDF text as TrueType.** `rc={"pdf.fonttype": 42}` embeds fonts as TrueType.
 Use it only with a TrueType font. Anthropic Sans Text and New Computer Modern
 are CFF (`.otf`) fonts. With them, matplotlib writes CFF outlines into a
@@ -161,6 +190,7 @@ DejaVu family bundled with matplotlib, so a missing font falls back silently.
 - plain: Anthropic Sans Text, Google Sans Flex, Arimo, Arial, DejaVu Sans.
 - lilaq: New Computer Modern, then DejaVu Serif. Math uses matplotlib's bundled
   Computer Modern.
+- pgl: Arial, Arimo, DejaVu Sans.
 
 matplotlib knows New Computer Modern as `NewComputerModern`. From
 [CTAN](https://ctan.org/pkg/newcomputermodern), install only the 10 pt cuts

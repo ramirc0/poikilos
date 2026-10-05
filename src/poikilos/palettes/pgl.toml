@@ -1,0 +1,24 @@
+# seaborn's whitegrid greys, with tab10 as the cycle.
+[colors]
+blue = "#1f77b4"
+orange = "#ff7f0e"
+green = "#2ca02c"
+red = "#d62728"
+purple = "#9467bd"
+brown = "#8c564b"
+pink = "#e377c2"
+gray = "#7f7f7f"
+olive = "#bcbd22"
+cyan = "#17becf"
+
+[roles]
+background = "white"
+foreground = "#262626"
+# Spines are off; frame colors the zero line, colorbar outline and leader lines.
+frame = "black"
+ticks = "#262626"
+grid = "#cccccc"
+legend_edge = "#cccccc"
+median = "orange"
+mean = "green"
+cycle = ["blue", "orange", "green", "red", "purple", "brown", "pink", "gray", "olive", "cyan"]

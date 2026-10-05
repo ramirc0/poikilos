@@ -121,6 +121,7 @@ THEMES = MappingProxyType(
         "rose-pine-dawn": ("plain", "rose-pine-dawn"),
         "lilaq": ("lilaq", "lilaq"),
         "lilaq-moon": ("lilaq", "lilaq-moon"),
+        "pgl": ("pgl", "pgl"),
     }
 )
 
