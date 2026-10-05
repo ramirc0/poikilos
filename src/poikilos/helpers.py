@@ -1,9 +1,11 @@
-"""Figure helpers: spine trimming, point labels and SVG + PNG export."""
+"""Figure helpers: spine trimming, point labels, zero lines and SVG + PNG export."""
 
 from pathlib import Path
 
 import matplotlib as mpl
 import numpy as np
+from matplotlib import cbook
+from matplotlib.lines import Line2D
 
 
 def despine(ax, categorical_x=False, categorical_y=False):
@@ -147,3 +149,42 @@ def save_figure(fig, path, **kwargs):
         fig.savefig(out, format=fmt, **kwargs)
         written.append(out)
     return written
+
+
+def zero_line(ax, axis="y", **kwargs):
+    """Draw a bold line at zero to show where a scale changes sign.
+
+    The line spans the axes, in the axes edge color at twice the grid line
+    width. The axis limits widen to include zero.
+
+    Parameters
+    ----------
+    ax : matplotlib.axes.Axes
+        Axes to draw on.
+    axis : {"y", "x", "both"}, default "y"
+        As in ``ax.grid``: ``"y"`` draws the line y = 0, ``"x"`` the line
+        x = 0.
+    **kwargs
+        Passed to ``ax.axhline`` and ``ax.axvline`` (e.g. ``lw=1``).
+
+    Returns
+    -------
+    list of matplotlib.lines.Line2D
+        The y = 0 line, then the x = 0 line, for those drawn.
+
+    Raises
+    ------
+    ValueError
+        If ``axis`` is not ``"x"``, ``"y"`` or ``"both"``.
+    """
+    if axis not in ("x", "y", "both"):
+        raise ValueError(f"axis must be 'x', 'y' or 'both', not {axis!r}")
+    # Normalized so aliases such as lw= and c= override the defaults below.
+    kwargs = cbook.normalize_kwargs(kwargs, Line2D)
+    kwargs.setdefault("color", mpl.rcParams["axes.edgecolor"])
+    kwargs.setdefault("linewidth", 2 * mpl.rcParams["grid.linewidth"])
+    return [
+        draw(0, **kwargs)
+        for name, draw in (("y", ax.axhline), ("x", ax.axvline))
+        if axis in (name, "both")
+    ]

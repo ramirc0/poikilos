@@ -10,7 +10,7 @@ from matplotlib.colors import to_rgb
 from matplotlib.transforms import Bbox
 
 import poikilos as pk
-from poikilos import despine, label_points, save_figure
+from poikilos import despine, label_points, save_figure, zero_line
 
 
 @pytest.fixture(autouse=True)
@@ -270,4 +270,40 @@ def test_despine_categorical_axis_drops_minor_ticks():
     fig.canvas.draw()
     ticks = [*ax.xaxis.get_major_ticks(), *ax.xaxis.get_minor_ticks()]
     assert all(t.tick1line.get_markersize() == 0 for t in ticks)
+    plt.close(fig)
+
+
+@pytest.mark.parametrize(
+    ("axis", "drawn"), [("y", ["y"]), ("x", ["x"]), ("both", ["y", "x"])]
+)
+def test_zero_line_defaults(axis, drawn):
+    fig, ax = plt.subplots()
+    ax.plot([1, 2], [3, 4])
+    lines = zero_line(ax, axis)
+    assert len(lines) == len(drawn)
+    for line, name in zip(lines, drawn):
+        data, (lo, _) = (
+            (line.get_ydata(), ax.get_ylim())
+            if name == "y"
+            else (line.get_xdata(), ax.get_xlim())
+        )
+        assert list(data) == [0, 0]
+        assert lo <= 0
+        assert line.get_color() == plt.rcParams["axes.edgecolor"]
+        assert line.get_linewidth() == 2 * plt.rcParams["grid.linewidth"]
+    plt.close(fig)
+
+
+def test_zero_line_aliases_override():
+    fig, ax = plt.subplots()
+    (line,) = zero_line(ax, lw=3, c="r")
+    assert line.get_linewidth() == 3
+    assert line.get_color() == "r"
+    plt.close(fig)
+
+
+def test_zero_line_rejects_unknown_axis():
+    fig, ax = plt.subplots()
+    with pytest.raises(ValueError, match="axis must be"):
+        zero_line(ax, "z")
     plt.close(fig)

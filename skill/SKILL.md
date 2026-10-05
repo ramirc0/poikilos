@@ -1,13 +1,13 @@
 ---
 name: poikilos
-description: Style matplotlib and seaborn figures with the poikilos package (themes plain, plain-dark, rose-pine, rose-pine-moon, rose-pine-dawn, lilaq, lilaq-moon) and its helpers despine, label_points and save_figure. Use whenever you create, edit, review or migrate any matplotlib or seaborn figure or plotting code, including spines, ticks, fonts, colors, DPI, legends, labelled scatter plots and figure export, even if the user never names poikilos. Also use when a project imports matplotlib_rosepine or a copied style.py with apply_style().
+description: Style matplotlib and seaborn figures with the poikilos package (themes plain, plain-dark, rose-pine, rose-pine-moon, rose-pine-dawn, lilaq, lilaq-moon) and its helpers despine, label_points, save_figure and zero_line. Use whenever you create, edit, review or migrate any matplotlib or seaborn figure or plotting code, including spines, ticks, fonts, colors, DPI, legends, labelled scatter plots and figure export, even if the user never names poikilos. Also use when a project imports matplotlib_rosepine or a copied style.py with apply_style().
 ---
 
 # poikilos
 
 Every figure uses a poikilos theme. A theme is a look (fonts, spines, ticks,
-sizes) plus a palette (colors). The package also has the three helpers that
-finish a figure: `despine`, `label_points` and `save_figure`.
+sizes) plus a palette (colors). The package also has four helpers that
+finish a figure: `despine`, `label_points`, `save_figure` and `zero_line`.
 
 ```bash
 uv add "poikilos[labels] @ git+https://github.com/ramirc0/poikilos"
@@ -74,6 +74,7 @@ pk.PALETTES["plain"].cycle                   # cycle colors, in order
 pk.despine(ax, categorical_x=False, categorical_y=False)
 pk.label_points(ax, points, labels, **text_kwargs)
 pk.save_figure(fig, path, **savefig_kwargs)  # -> [svg path, png path]
+pk.zero_line(ax, axis="y", **line_kwargs)    # bold y = 0 line; "x" or "both"
 ```
 
 Unknown theme or palette names raise `ValueError` with the valid names. A bad

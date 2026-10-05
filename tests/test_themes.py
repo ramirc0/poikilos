@@ -25,6 +25,7 @@ def test_public_api():
         "rc_params",
         "save_figure",
         "use",
+        "zero_line",
     ]
     assert list(pk.THEMES) == [
         "plain",

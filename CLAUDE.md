@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-`poikilos`: matplotlib themes (look + palette) plus the helpers `despine`, `label_points`, `save_figure`. Built with hatchling, managed with `uv`. Was `matplotlib-rosepine` up to tag `v0.2.0`.
+`poikilos`: matplotlib themes (look + palette) plus the helpers `despine`, `label_points`, `save_figure`, `zero_line`. Built with hatchling, managed with `uv`. Was `matplotlib-rosepine` up to tag `v0.2.0`.
 
 ## Commands
 

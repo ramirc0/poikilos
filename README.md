@@ -1,6 +1,6 @@
 # poikilos
 
-Matplotlib themes, plus three helpers for publication figures. *Poikilos* is
+Matplotlib themes, plus four helpers for publication figures. *Poikilos* is
 Greek for many-colored.
 
 A theme is a look (fonts, spines, ticks, sizes) plus a palette (colors). Any
@@ -115,6 +115,10 @@ color therefore carries through to them.
 - `save_figure(fig, path, **savefig_kwargs)` writes `path.svg` and `path.png`.
   It drops a `.svg` or `.png` suffix and keeps any other dots, so `x.curve`
   gives `x.curve.svg` and `x.curve.png`.
+- `zero_line(ax, axis="y", **line_kwargs)` draws a bold line at zero, for
+  values that change sign. It uses the frame color at twice the grid width.
+  `axis="x"` draws x = 0 and `"both"` draws both. The limits widen to include
+  zero.
 
 ## Recipes per look
 

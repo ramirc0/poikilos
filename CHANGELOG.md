@@ -19,6 +19,8 @@ The distribution and the import package are both `poikilos`.
 - `use(theme, *, palette=None, rc=None)`, `context(...)` and `rc_params(...)`.
   Any look takes any palette, and `rc` overrides any rcParam.
 - `PALETTES`, with each palette's colors as hex, and `THEMES`.
+- `zero_line(ax, axis="y")` draws a bold line at zero, for values that change
+  sign.
 
 ### Changed
 
