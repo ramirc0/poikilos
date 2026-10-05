@@ -149,16 +149,17 @@ cycle slot and beads dense lines. seaborn would also apply it unevenly.
 `scatterplot` and `pointplot` drop it. `lineplot` keeps it but leaves it out of
 the legend, and without `hue` takes the marker from the wrong cycle slot.
 
-**pgl.** The look of the Programmable Genomics Laboratory's papers: seaborn's
-`whitegrid` with no spines and a dashed grid in place of tick marks. Never call
-`despine` on it, because that brings the spines back.
+**pgl.** The Programmable Genomics Laboratory's papers use seaborn's
+`whitegrid` without spines, with a dashed grid in place of tick marks. This look
+follows them. Never call `despine` on it, because that brings the spines back.
 
 ```python
 ax.xaxis.grid(False)  # categorical x; seaborn's categorical plots already do this
 pk.zero_line(ax)  # values change sign; axis="x" for x = 0
 ```
 
-To sign positive tick labels on a scale that runs from − to +:
+Heatmaps need `ax.grid(False)`. To sign positive tick labels on a scale that
+runs from − to +:
 
 ```python
 from matplotlib.ticker import ScalarFormatter
@@ -173,8 +174,7 @@ class SignedFormatter(ScalarFormatter):
 ax.xaxis.set_major_formatter(SignedFormatter())
 ```
 
-It keeps matplotlib's formatting, so `+1.50` sits next to `−0.50`. Heatmaps
-need `ax.grid(False)`.
+It keeps matplotlib's formatting, so `+1.50` sits next to `−0.50`.
 
 **PDF text as TrueType.** `rc={"pdf.fonttype": 42}` embeds fonts as TrueType.
 Use it only with a TrueType font. Anthropic Sans Text and New Computer Modern

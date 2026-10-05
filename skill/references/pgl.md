@@ -1,13 +1,13 @@
 # The pgl look
 
-Used by `pgl`. It follows the figures of the Programmable Genomics Laboratory
-(the Schreiber lab), such as those in the ledidi paper. Those figures are
+Used by `pgl`. It follows the figures of the Programmable Genomics Laboratory,
+the Schreiber lab, such as those in the ledidi paper. Those figures are
 seaborn's `whitegrid` style with every spine removed.
 
 ## What the look sets
 
-- Overpass at matplotlib's default sizes. The papers use Arial, which comes
-  next in the chain, then Arimo with Arial's metrics.
+- Overpass at matplotlib's default sizes. The papers use Arial, the next font
+  in the chain. Arimo follows it with Arial's metrics.
 - No spines and no tick marks. The grid takes their place. Tick labels stay,
   7 pt from the data area.
 - A dashed `#cccccc` grid on both axes, below the data.
