@@ -304,6 +304,37 @@ def test_despine_categorical_axis_drops_minor_ticks():
 
 
 @pytest.mark.parametrize(
+    ("draw", "categorical_x"),
+    [
+        (lambda ax: ax.bar(["first", "second", "third"], [3.2, 1.0, 7.5]), True),
+        (lambda ax: ax.plot([0.3, 9.2], [1.1, 7.7]), False),
+    ],
+    ids=["categorical", "continuous"],
+)
+def test_despine_keeps_rotated_tick_labels(draw, categorical_x):
+    # Moving a spine rebuilds its axis's ticks. Rotation set on the old labels went back
+    # to horizontal, so long category names overlapped.
+    images = []
+    for rotate_first in (True, False):
+        fig, ax = plt.subplots()
+        draw(ax)
+        if rotate_first:
+            plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
+            despine(ax, categorical_x=categorical_x)
+        else:
+            despine(ax, categorical_x=categorical_x)
+            # Ticks rebuilt on the moved spines show where kept ticks belong.
+            ax.xaxis.reset_ticks()
+            ax.yaxis.reset_ticks()
+            plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
+        fig.canvas.draw()
+        assert all(t.get_rotation() == 45 for t in ax.get_xticklabels())
+        images.append(np.asarray(fig.canvas.buffer_rgba()).copy())
+        plt.close(fig)
+    assert np.array_equal(*images)
+
+
+@pytest.mark.parametrize(
     ("axis", "drawn"), [("y", ["y"]), ("x", ["x"]), ("both", ["y", "x"])]
 )
 def test_zero_line_defaults(axis, drawn):

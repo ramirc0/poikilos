@@ -37,7 +37,16 @@ def despine(ax, categorical_x=False, categorical_y=False):
     ax.margins(0)
     ax.autoscale_view()
     ax.spines[["top", "right"]].set_visible(False)
+    # Moving a spine rebuilds its axis's ticks, dropping label styling such as rotation.
+    # A tick's parts depend on the spine only through their transforms.
+    kept = [(axis, axis.majorTicks, axis.minorTicks) for axis in (ax.xaxis, ax.yaxis)]
     ax.spines[:].set_position(("outward", 10))
+    for axis, major, minor in kept:
+        for old, rebuilt in ((major, axis.majorTicks[0]), (minor, axis.minorTicks[0])):
+            for tick in old:
+                for part, moved in zip(tick.get_children(), rebuilt.get_children()):
+                    part.set_transform(moved.get_transform())
+        axis.majorTicks, axis.minorTicks = major, minor
     ax.tick_params(which="both", top=False, right=False)
     for axis, set_lim, spine, categorical in [
         (ax.yaxis, ax.set_ylim, ax.spines["left"], categorical_y),
