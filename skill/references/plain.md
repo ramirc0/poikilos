@@ -69,6 +69,21 @@ Keep data edges on round numbers where you can. Integer histogram bins centred
 on whole numbers put the first edge at -0.5, which widens the axis to the tick
 below 0. Start such bins at 0.
 
+### Twin axes
+
+`despine` styles the left and bottom spines of the axes it gets. Style a
+`twinx()` axes by hand, and call `despine` on the host after the twin is drawn.
+
+```python
+ax2 = ax.twinx()
+ax2.plot(x, y2, clip_on=False)  # despine never sees the twin
+ax2.set_ylim(0, 100)  # limits on ticks, so the spine ends on one
+ax2.spines[["left", "bottom"]].set_visible(False)
+ax2.spines["right"].set_visible(True)  # the look hides right spines
+ax2.spines["right"].set_position(("outward", 10))
+pk.despine(ax)  # last, once the twin is drawn
+```
+
 ## label_points
 
 `pk.label_points(ax, points, labels)` takes the collection `ax.scatter` returns

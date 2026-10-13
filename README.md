@@ -129,7 +129,18 @@ color therefore carries through to them.
 Looks only set rcParams. Anything that needs code per axes is a recipe.
 
 **plain.** Call `despine` on every axes. Without it you get matplotlib's
-default frame minus the top and right spines.
+default frame minus the top and right spines. `despine` styles the left and
+bottom spines only, so style a twin axes by hand:
+
+```python
+ax2 = ax.twinx()
+ax2.plot(x, y2, clip_on=False)  # despine never sees the twin
+ax2.set_ylim(0, 100)  # limits on ticks, so the spine ends on one
+ax2.spines[["left", "bottom"]].set_visible(False)
+ax2.spines["right"].set_visible(True)  # the look hides right spines
+ax2.spines["right"].set_position(("outward", 10))
+pk.despine(ax)  # last, once the twin is drawn
+```
 
 **lilaq.** lilaq's tick steps and dotted lines take a few lines of code:
 
