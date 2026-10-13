@@ -162,6 +162,26 @@ def test_despine_categorical_y_drops_left_spine():
     plt.close(fig)
 
 
+@pytest.mark.parametrize("axis", ["x", "y"])
+def test_despine_keeps_categorical_labels_by_the_data(axis):
+    fig, ax = plt.subplots()
+    (ax.bar if axis == "x" else ax.barh)(["a", "b", "c"], [3.2, 1.0, 7.5])
+    despine(ax, **{f"categorical_{axis}": True})
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    edge = ax.get_window_extent(renderer)
+    boxes = [
+        t.get_window_extent(renderer) for t in getattr(ax, f"get_{axis}ticklabels")()
+    ]
+    if axis == "x":
+        gap = edge.y0 - max(b.y1 for b in boxes)
+    else:
+        gap = edge.x0 - max(b.x1 for b in boxes)
+    gap *= 72 / fig.dpi
+    assert gap == pytest.approx(mpl.rcParams[f"{axis}tick.major.pad"], abs=0.5)
+    plt.close(fig)
+
+
 def test_despine_heatmap_has_no_spines():
     fig, ax = plt.subplots()
     ax.pcolormesh(np.arange(6).reshape(2, 3))

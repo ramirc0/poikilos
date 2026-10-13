@@ -107,7 +107,8 @@ color therefore carries through to them.
   axis to its data and widens it to the enclosing ticks. It then offsets the
   left and bottom spines by 10 pt and trims them to the end ticks. The top and
   right spines and their ticks go. Pass `categorical_x=True` for bar charts,
-  `categorical_y=True` for horizontal bars, and both for heatmaps. Call it after
+  `categorical_y=True` for horizontal bars, and both for heatmaps. A categorical
+  axis has no spine or offset, so its labels sit by the data. Call it after
   everything is drawn.
 - `label_points(ax, points, labels, **text_kwargs)` labels the collection
   `ax.scatter` returns. It moves labels off each other and off the markers,

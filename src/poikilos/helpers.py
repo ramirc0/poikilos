@@ -9,14 +9,15 @@ from matplotlib.lines import Line2D
 
 
 def despine(ax, categorical_x=False, categorical_y=False):
-    """Offset the left and bottom spines by 10 pt and trim them to the end ticks.
+    """Offset the continuous axes' spines by 10 pt and trim them to the end ticks.
 
     Each continuous axis is fitted to its data without margins, then widened
     to the nearest ticks enclosing the data, so the trimmed spine never ends
     short of the data. When the locator has no enclosing tick (e.g. dates),
-    the data edge becomes the end tick. A categorical axis has no spine or
-    tick marks, major or minor; its labels carry the categories. Top and
-    right tick marks are hidden with their spines.
+    the data edge becomes the end tick. A categorical axis has no spine, no
+    offset and no tick marks, major or minor; its labels carry the categories
+    and sit by the data. Top and right tick marks are hidden with their
+    spines.
 
     When the limits hold all the data, the plotted artists are unclipped so
     markers and lines at the limits draw whole into the spine offset. Lines
@@ -36,10 +37,19 @@ def despine(ax, categorical_x=False, categorical_y=False):
     ax.margins(0)
     ax.autoscale_view()
     ax.spines[["top", "right"]].set_visible(False)
+    moved = [
+        (axis, side)
+        for axis, side, categorical in [
+            (ax.xaxis, "bottom", categorical_x),
+            (ax.yaxis, "left", categorical_y),
+        ]
+        if not categorical
+    ]
     # Moving a spine rebuilds its axis's ticks, dropping label styling such as rotation.
     # A tick's parts depend on the spine only through their transforms.
-    kept = [(axis, axis.majorTicks, axis.minorTicks) for axis in (ax.xaxis, ax.yaxis)]
-    ax.spines[:].set_position(("outward", 10))
+    kept = [(axis, axis.majorTicks, axis.minorTicks) for axis, _ in moved]
+    for _, side in moved:
+        ax.spines[side].set_position(("outward", 10))
     for axis, major, minor in kept:
         for old, rebuilt in ((major, axis.majorTicks[0]), (minor, axis.minorTicks[0])):
             for tick in old:

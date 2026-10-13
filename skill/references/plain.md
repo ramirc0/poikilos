@@ -19,7 +19,8 @@ the end ticks. Call it on every axes after everything is drawn on it.
 | Boxplot, violin (categorical x) | `despine(ax, categorical_x=True)` | left spine only |
 
 Bar charts and heatmaps carry their categories in the tick labels, so that axis
-needs no spine. A categorical axis also loses its minor ticks. `despine` hides
+needs no spine. Its labels get no offset and sit by the bars or cells. A
+categorical axis also loses its minor ticks. `despine` hides
 the top and right tick marks too, so it works on a look that mirrors ticks.
 
 Give a heatmap colorbar its own `subplot_mosaic` cell. `fig.colorbar(ax=...)`
