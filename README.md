@@ -109,7 +109,8 @@ color therefore carries through to them.
   right spines and their ticks go. Pass `categorical_x=True` for bar charts,
   `categorical_y=True` for horizontal bars, and both for heatmaps. A categorical
   axis has no spine or offset, so its labels sit by the data. Call it after
-  everything is drawn.
+  everything on the figure is drawn. It picks ticks for the axes size after
+  layout.
 - `label_points(ax, points, labels, **text_kwargs)` labels the collection
   `ax.scatter` returns. It moves labels off each other and off the markers,
   but a label can still touch a marker. That happens most near the edge of the

@@ -75,6 +75,10 @@ The distribution and the import package are both `poikilos`.
 - `despine` unclips every panel of shared axes, such as seaborn facets. Only
   the first panel used to draw edge markers whole. Explicit limits that hold
   all the data now unclip too.
+- `despine` picks ticks for the axes size after layout. It picked them before
+  layout, so an axes that layout shrank, such as one beside long category
+  names, kept too many ticks and their labels overlapped. Axes that layout
+  resizes can get a different tick step.
 - `despine` no longer offsets a categorical axis. Its labels sat 10 pt farther
   from the bars or cells than the tick padding.
 - `despine` keeps styling set on tick labels, such as rotation. Moving the

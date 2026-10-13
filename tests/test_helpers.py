@@ -1,5 +1,5 @@
 import datetime as dt
-from itertools import combinations
+from itertools import combinations, pairwise
 
 import matplotlib as mpl
 import matplotlib.dates as mdates
@@ -182,6 +182,22 @@ def test_despine_keeps_categorical_labels_by_the_data(axis):
     plt.close(fig)
 
 
+def test_despine_picks_ticks_for_the_laid_out_axes():
+    # Constrained layout shrinks the axes to fit long category labels. Ticks picked
+    # for the axes before layout then overlapped.
+    fig, ax = plt.subplots(figsize=(7, 3.8))
+    ax.barh(
+        ["representative present, below final support threshold", "no peak", "peak"],
+        [206000, 82000, 4700],
+    )
+    despine(ax, categorical_y=True)
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    boxes = [t.get_window_extent(renderer) for t in ax.get_xticklabels()]
+    assert all(a.x1 < b.x0 for a, b in pairwise(boxes))
+    plt.close(fig)
+
+
 def test_despine_heatmap_has_no_spines():
     fig, ax = plt.subplots()
     ax.pcolormesh(np.arange(6).reshape(2, 3))
@@ -344,19 +360,21 @@ def test_despine_categorical_axis_drops_minor_ticks():
 
 
 @pytest.mark.parametrize(
-    ("draw", "categorical_x"),
+    ("draw", "categorical_x", "figsize"),
     [
-        (lambda ax: ax.bar(["first", "second", "third"], [3.2, 1.0, 7.5]), True),
-        (lambda ax: ax.plot([0.3, 9.2], [1.1, 7.7]), False),
+        (lambda ax: ax.bar(["first", "second", "third"], [3.2, 1.0, 7.5]), True, None),
+        (lambda ax: ax.plot([0.3, 9.2], [1.1, 7.7]), False, None),
+        # Constrained layout widens this axes, so laying it out adds ticks.
+        (lambda ax: ax.plot([0.3, 9.2], [1.1, 7.7]), False, (2, 2)),
     ],
-    ids=["categorical", "continuous"],
+    ids=["categorical", "continuous", "continuous-small"],
 )
-def test_despine_keeps_rotated_tick_labels(draw, categorical_x):
+def test_despine_keeps_rotated_tick_labels(draw, categorical_x, figsize):
     # Moving a spine rebuilds its axis's ticks. Rotation set on the old labels went back
     # to horizontal, so long category names overlapped.
     images = []
     for rotate_first in (True, False):
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=figsize)
         draw(ax)
         if rotate_first:
             plt.setp(

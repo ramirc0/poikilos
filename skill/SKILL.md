@@ -34,10 +34,10 @@ later and matplotlib 3.11 or later.
    poikilos instead. Choices that depend on the data are fine per axes:
    legend placement (`ax.legend(loc="upper left")` when the data fills the
    default corner), `figsize`, limits, titles and labels.
-5. **Plain look: call `pk.despine(ax)` on every axes**, after everything is
-   drawn on it. It is what makes the plain look: spines offset by 10 pt and
-   trimmed to the end ticks. See [references/plain.md](references/plain.md)
-   for categorical axes.
+5. **Plain look: call `pk.despine(ax)` on every axes**, after everything on
+   the figure is drawn. It is what makes the plain look: spines offset by
+   10 pt and trimmed to the end ticks. See
+   [references/plain.md](references/plain.md) for categorical axes.
 6. **Label scatter points with `pk.label_points(ax, points, labels)`**, never
    with `ax.annotate` or `ax.text` per point. Fixed offsets collide as soon as
    two points sit close together. Call it last on the figure. With several

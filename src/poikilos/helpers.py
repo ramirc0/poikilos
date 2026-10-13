@@ -23,7 +23,9 @@ def despine(ax, categorical_x=False, categorical_y=False):
     markers and lines at the limits draw whole into the spine offset. Lines
     without data stay clipped. Limits that cut data off keep clipping on, such
     as a zoom or a log axis with values at or below 0 (e.g. a bar's base).
-    Call after everything is drawn on ``ax``.
+
+    Call after everything on the figure is drawn, titles and legends included.
+    The figure is laid out first, so the ticks fit the axes size after layout.
 
     Parameters
     ----------
@@ -57,6 +59,8 @@ def despine(ax, categorical_x=False, categorical_y=False):
                     part.set_transform(moved.get_transform())
         axis.majorTicks, axis.minorTicks = major, minor
     ax.tick_params(which="both", top=False, right=False)
+    # The locator scales its tick count with the axes size, which layout can change a lot.
+    ax.get_figure(root=True).draw_without_rendering()
     for axis, set_lim, spine, categorical in [
         (ax.yaxis, ax.set_ylim, ax.spines["left"], categorical_y),
         (ax.xaxis, ax.set_xlim, ax.spines["bottom"], categorical_x),
@@ -70,11 +74,11 @@ def despine(ax, categorical_x=False, categorical_y=False):
         ticks = axis.get_major_locator()()
         lo = max((t for t in ticks if t <= lo), default=lo)
         hi = min((t for t in ticks if t >= hi), default=hi)
-        count = len(axis.majorTicks)
         axis.set_ticks(sorted({lo, hi, *(t for t in ticks if lo <= t <= hi)}))
-        # Added ticks copy the first tick's label styling, except rotation_mode.
-        first = axis.majorTicks[0]
-        for tick in axis.majorTicks[count:]:
+        # Ticks added by layout or set_ticks copy the first tick's label styling,
+        # except rotation_mode.
+        first, *rest = axis.majorTicks
+        for tick in rest:
             tick.label1.set_rotation_mode(first.label1.get_rotation_mode())
             tick.label2.set_rotation_mode(first.label2.get_rotation_mode())
         # Python 3.11 reads reverse= through __index__, which numpy >= 2.3 rejects on np.bool_.
