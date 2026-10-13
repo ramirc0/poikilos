@@ -111,24 +111,6 @@ class _BoxedText(Text):
         self.update_bbox_position_size(self._renderer)
         return Bbox.union([extent, box.get_window_extent()])
 
-    def update_bbox_position_size(self, renderer):
-        super().update_bbox_position_size(renderer)
-        box = self.get_bbox_patch()
-        if box is None:
-            return
-        # Text leaves room for descenders under every label, a chin under labels
-        # without any. Start the box at the last line's own descent instead.
-        prop = self.get_fontproperties()
-        room = renderer.get_text_width_height_descent(
-            "lp", prop, ismath="TeX" if self.get_usetex() else False
-        )[2]
-        line, ismath = self._preprocess_math(self.get_text().split("\n")[-1])
-        descent = renderer.get_text_width_height_descent(line, prop, ismath=ismath)[2]
-        chin = max(room - descent, 0)
-        box.set_bounds(
-            box.get_x(), box.get_y() + chin, box.get_width(), box.get_height() - chin
-        )
-
 
 def label_points(ax, points, labels, **kwargs):
     """Label scatter markers, moving the labels off each other and the markers.
@@ -175,6 +157,10 @@ def label_points(ax, points, labels, **kwargs):
     kwargs = {
         "transform": ax.transData,
         "clip_on": False,
+        # The default "normal" spacing sits text on the font's ascent and descent, so
+        # the space above and below a label depends on its letters. A numeric spacing
+        # splits the line's spare height evenly around the ink.
+        "linespacing": 1,
         "bbox": {
             "boxstyle": "round,pad=0.25,rounding_size=0.2"
             if rc["legend.fancybox"]
@@ -196,7 +182,7 @@ def label_points(ax, points, labels, **kwargs):
         texts,
         objects=points,
         ax=ax,
-        expand=(1.2, 1.5),
+        expand=(1.2, 1.4),
         force_text=(0.5, 1.0),
         force_static=(0.2, 0.4),
         pull_threshold=clear,

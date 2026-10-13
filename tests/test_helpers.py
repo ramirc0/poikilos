@@ -317,11 +317,16 @@ def test_label_points_boxes_labels_like_the_legend():
     plt.close(fig)
 
 
-def test_label_points_centers_labels_in_their_boxes():
-    # Text sizes its box for descenders, so a label without any sat high in its box.
-    fig, ax = plt.subplots(figsize=(2, 2), dpi=200)
+@pytest.mark.parametrize("font", ["DejaVu Sans", "DejaVu Serif"])
+@pytest.mark.parametrize("label", ["A549", "HepG2", "ace"])
+def test_label_points_centers_labels_in_their_boxes(label, font):
+    # Text sits each line on the font's ascent and descent, so a label's space above
+    # and below its ink depended on the font and on which letters it has.
+    fig, ax = plt.subplots(figsize=(3, 2), dpi=200)
     points = ax.scatter([0.5], [0.5])
-    (text,) = label_points(ax, points, ["A549"], color="#ff0000", fontsize=20)
+    (text,) = label_points(
+        ax, points, [label], color="#ff0000", fontsize=20, fontfamily=font
+    )
     fig.canvas.draw()
     img = np.asarray(fig.canvas.buffer_rgba())[..., :3].astype(int)
     ink = np.flatnonzero(((img[..., 0] > 150) & (img[..., 1:] < 100).all(-1)).any(1))
