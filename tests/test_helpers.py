@@ -319,16 +319,19 @@ def test_label_points_boxes_labels_like_the_legend():
     plt.close(fig)
 
 
-@pytest.mark.parametrize(
-    ("rc", "kwargs"),
-    [({"legend.frameon": False}, {}), ({}, {"bbox": None})],
-    ids=["frameless-legend", "bbox-none"],
-)
-def test_label_points_leaves_labels_bare(rc, kwargs):
-    with mpl.rc_context(rc):
+def test_label_points_boxes_labels_on_a_look_without_legend_frames():
+    with pk.context("pgl"):
         fig, ax = plt.subplots(figsize=(3, 3))
         points = ax.scatter([0.2, 0.8], [0.2, 0.8])
-        texts = label_points(ax, points, ["alpha", "beta"], **kwargs)
+        texts = label_points(ax, points, ["alpha", "beta"])
+    assert all(t.get_bbox_patch() for t in texts)
+    plt.close(fig)
+
+
+def test_label_points_leaves_labels_bare_without_bbox():
+    fig, ax = plt.subplots(figsize=(3, 3))
+    points = ax.scatter([0.2, 0.8], [0.2, 0.8])
+    texts = label_points(ax, points, ["alpha", "beta"], bbox=None)
     assert all(t.get_bbox_patch() is None for t in texts)
     plt.close(fig)
 

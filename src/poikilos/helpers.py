@@ -115,8 +115,8 @@ def label_points(ax, points, labels, **kwargs):
     """Label scatter markers, moving the labels off each other and the markers.
 
     Labels sit in boxes drawn like the legend frame, from the ``legend.*``
-    rcParams, so a look without a legend frame gets bare labels. Each label
-    starts at its marker; adjustText then moves the boxes apart and
+    rcParams, even on a look that hides the legend frame. Each label starts
+    at its marker; adjustText then moves the boxes apart and
     off the markers' full extent and draws a leader line, in the axes edge
     color, back to each marker. Labels stay inside the axes, so a label near
     the axes edge can still touch a marker. Call last on the figure, after
@@ -148,23 +148,24 @@ def label_points(ax, points, labels, **kwargs):
     px = ax.figure.dpi / 72
     clear = (np.sqrt(points.get_sizes().max()) / 2 + 2) * px
     rc = mpl.rcParams
-    kwargs = {"transform": ax.transData, "clip_on": False, **kwargs}
-    if rc["legend.frameon"]:
-        face, edge = rc["legend.facecolor"], rc["legend.edgecolor"]
-        # The frame matplotlib's Legend draws, with less padding than its borderpad:
-        # bigger boxes leave labels at a crowded axes edge no room off the markers.
-        kwargs.setdefault(
-            "bbox",
-            {
-                "boxstyle": "round,pad=0.25,rounding_size=0.2"
-                if rc["legend.fancybox"]
-                else "square,pad=0.25",
-                "facecolor": rc["axes.facecolor"] if face == "inherit" else face,
-                "edgecolor": rc["axes.edgecolor"] if edge == "inherit" else edge,
-                "linewidth": rc["legend.linewidth"],
-                "alpha": rc["legend.framealpha"],
-            },
-        )
+    face, edge = rc["legend.facecolor"], rc["legend.edgecolor"]
+    # The frame matplotlib's Legend draws, even where legend.frameon hides it, with less
+    # padding than its borderpad: bigger boxes leave labels at a crowded axes edge no room
+    # off the markers.
+    kwargs = {
+        "transform": ax.transData,
+        "clip_on": False,
+        "bbox": {
+            "boxstyle": "round,pad=0.25,rounding_size=0.2"
+            if rc["legend.fancybox"]
+            else "square,pad=0.25",
+            "facecolor": rc["axes.facecolor"] if face == "inherit" else face,
+            "edgecolor": rc["axes.edgecolor"] if edge == "inherit" else edge,
+            "linewidth": rc["legend.linewidth"],
+            "alpha": rc["legend.framealpha"],
+        },
+        **kwargs,
+    }
     texts = [
         ax.add_artist(_BoxedText(x, y, label, **kwargs))
         for (x, y), label in zip(points.get_offsets(), labels)
