@@ -68,6 +68,8 @@ def despine(ax, categorical_x=False, categorical_y=False):
         spine.set_visible(not categorical)
         if categorical:
             axis.set_tick_params(which="both", length=0)
+            # Autoscaling, a twin would refit the shared axis with its own margins.
+            set_lim(axis.get_view_interval())
             continue
         lo, hi = sorted(axis.get_view_interval())
         # Calling the locator reads the view limits itself; date locators reject raw floats.

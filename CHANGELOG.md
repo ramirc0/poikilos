@@ -79,6 +79,9 @@ The distribution and the import package are both `poikilos`.
   layout, so an axes that layout shrank, such as one beside long category
   names, kept too many ticks and their labels overlapped. Axes that layout
   resizes can get a different tick step.
+- `despine` fixes the limits of a categorical axis. A twin drawn after
+  `despine` refitted them with its own margins and moved the bars off the
+  spine.
 - `despine` no longer offsets a categorical axis. Its labels sat 10 pt farther
   from the bars or cells than the tick padding.
 - `despine` keeps styling set on tick labels, such as rotation. Moving the

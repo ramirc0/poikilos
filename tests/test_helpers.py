@@ -198,6 +198,19 @@ def test_despine_picks_ticks_for_the_laid_out_axes():
     plt.close(fig)
 
 
+def test_despine_keeps_categorical_limits_under_a_twin():
+    # A twin refitted the shared axis with its own 5% margin, moving the bars off the spine.
+    fig, ax = plt.subplots()
+    ax.bar([1, 2, 3], [3.2, 1.0, 7.5])
+    despine(ax, categorical_x=True)
+    xlim = ax.get_xlim()
+    twin = ax.twinx()
+    twin.plot([1, 2, 3], [10, 50, 90])
+    twin.set_ylim(0, 100)
+    assert ax.get_xlim() == xlim
+    plt.close(fig)
+
+
 def test_despine_heatmap_has_no_spines():
     fig, ax = plt.subplots()
     ax.pcolormesh(np.arange(6).reshape(2, 3))
