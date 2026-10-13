@@ -50,16 +50,17 @@ tick or widen the figure.
 ### Clipping
 
 Data at the limits sits on the axes edge, where matplotlib clips each marker
-and line width in half. When both axes were fitted to the data, `despine` turns
-clipping off, so edge markers draw whole into the 10 pt offset. Lines without
-data stay clipped. An empty line, such as the flier line of a boxplot with no
-outliers, would otherwise pull constrained layout to the figure corner.
+and line width in half. When the limits hold all the data, `despine` turns
+clipping off, so edge markers draw whole into the 10 pt offset. This holds on
+shared axes and seaborn facets too. Lines without data stay clipped. An empty
+line, such as the flier line of a boxplot with no outliers, would otherwise
+pull constrained layout to the figure corner.
 
-Explicit limits set before `despine` keep clipping on, so zoomed or cropped data
-stays hidden. A log axis leaves values at or below 0 out of its limits, such as
-the base of every bar. `despine` keeps clipping on there too. Unclipped, the
-bars would reach far below the figure and collapse constrained layout. Markers
-wider than the offset can still reach titles or tick labels.
+Limits that cut data off keep clipping on, so zoomed or cropped data stays
+hidden. A log axis leaves values at or below 0 out of its limits, such as the
+base of every bar. `despine` keeps clipping on there too. Unclipped, the bars
+would reach far below the figure and collapse constrained layout. Markers wider
+than the offset can still reach titles or tick labels.
 
 Keep data edges on round numbers where you can. Integer histogram bins centred
 on whole numbers put the first edge at -0.5, which widens the axis to the tick

@@ -84,12 +84,32 @@ def test_despine_does_not_clip_edge_markers():
     plt.close(fig)
 
 
-def test_despine_keeps_clipping_with_explicit_limits():
+def test_despine_keeps_clipping_when_limits_crop_data():
     fig, ax = plt.subplots()
     (line,) = ax.plot([0, 1, 2, 3], [0, 1, 4, 9])
     ax.set_xlim(1, 2)
     despine(ax)
     assert line.get_clip_on() is True
+    plt.close(fig)
+
+
+def test_despine_unclips_within_explicit_limits():
+    fig, ax = plt.subplots()
+    (line,) = ax.plot([0, 1, 2, 3], [0, 1, 4, 9])
+    ax.set_ylim(0, 10)
+    despine(ax)
+    assert line.get_clip_on() is False
+    plt.close(fig)
+
+
+@pytest.mark.parametrize("share", ["sharex", "sharey"])
+def test_despine_unclips_every_shared_axes(share):
+    # Setting limits on one axes turns autoscaling off on the axes sharing them.
+    fig, axes = plt.subplots(1, 2, **{share: True})
+    lines = [ax.plot([0, 1, 2, 3], [0, 1, 4, 9], marker="o")[0] for ax in axes]
+    for ax in axes:
+        despine(ax)
+    assert [line.get_clip_on() for line in lines] == [False, False]
     plt.close(fig)
 
 

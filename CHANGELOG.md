@@ -72,6 +72,9 @@ The distribution and the import package are both `poikilos`.
 - `despine` keeps clipping on when a log axis leaves out values at or below 0,
   such as the base of each bar. Unclipped, log bar charts collapsed constrained
   layout and lost tick labels.
+- `despine` unclips every panel of shared axes, such as seaborn facets. Only
+  the first panel used to draw edge markers whole. Explicit limits that hold
+  all the data now unclip too.
 - `despine` keeps styling set on tick labels, such as rotation. Moving the
   spines used to reset rotated labels to horizontal. Long category names then
   overlapped.
