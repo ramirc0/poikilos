@@ -61,7 +61,13 @@ def despine(ax, categorical_x=False, categorical_y=False):
         ticks = axis.get_major_locator()()
         lo = max((t for t in ticks if t <= lo), default=lo)
         hi = min((t for t in ticks if t >= hi), default=hi)
+        count = len(axis.majorTicks)
         axis.set_ticks(sorted({lo, hi, *(t for t in ticks if lo <= t <= hi)}))
+        # Added ticks copy the first tick's label styling, except rotation_mode.
+        first = axis.majorTicks[0]
+        for tick in axis.majorTicks[count:]:
+            tick.label1.set_rotation_mode(first.label1.get_rotation_mode())
+            tick.label2.set_rotation_mode(first.label2.get_rotation_mode())
         # Python 3.11 reads reverse= through __index__, which numpy >= 2.3 rejects on np.bool_.
         set_lim(sorted((lo, hi), reverse=bool(axis.get_inverted())))
         spine.set_bounds(lo, hi)

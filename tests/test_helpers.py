@@ -319,14 +319,18 @@ def test_despine_keeps_rotated_tick_labels(draw, categorical_x):
         fig, ax = plt.subplots()
         draw(ax)
         if rotate_first:
-            plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
+            plt.setp(
+                ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor"
+            )
             despine(ax, categorical_x=categorical_x)
         else:
             despine(ax, categorical_x=categorical_x)
             # Ticks rebuilt on the moved spines show where kept ticks belong.
             ax.xaxis.reset_ticks()
             ax.yaxis.reset_ticks()
-            plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
+            plt.setp(
+                ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor"
+            )
         fig.canvas.draw()
         assert all(t.get_rotation() == 45 for t in ax.get_xticklabels())
         images.append(np.asarray(fig.canvas.buffer_rgba()).copy())
