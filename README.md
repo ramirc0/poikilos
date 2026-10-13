@@ -112,10 +112,11 @@ color therefore carries through to them.
   everything on the figure is drawn. It picks ticks for the axes size after
   layout.
 - `label_points(ax, points, labels, **text_kwargs)` labels the collection
-  `ax.scatter` returns. It moves labels off each other and off the markers,
-  but a label can still touch a marker. That happens most near the edge of the
-  axes, since labels stay inside them. Call it last, after `despine` and every
-  title and legend. Needs the `labels` extra.
+  `ax.scatter` returns. Each label sits in a box styled like the legend frame,
+  or stays bare with `bbox=None`. It moves labels off each other and off the
+  markers, but a label can still touch a marker. That happens most near the
+  edge of the axes, since labels stay inside them. Call it last, after
+  `despine` and every title and legend. Needs the `labels` extra.
 - `save_figure(fig, path, **savefig_kwargs)` writes `path.svg` and `path.png`.
   It drops a `.svg` or `.png` suffix and keeps any other dots, so `x.curve`
   gives `x.curve.svg` and `x.curve.png`.

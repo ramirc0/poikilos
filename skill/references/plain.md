@@ -92,10 +92,17 @@ then moves the labels apart and off the markers' full extent, not just their
 centres. It keeps a small gap between labels and draws a thin leader line back
 to each marker, in the axes edge color.
 
+Each label sits in a rounded box styled like the legend frame. Its face, edge,
+line width, transparency and corners come from the `legend.*` rcParams. A look
+without a legend frame, such as pgl, gets bare labels. adjustText keeps the
+boxes apart, not just the text. Pass `bbox=None` for bare labels, or a `bbox`
+dict to restyle the box.
+
 Call it last, after `despine` and every title, axis label, suptitle and legend
 on the figure. adjustText places labels in pixels. Anything added afterwards
 makes constrained layout reshape the axes, which moves the labels back into
-each other. Extra keyword arguments go to `ax.text`, for example `fontsize=8`.
+each other. Extra keyword arguments go to `matplotlib.text.Text`, for example
+`fontsize=8`.
 
 adjustText sizes its steps in pixels, with defaults tuned for the screen. At
 300 dpi those defaults pulled labels back onto their own markers, so

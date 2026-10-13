@@ -6,6 +6,8 @@ import matplotlib as mpl
 import numpy as np
 from matplotlib import cbook
 from matplotlib.lines import Line2D
+from matplotlib.text import Text
+from matplotlib.transforms import Bbox
 
 
 def despine(ax, categorical_x=False, categorical_y=False):
@@ -96,10 +98,25 @@ def despine(ax, categorical_x=False, categorical_y=False):
             artist.set_clip_on(False)
 
 
+class _BoxedText(Text):
+    """Text whose window extent includes its box, so adjustText keeps boxes apart."""
+
+    def get_window_extent(self, renderer=None, dpi=None):
+        extent = super().get_window_extent(renderer, dpi)
+        box = self.get_bbox_patch()
+        if box is None:
+            return extent
+        # Text places its box only when drawn.
+        self.update_bbox_position_size(self._renderer)
+        return Bbox.union([extent, box.get_window_extent()])
+
+
 def label_points(ax, points, labels, **kwargs):
     """Label scatter markers, moving the labels off each other and the markers.
 
-    Each label starts at its marker; adjustText then moves labels apart and
+    Labels sit in boxes drawn like the legend frame, from the ``legend.*``
+    rcParams, so a look without a legend frame gets bare labels. Each label
+    starts at its marker; adjustText then moves the boxes apart and
     off the markers' full extent and draws a leader line, in the axes edge
     color, back to each marker. Labels stay inside the axes, so a label near
     the axes edge can still touch a marker. Call last on the figure, after
@@ -116,7 +133,8 @@ def label_points(ax, points, labels, **kwargs):
     labels : sequence of str
         One label per point, in the order of ``points``.
     **kwargs
-        Passed to ``ax.text`` (e.g. ``fontsize=8``).
+        Passed to :class:`matplotlib.text.Text` (e.g. ``fontsize=8``). A
+        ``bbox`` dict replaces the box; ``bbox=None`` leaves labels bare.
 
     Returns
     -------
@@ -129,15 +147,33 @@ def label_points(ax, points, labels, **kwargs):
     # so a 300 dpi figure does not pull labels back onto their markers.
     px = ax.figure.dpi / 72
     clear = (np.sqrt(points.get_sizes().max()) / 2 + 2) * px
+    rc = mpl.rcParams
+    kwargs = {"transform": ax.transData, "clip_on": False, **kwargs}
+    if rc["legend.frameon"]:
+        face, edge = rc["legend.facecolor"], rc["legend.edgecolor"]
+        # The frame matplotlib's Legend draws, with less padding than its borderpad:
+        # bigger boxes leave labels at a crowded axes edge no room off the markers.
+        kwargs.setdefault(
+            "bbox",
+            {
+                "boxstyle": "round,pad=0.25,rounding_size=0.2"
+                if rc["legend.fancybox"]
+                else "square,pad=0.25",
+                "facecolor": rc["axes.facecolor"] if face == "inherit" else face,
+                "edgecolor": rc["axes.edgecolor"] if edge == "inherit" else edge,
+                "linewidth": rc["legend.linewidth"],
+                "alpha": rc["legend.framealpha"],
+            },
+        )
     texts = [
-        ax.text(x, y, label, **kwargs)
+        ax.add_artist(_BoxedText(x, y, label, **kwargs))
         for (x, y), label in zip(points.get_offsets(), labels)
     ]
     adjust_text(
         texts,
         objects=points,
         ax=ax,
-        expand=(1.3, 1.6),
+        expand=(1.2, 1.4),
         force_text=(0.5, 1.0),
         force_static=(0.2, 0.4),
         pull_threshold=clear,
@@ -147,7 +183,7 @@ def label_points(ax, points, labels, **kwargs):
         iter_lim=1000,
         arrowprops={
             "arrowstyle": "-",
-            "color": mpl.rcParams["axes.edgecolor"],
+            "color": rc["axes.edgecolor"],
             "lw": 0.5,
         },
     )

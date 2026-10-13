@@ -6,7 +6,8 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
-from matplotlib.colors import to_rgb
+from matplotlib.colors import to_rgb, to_rgba
+from matplotlib.patches import BoxStyle
 from matplotlib.transforms import Bbox
 
 import poikilos as pk
@@ -233,7 +234,9 @@ def test_label_points_leaves_a_gap_between_labels():
     fig.canvas.draw()
     gap = 2 * fig.dpi / 72
     for ax in axes:
-        boxes = [t.get_window_extent().padded(gap / 2) for t in ax.texts]
+        boxes = [
+            t.get_bbox_patch().get_window_extent().padded(gap / 2) for t in ax.texts
+        ]
         assert not any(a.overlaps(b) for a, b in combinations(boxes, 2))
     plt.close(fig)
 
@@ -248,7 +251,9 @@ def test_label_points_keeps_labels_off_markers():
     radius = plt.rcParams["lines.markersize"] / 2 * fig.dpi / 72
     for px, py in ax.transData.transform(np.column_stack([x, y])):
         marker = Bbox.from_extents(px - radius, py - radius, px + radius, py + radius)
-        assert not any(t.get_window_extent().overlaps(marker) for t in texts)
+        assert not any(
+            t.get_bbox_patch().get_window_extent().overlaps(marker) for t in texts
+        )
     plt.close(fig)
 
 
@@ -291,7 +296,40 @@ def test_label_points_keeps_labels_off_markers_at_print_dpi():
             marker = Bbox.from_extents(
                 px - radius, py - radius, px + radius, py + radius
             )
-            assert not any(t.get_window_extent().overlaps(marker) for t in ax.texts)
+            assert not any(
+                t.get_bbox_patch().get_window_extent().overlaps(marker)
+                for t in ax.texts
+            )
+    plt.close(fig)
+
+
+def test_label_points_boxes_labels_like_the_legend():
+    fig, ax = plt.subplots(figsize=(3, 3))
+    points = ax.scatter([0.2, 0.8], [0.2, 0.8])
+    despine(ax)
+    texts = label_points(ax, points, ["alpha", "beta"])
+    rc = plt.rcParams
+    alpha = rc["legend.framealpha"]
+    for text in texts:
+        box = text.get_bbox_patch()
+        style = box.get_boxstyle()
+        assert isinstance(style, BoxStyle.Round)
+        assert np.allclose(box.get_facecolor(), to_rgba(rc["axes.facecolor"], alpha))
+        assert np.allclose(box.get_edgecolor(), to_rgba(rc["legend.edgecolor"], alpha))
+    plt.close(fig)
+
+
+@pytest.mark.parametrize(
+    ("rc", "kwargs"),
+    [({"legend.frameon": False}, {}), ({}, {"bbox": None})],
+    ids=["frameless-legend", "bbox-none"],
+)
+def test_label_points_leaves_labels_bare(rc, kwargs):
+    with mpl.rc_context(rc):
+        fig, ax = plt.subplots(figsize=(3, 3))
+        points = ax.scatter([0.2, 0.8], [0.2, 0.8])
+        texts = label_points(ax, points, ["alpha", "beta"], **kwargs)
+    assert all(t.get_bbox_patch() is None for t in texts)
     plt.close(fig)
 
 
