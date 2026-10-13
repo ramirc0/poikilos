@@ -312,10 +312,23 @@ def test_label_points_boxes_labels_like_the_legend():
     alpha = rc["legend.framealpha"]
     for text in texts:
         box = text.get_bbox_patch()
-        style = box.get_boxstyle()
-        assert isinstance(style, BoxStyle.Round)
+        assert isinstance(box.get_boxstyle(), BoxStyle.Round)
         assert np.allclose(box.get_facecolor(), to_rgba(rc["axes.facecolor"], alpha))
-        assert np.allclose(box.get_edgecolor(), to_rgba(rc["legend.edgecolor"], alpha))
+    plt.close(fig)
+
+
+def test_label_points_centers_labels_in_their_boxes():
+    # Text sizes its box for descenders, so a label without any sat high in its box.
+    fig, ax = plt.subplots(figsize=(2, 2), dpi=200)
+    points = ax.scatter([0.5], [0.5])
+    (text,) = label_points(ax, points, ["A549"], color="#ff0000", fontsize=20)
+    fig.canvas.draw()
+    img = np.asarray(fig.canvas.buffer_rgba())[..., :3].astype(int)
+    ink = np.flatnonzero(((img[..., 0] > 150) & (img[..., 1:] < 100).all(-1)).any(1))
+    box = text.get_bbox_patch().get_window_extent()
+    top_gap = ink.min() - (img.shape[0] - box.y1)
+    bottom_gap = (img.shape[0] - box.y0) - ink.max()
+    assert abs(top_gap - bottom_gap) <= 1 * fig.dpi / 72
     plt.close(fig)
 
 
@@ -336,17 +349,33 @@ def test_label_points_leaves_labels_bare_without_bbox():
     plt.close(fig)
 
 
-def test_label_points_leader_lines_use_edge_color():
+def test_label_points_outlines_boxes_like_their_leader_lines():
+    fig, ax = plt.subplots(figsize=(3, 3))
+    points = ax.scatter([0.5, 0.5, 0.51], [0.5, 0.51, 0.5])
+    despine(ax)
+    texts = label_points(ax, points, ["alpha", "beta", "gamma"])
+    arrows = ax.patches
+    assert arrows
+    edge = to_rgba(plt.rcParams["axes.edgecolor"])
+    for artist in [*arrows, *(t.get_bbox_patch() for t in texts)]:
+        assert np.allclose(artist.get_edgecolor(), edge)
+        assert artist.get_linewidth() == arrows[0].get_linewidth()
+    plt.close(fig)
+
+
+def test_label_points_leader_lines_touch_their_boxes():
     fig, ax = plt.subplots(figsize=(3, 3))
     points = ax.scatter([0.5, 0.5, 0.51], [0.5, 0.51, 0.5])
     despine(ax)
     label_points(ax, points, ["alpha", "beta", "gamma"])
+    fig.canvas.draw()
     arrows = ax.patches
     assert arrows
-    assert all(
-        np.allclose(a.get_edgecolor()[:3], to_rgb(plt.rcParams["axes.edgecolor"]))
-        for a in arrows
-    )
+    for arrow in arrows:
+        start = arrow.get_transform().transform_path(arrow.get_path()).vertices[0]
+        box = arrow.patchA.get_bbox_patch().get_window_extent()
+        assert box.padded(1).contains(*start)
+        assert not box.padded(-1).contains(*start)
     plt.close(fig)
 
 

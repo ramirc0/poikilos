@@ -5,6 +5,7 @@ from pathlib import Path
 import matplotlib as mpl
 import numpy as np
 from matplotlib import cbook
+from matplotlib.colors import to_rgba
 from matplotlib.lines import Line2D
 from matplotlib.text import Text
 from matplotlib.transforms import Bbox
@@ -110,19 +111,37 @@ class _BoxedText(Text):
         self.update_bbox_position_size(self._renderer)
         return Bbox.union([extent, box.get_window_extent()])
 
+    def update_bbox_position_size(self, renderer):
+        super().update_bbox_position_size(renderer)
+        box = self.get_bbox_patch()
+        if box is None:
+            return
+        # Text leaves room for descenders under every label, a chin under labels
+        # without any. Start the box at the last line's own descent instead.
+        prop = self.get_fontproperties()
+        room = renderer.get_text_width_height_descent(
+            "lp", prop, ismath="TeX" if self.get_usetex() else False
+        )[2]
+        line, ismath = self._preprocess_math(self.get_text().split("\n")[-1])
+        descent = renderer.get_text_width_height_descent(line, prop, ismath=ismath)[2]
+        chin = max(room - descent, 0)
+        box.set_bounds(
+            box.get_x(), box.get_y() + chin, box.get_width(), box.get_height() - chin
+        )
+
 
 def label_points(ax, points, labels, **kwargs):
     """Label scatter markers, moving the labels off each other and the markers.
 
-    Labels sit in boxes drawn like the legend frame, from the ``legend.*``
-    rcParams, even on a look that hides the legend frame. Each label starts
-    at its marker; adjustText then moves the boxes apart and
-    off the markers' full extent and draws a leader line, in the axes edge
-    color, back to each marker. Labels stay inside the axes, so a label near
-    the axes edge can still touch a marker. Call last on the figure, after
-    :func:`despine` and every title, label and legend: anything added later
-    reshapes the constrained layout and moves the labels back together.
-    Requires the ``labels`` extra (``adjustText``).
+    Each label sits in a box with the legend frame's face, transparency and
+    corners, even on a look that hides the legend frame. Labels start at
+    their markers; adjustText then moves the boxes apart and off the markers'
+    full extent and draws a leader line back to each marker. The line and the
+    box outline share one stroke in the axes edge color. Labels stay inside
+    the axes, so a label near the axes edge can still touch a marker. Call
+    last on the figure, after :func:`despine` and every title, label and
+    legend: anything added later reshapes the constrained layout and moves
+    the labels back together. Requires the ``labels`` extra (``adjustText``).
 
     Parameters
     ----------
@@ -148,10 +167,11 @@ def label_points(ax, points, labels, **kwargs):
     px = ax.figure.dpi / 72
     clear = (np.sqrt(points.get_sizes().max()) / 2 + 2) * px
     rc = mpl.rcParams
-    face, edge = rc["legend.facecolor"], rc["legend.edgecolor"]
-    # The frame matplotlib's Legend draws, even where legend.frameon hides it, with less
+    face = rc["legend.facecolor"]
+    edge, width = rc["axes.edgecolor"], 0.5
+    # The legend frame's face and corners, even where legend.frameon hides it, with less
     # padding than its borderpad: bigger boxes leave labels at a crowded axes edge no room
-    # off the markers.
+    # off the markers. The outline is the leader line's stroke, so the two read as one.
     kwargs = {
         "transform": ax.transData,
         "clip_on": False,
@@ -159,10 +179,12 @@ def label_points(ax, points, labels, **kwargs):
             "boxstyle": "round,pad=0.25,rounding_size=0.2"
             if rc["legend.fancybox"]
             else "square,pad=0.25",
-            "facecolor": rc["axes.facecolor"] if face == "inherit" else face,
-            "edgecolor": rc["axes.edgecolor"] if edge == "inherit" else edge,
-            "linewidth": rc["legend.linewidth"],
-            "alpha": rc["legend.framealpha"],
+            "facecolor": to_rgba(
+                rc["axes.facecolor"] if face == "inherit" else face,
+                rc["legend.framealpha"],
+            ),
+            "edgecolor": edge,
+            "linewidth": width,
         },
         **kwargs,
     }
@@ -174,7 +196,7 @@ def label_points(ax, points, labels, **kwargs):
         texts,
         objects=points,
         ax=ax,
-        expand=(1.2, 1.4),
+        expand=(1.2, 1.5),
         force_text=(0.5, 1.0),
         force_static=(0.2, 0.4),
         pull_threshold=clear,
@@ -184,8 +206,10 @@ def label_points(ax, points, labels, **kwargs):
         iter_lim=1000,
         arrowprops={
             "arrowstyle": "-",
-            "color": rc["axes.edgecolor"],
-            "lw": 0.5,
+            "color": edge,
+            "lw": width,
+            # FancyArrowPatch stops 2 pt short of the box by default.
+            "shrinkA": 0,
         },
     )
     return texts

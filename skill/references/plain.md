@@ -92,10 +92,10 @@ then moves the labels apart and off the markers' full extent, not just their
 centres. It keeps a small gap between labels and draws a thin leader line back
 to each marker, in the axes edge color.
 
-Each label sits in a rounded box styled like the legend frame. Its face, edge,
-line width, transparency and corners come from the `legend.*` rcParams. pgl
-gets them too, although its legends have no frame. adjustText keeps the boxes
-apart, not just the text. Pass `bbox=None` for bare labels, or a `bbox`
+Each label sits in a box with the legend frame's face, transparency and
+corners, on every look. The box outline and the leader line share one thin
+stroke in the axes edge color, and the line starts at the box edge. adjustText
+keeps the boxes apart, not just the text. Pass `bbox=None` for bare labels, or a `bbox`
 dict to restyle the box.
 
 Call it last, after `despine` and every title, axis label, suptitle and legend

@@ -53,9 +53,10 @@ The distribution and the import package are both `poikilos`.
   1 s time limit. The same figure with the same fonts now gets the same labels
   on any machine. Markers push labels away twice as hard as adjustText's
   default.
-- `label_points` draws each label in a rounded box styled like the legend
-  frame, and adjustText keeps the boxes apart and off the markers. pgl gets
-  them too, although its legends have no frame. `bbox=None` gives bare labels.
+- `label_points` draws each label in a rounded box with the legend frame's
+  face. The box outline and the leader line to the marker share one stroke
+  in the axes edge color. adjustText keeps the boxes apart and off the
+  markers. `bbox=None` gives bare labels.
 - `save_figure` keeps dots in the stem: `x.curve` gives `x.curve.svg` and
   `x.curve.png`. It used to write `x.svg` and `x.png`.
 - Title, legend label, legend face and `savefig` face colors now inherit from
