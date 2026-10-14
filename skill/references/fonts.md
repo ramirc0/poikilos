@@ -21,8 +21,11 @@ Display` for headings, and figures use `Text`. `Arimo` has Arial's metrics and
 is the usual fallback on Linux, where Arial is rarely installed. `Arial` stays
 in the chain for macOS and Windows.
 
-**lilaq** (`font.serif`): `NewComputerModern`, then `DejaVu Serif`. Math uses
-matplotlib's bundled Computer Modern (`mathtext.fontset: cm`).
+**lilaq** (`font.serif`): `NewComputerModern`, `Palatino Linotype`, `P052`
+(URW's libre Palatino), `DejaVu Serif`. Math uses matplotlib's bundled
+Computer Modern (`mathtext.fontset: cm`). Under Palatino, set
+`mathtext.fontset: custom` and `mathtext.rm`, `.it` and `.bf` to the same
+family so exponents match the text.
 
 **pgl** (`font.sans-serif`): `Overpass`, `Arial`, `Arimo`, `DejaVu Sans`. The
 lab's papers use Arial. Google Fonts ships Overpass as a variable TrueType

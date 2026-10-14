@@ -1,7 +1,7 @@
 # lilaq's diagram look (https://lilaq.org, @preview/lilaq:0.6.0). Lengths in points at 11 pt text.
 
 font.family: serif
-font.serif: NewComputerModern, DejaVu Serif
+font.serif: NewComputerModern, Palatino Linotype, P052, DejaVu Serif
 font.size: 11
 mathtext.fontset: cm
 

@@ -203,8 +203,8 @@ No fonts ship with poikilos. Each look names a fallback chain that ends in a
 DejaVu family bundled with matplotlib, so a missing font falls back silently.
 
 - plain: Anthropic Sans Text, Google Sans Flex, Arimo, Arial, DejaVu Sans.
-- lilaq: New Computer Modern, then DejaVu Serif. Math uses matplotlib's bundled
-  Computer Modern.
+- lilaq: New Computer Modern, Palatino Linotype, P052, DejaVu Serif. Math uses
+  matplotlib's bundled Computer Modern.
 - pgl: Overpass, Arial, Arimo, DejaVu Sans.
 
 matplotlib knows New Computer Modern as `NewComputerModern`. From
