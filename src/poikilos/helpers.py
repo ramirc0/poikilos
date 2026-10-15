@@ -201,6 +201,10 @@ def label_points(ax, points, labels, **kwargs):
     return texts
 
 
+# Backends that stamp the save time unless their metadata key is None.
+_DATE_KEYS = {"svg": "Date", "svgz": "Date", "pdf": "CreationDate"}
+
+
 def save_figure(fig, path, formats=("svg", "png"), **kwargs):
     """Write ``fig`` once per format, SVG and PNG by default.
 
@@ -216,7 +220,9 @@ def save_figure(fig, path, formats=("svg", "png"), **kwargs):
     formats : sequence of str, default ("svg", "png")
         File formats to write, in order, e.g. ``("pdf", "png")``.
     **kwargs
-        Passed to ``fig.savefig``.
+        Passed to ``fig.savefig``. SVG and PDF files carry no creation date
+        unless ``metadata`` sets one. With the themes' fixed ``svg.hashsalt``,
+        reruns write the same bytes.
 
     Returns
     -------
@@ -232,7 +238,10 @@ def save_figure(fig, path, formats=("svg", "png"), **kwargs):
     written = []
     for fmt in formats:
         out = Path(f"{stem}.{fmt}")
-        fig.savefig(out, format=fmt, **kwargs)
+        opts = dict(kwargs)
+        if fmt in _DATE_KEYS:
+            opts["metadata"] = {_DATE_KEYS[fmt]: None, **kwargs.get("metadata", {})}
+        fig.savefig(out, format=fmt, **opts)
         written.append(out)
     return written
 

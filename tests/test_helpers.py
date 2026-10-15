@@ -37,6 +37,20 @@ def test_save_figure_writes_the_given_formats(tmp_path):
     plt.close(fig)
 
 
+@pytest.mark.parametrize("fmt", ["svg", "pdf", "png", "jpg"])
+def test_save_figure_writes_no_date(tmp_path, monkeypatch, fmt):
+    # matplotlib stamps SVG and PDF files with this date when it is set.
+    fig, ax = plt.subplots()
+    ax.plot([0, 1], [0, 1])
+    saved = []
+    for epoch in ("0", "1000000000"):
+        monkeypatch.setenv("SOURCE_DATE_EPOCH", epoch)
+        saved.append(save_figure(fig, tmp_path / epoch, formats=(fmt,))[0])
+    first, second = (p.read_bytes() for p in saved)
+    assert first == second
+    plt.close(fig)
+
+
 def test_despine_numeric_axis_ends_on_ticks():
     fig, ax = plt.subplots()
     ax.plot([0.3, 9.2], [1.1, 7.7])

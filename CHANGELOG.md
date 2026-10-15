@@ -22,6 +22,8 @@ The distribution and the import package are both `poikilos`.
 - `zero_line(ax, axis="y")` draws a bold line at zero, for values that change
   sign.
 - `save_figure(..., formats=("pdf", "png"))` picks the formats to write.
+- `save_figure` writes SVG and PDF files without a creation date. The themes
+  fix `svg.hashsalt`. Reruns write the same bytes.
 
 ### Changed
 

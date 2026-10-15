@@ -98,8 +98,7 @@ def draw(axes, look, rng):
 def render(theme):
     look = pk.THEMES[theme][0]
     rng = np.random.default_rng(0)
-    # A fixed SVG id salt and no date make reruns byte-identical, so diffs show visual changes.
-    with pk.context(theme, rc={"svg.hashsalt": "poikilos"}):
+    with pk.context(theme):
         fig, axes = plt.subplot_mosaic(
             [
                 ["line", "scatter", "bar"],
@@ -127,7 +126,7 @@ def render(theme):
                     else:
                         axis.set_major_locator(MaxNLocator(7, steps=[1, 2, 5, 10]))
         pk.label_points(axes["scatter"], points, names, fontsize=8)
-        for path in pk.save_figure(fig, OUT / theme, dpi=150, metadata={"Date": None}):
+        for path in pk.save_figure(fig, OUT / theme, dpi=150):
             print(f"wrote {path}")
         plt.close(fig)
 

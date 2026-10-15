@@ -4,3 +4,5 @@
 figure.constrained_layout.use: True
 savefig.dpi: 300
 svg.fonttype: none
+# A fixed salt keeps SVG element ids, and so the file, the same across runs.
+svg.hashsalt: poikilos
