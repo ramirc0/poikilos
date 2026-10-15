@@ -144,7 +144,8 @@ def label_points(ax, points, labels, offsets=None, leader=True, **kwargs):
         ``points``.
     leader : bool, default True
         Draw a line from each label to its marker. With ``offsets``, the line
-        stops 1.5 pt short of the marker.
+        stops 1.5 pt short of the marker, and a line shorter than 2 pt is
+        left out.
     **kwargs
         Passed to :class:`matplotlib.text.Text` (e.g. ``fontsize=8``). A
         ``bbox`` dict replaces the box; ``bbox=None`` leaves labels bare.
@@ -191,7 +192,10 @@ def label_points(ax, points, labels, offsets=None, leader=True, **kwargs):
                 xy,
                 (dx, dy),
                 textcoords="offset points",
-                arrowprops={**line, "shrinkB": radius + 1.5} if leader else None,
+                # Shorter lines read as a dash after the label.
+                arrowprops={**line, "shrinkB": radius + 1.5}
+                if leader and np.hypot(dx, dy) >= radius + 3.5
+                else None,
                 **{
                     "horizontalalignment": ("right", "center", "left")[
                         int(np.sign(dx)) + 1

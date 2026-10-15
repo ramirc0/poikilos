@@ -480,6 +480,15 @@ def test_label_points_offsets_draw_leader_lines_on_request(leader):
     plt.close(fig)
 
 
+def test_label_points_offsets_skip_leader_stubs():
+    # A label right beside its marker got a 1 pt line that read as a dash after it.
+    fig, ax = plt.subplots(figsize=(3, 3))
+    points = ax.scatter([0.2, 0.8], [0.5, 0.5], s=9)
+    near, far = label_points(ax, points, ["24", "192"], offsets=[(4, 0), (8, 0)])
+    assert near.arrow_patch is None and far.arrow_patch is not None
+    plt.close(fig)
+
+
 def test_save_figure_keeps_dotted_stems(tmp_path):
     fig = plt.figure()
     written = save_figure(fig, tmp_path / "a.curve.svg") + save_figure(
