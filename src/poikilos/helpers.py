@@ -112,7 +112,7 @@ class _BoxedText(Text):
         return Bbox.union([extent, box.get_window_extent()])
 
 
-def label_points(ax, points, labels, **kwargs):
+def label_points(ax, points, labels, offsets=None, leader=True, **kwargs):
     """Label scatter markers, moving the labels off each other and the markers.
 
     Each label sits in a box with the legend frame's face, transparency and
@@ -125,6 +125,11 @@ def label_points(ax, points, labels, **kwargs):
     legend: anything added later reshapes the constrained layout and moves
     the labels back together. Requires the ``labels`` extra (``adjustText``).
 
+    With ``offsets``, each label sits at its own fixed offset from its marker
+    instead, and adjustText is neither run nor needed. The label's side
+    facing the marker anchors it: an offset up and to the right aligns the
+    label's bottom left corner, and a zero component centers it on that axis.
+
     Parameters
     ----------
     ax : matplotlib.axes.Axes
@@ -133,21 +138,22 @@ def label_points(ax, points, labels, **kwargs):
         Collection returned by ``ax.scatter``.
     labels : sequence of str
         One label per point, in the order of ``points``.
+    offsets : sequence of (float, float), optional
+        One ``(dx, dy)`` offset in points per label, in the order of
+        ``points``.
+    leader : bool, default True
+        Draw a line from each label to its marker. With ``offsets``, the line
+        stops 1.5 pt short of the marker.
     **kwargs
         Passed to :class:`matplotlib.text.Text` (e.g. ``fontsize=8``). A
         ``bbox`` dict replaces the box; ``bbox=None`` leaves labels bare.
+        ``ha`` and ``va`` override the alignment ``offsets`` sets.
 
     Returns
     -------
     list of matplotlib.text.Text
         The label artists.
     """
-    from adjustText import adjust_text
-
-    # adjustText measures steps in pixels with screen-sized defaults; convert from points
-    # so a 300 dpi figure does not pull labels back onto their markers.
-    px = ax.figure.dpi / 72
-    clear = (np.sqrt(points.get_sizes().max()) / 2 + 2) * px
     rc = mpl.rcParams
     face = rc["legend.facecolor"]
     edge, width = rc["axes.edgecolor"], 0.5
@@ -155,7 +161,6 @@ def label_points(ax, points, labels, **kwargs):
     # padding than its borderpad: bigger boxes leave labels at a crowded axes edge no room
     # off the markers. The outline is the leader line's stroke, so the two read as one.
     kwargs = {
-        "transform": ax.transData,
         "clip_on": False,
         # The default "normal" spacing sits text on the font's ascent and descent, so
         # the space above and below a label depends on its letters. A numeric spacing
@@ -172,10 +177,41 @@ def label_points(ax, points, labels, **kwargs):
             "edgecolor": edge,
             "linewidth": width,
         },
-        **kwargs,
+        # Normalized so aliases such as ha= override the alignment set below.
+        **cbook.normalize_kwargs(kwargs, Text),
     }
+    # FancyArrowPatch stops 2 pt short of the box by default.
+    line = {"arrowstyle": "-", "color": edge, "lw": width, "shrinkA": 0}
+    radius = np.sqrt(points.get_sizes().max()) / 2
+    if offsets is not None:
+        return [
+            ax.annotate(
+                label,
+                xy,
+                (dx, dy),
+                textcoords="offset points",
+                arrowprops={**line, "shrinkB": radius + 1.5} if leader else None,
+                **{
+                    "horizontalalignment": ("right", "center", "left")[
+                        int(np.sign(dx)) + 1
+                    ],
+                    "verticalalignment": ("top", "center", "bottom")[
+                        int(np.sign(dy)) + 1
+                    ],
+                    **kwargs,
+                },
+            )
+            for xy, label, (dx, dy) in zip(points.get_offsets(), labels, offsets)
+        ]
+
+    from adjustText import adjust_text
+
+    # adjustText measures steps in pixels with screen-sized defaults; convert from points
+    # so a 300 dpi figure does not pull labels back onto their markers.
+    px = ax.figure.dpi / 72
+    clear = (radius + 2) * px
     texts = [
-        ax.add_artist(_BoxedText(x, y, label, **kwargs))
+        ax.add_artist(_BoxedText(x, y, label, transform=ax.transData, **kwargs))
         for (x, y), label in zip(points.get_offsets(), labels)
     ]
     adjust_text(
@@ -190,13 +226,7 @@ def label_points(ax, points, labels, **kwargs):
         min_arrow_len=clear,
         # adjustText's default is a 1 s time limit, which made placement depend on CPU speed.
         iter_lim=1000,
-        arrowprops={
-            "arrowstyle": "-",
-            "color": edge,
-            "lw": width,
-            # FancyArrowPatch stops 2 pt short of the box by default.
-            "shrinkA": 0,
-        },
+        **({"arrowprops": line} if leader else {}),
     )
     return texts
 

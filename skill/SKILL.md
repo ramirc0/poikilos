@@ -40,8 +40,9 @@ later and matplotlib 3.11 or later.
    10 pt and trimmed to the end ticks. See
    [references/plain.md](references/plain.md) for categorical axes.
 6. **Label scatter points with `pk.label_points(ax, points, labels)`**, never
-   with `ax.annotate` or `ax.text` per point. Fixed offsets collide as soon as
-   two points sit close together. Call it last on the figure. With several
+   with `ax.annotate` or `ax.text` per point. Call it last on the figure. For
+   a layout that never moves, pass one `offsets=(dx, dy)` pair per label, in
+   points, and check the PNG for collisions. With several
    labelled panels, finish every panel first (drawing, `despine`, titles,
    legends, suptitle), then call `label_points` once per panel.
 7. **lilaq look: apply the tick and dot recipes** from
@@ -77,7 +78,7 @@ pk.THEMES                                    # name -> (look, palette)
 pk.PALETTES["rose-pine-dawn"].colors["love"] # palette colors as hex
 pk.PALETTES["plain"].cycle                   # cycle colors, in order
 pk.despine(ax, categorical_x=False, categorical_y=False)
-pk.label_points(ax, points, labels, **text_kwargs)
+pk.label_points(ax, points, labels, offsets=None, leader=True, **text_kwargs)
 pk.save_figure(fig, path, formats=("svg", "png"), **savefig_kwargs)  # -> paths, in order
 pk.zero_line(ax, axis="y", **line_kwargs)    # bold y = 0 line; "x" or "both"
 ```

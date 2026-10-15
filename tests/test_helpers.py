@@ -406,6 +406,63 @@ def test_label_points_leader_lines_touch_their_boxes():
     plt.close(fig)
 
 
+def test_label_points_without_leader_draws_no_lines():
+    fig, ax = plt.subplots(figsize=(3, 3))
+    points = ax.scatter([0.5, 0.5, 0.51], [0.5, 0.51, 0.5])
+    label_points(ax, points, ["alpha", "beta", "gamma"], leader=False)
+    assert not ax.patches
+    plt.close(fig)
+
+
+def test_label_points_places_labels_at_fixed_offsets(monkeypatch):
+    def fail(*args, **kwargs):
+        raise AssertionError("adjust_text ran")
+
+    monkeypatch.setattr("adjustText.adjust_text", fail)
+    fig, ax = plt.subplots(figsize=(3, 3), dpi=200)
+    x, y = [0.2, 0.5, 0.8], [0.2, 0.5, 0.8]
+    offsets = [(6, 4), (-6, -4), (0, 0)]
+    points = ax.scatter(x, y)
+    texts = label_points(
+        ax, points, ["a", "b", "c"], offsets=offsets, leader=False, bbox=None
+    )
+    fig.canvas.draw()
+    for text, (px, py), (dx, dy) in zip(
+        texts, ax.transData.transform(np.column_stack([x, y])), offsets
+    ):
+        box = text.get_window_extent()
+        ax_, ay = px + dx * fig.dpi / 72, py + dy * fig.dpi / 72
+        anchor_x = {"left": box.x0, "right": box.x1, "center": box.x0 + box.width / 2}
+        anchor_y = {"bottom": box.y0, "top": box.y1, "center": box.y0 + box.height / 2}
+        assert anchor_x[text.get_horizontalalignment()] == pytest.approx(ax_, abs=1)
+        assert anchor_y[text.get_verticalalignment()] == pytest.approx(ay, abs=1)
+    assert [(t.get_ha(), t.get_va()) for t in texts] == [
+        ("left", "bottom"),
+        ("right", "top"),
+        ("center", "center"),
+    ]
+    plt.close(fig)
+
+
+def test_label_points_offsets_take_alignment_from_kwargs():
+    fig, ax = plt.subplots(figsize=(3, 3))
+    points = ax.scatter([0.5], [0.5])
+    (text,) = label_points(
+        ax, points, ["a"], offsets=[(6, 4)], horizontalalignment="center", va="top"
+    )
+    assert (text.get_ha(), text.get_va()) == ("center", "top")
+    plt.close(fig)
+
+
+@pytest.mark.parametrize("leader", [True, False])
+def test_label_points_offsets_draw_leader_lines_on_request(leader):
+    fig, ax = plt.subplots(figsize=(3, 3))
+    points = ax.scatter([0.5], [0.5])
+    (text,) = label_points(ax, points, ["a"], offsets=[(10, 10)], leader=leader)
+    assert (text.arrow_patch is not None) == leader
+    plt.close(fig)
+
+
 def test_save_figure_keeps_dotted_stems(tmp_path):
     fig = plt.figure()
     written = save_figure(fig, tmp_path / "a.curve.svg") + save_figure(

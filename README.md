@@ -111,12 +111,15 @@ color therefore carries through to them.
   axis has no spine or offset, so its labels sit by the data. Call it after
   everything on the figure is drawn. It picks ticks for the axes size after
   layout.
-- `label_points(ax, points, labels, **text_kwargs)` labels the collection
+- `label_points(ax, points, labels, offsets=None, leader=True, **text_kwargs)`
+  labels the collection
   `ax.scatter` returns. Each label sits in a box outlined like its leader
   line, or stays bare with `bbox=None`. It moves labels off each other and off
   the markers, but a label can still touch a marker. That happens most near
   the edge of the axes, since labels stay inside them. Call it last, after
   `despine` and every title and legend. Needs the `labels` extra.
+  `offsets=[(dx, dy), ...]`, in points, fixes each label's place instead and
+  needs no extra. `leader=False` drops the leader lines.
 - `save_figure(fig, path, formats=("svg", "png"), **savefig_kwargs)` writes
   `path.svg` and `path.png`, or one file per entry in `formats`. It drops a
   suffix that names a format, such as `.svg` or `.pdf`, and keeps any other

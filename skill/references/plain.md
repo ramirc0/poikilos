@@ -113,6 +113,12 @@ Labels stay inside the axes. `despine` fits the axes to the data, so the
 outermost points sit at or near the edge. Their labels can only move inward,
 and one may still touch a marker. Check those points in the PNG.
 
+`offsets=[(dx, dy), ...]` skips adjustText and puts each label at a fixed
+offset in points from its marker. The side facing the marker anchors the
+label, so `(6, 4)` sets its bottom left corner there. `ha=` and `va=` override
+that. The leader line stops 1.5 pt short of the marker. `leader=False` drops
+the lines in either mode, and `bbox=None` drops the boxes.
+
 Past about 10 labels per panel in a dense cluster, adjustText cannot keep them
 readable. Label only the points that matter, or use a categorical plot with the
 names on an axis.

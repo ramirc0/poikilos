@@ -21,6 +21,8 @@ The distribution and the import package are both `poikilos`.
 - `PALETTES`, with each palette's colors as hex, and `THEMES`.
 - `zero_line(ax, axis="y")` draws a bold line at zero, for values that change
   sign.
+- `label_points(..., offsets=[(dx, dy), ...])` places labels at fixed offsets
+  in points, without adjustText. `leader=False` drops the leader lines.
 - `save_figure(..., formats=("pdf", "png"))` picks the formats to write.
 - `save_figure` writes SVG and PDF files without a creation date. The themes
   fix `svg.hashsalt`. Reruns write the same bytes.
