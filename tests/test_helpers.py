@@ -29,6 +29,14 @@ def test_save_figure_writes_svg_and_png(tmp_path):
     plt.close(fig)
 
 
+def test_save_figure_writes_the_given_formats(tmp_path):
+    fig = plt.figure()
+    written = save_figure(fig, tmp_path / "plot.svg", formats=("pdf", "png"))
+    assert [p.name for p in written] == ["plot.pdf", "plot.png"]
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["plot.pdf", "plot.png"]
+    plt.close(fig)
+
+
 def test_despine_numeric_axis_ends_on_ticks():
     fig, ax = plt.subplots()
     ax.plot([0.3, 9.2], [1.1, 7.7])

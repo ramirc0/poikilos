@@ -21,6 +21,7 @@ The distribution and the import package are both `poikilos`.
 - `PALETTES`, with each palette's colors as hex, and `THEMES`.
 - `zero_line(ax, axis="y")` draws a bold line at zero, for values that change
   sign.
+- `save_figure(..., formats=("pdf", "png"))` picks the formats to write.
 
 ### Changed
 

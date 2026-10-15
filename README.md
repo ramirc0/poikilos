@@ -117,9 +117,10 @@ color therefore carries through to them.
   the markers, but a label can still touch a marker. That happens most near
   the edge of the axes, since labels stay inside them. Call it last, after
   `despine` and every title and legend. Needs the `labels` extra.
-- `save_figure(fig, path, **savefig_kwargs)` writes `path.svg` and `path.png`.
-  It drops a `.svg` or `.png` suffix and keeps any other dots, so `x.curve`
-  gives `x.curve.svg` and `x.curve.png`.
+- `save_figure(fig, path, formats=("svg", "png"), **savefig_kwargs)` writes
+  `path.svg` and `path.png`, or one file per entry in `formats`. It drops a
+  suffix that names a format, such as `.svg` or `.pdf`, and keeps any other
+  dots, so `x.curve` gives `x.curve.svg` and `x.curve.png`.
 - `zero_line(ax, axis="y", **line_kwargs)` draws a bold line at zero, for
   values that change sign. It uses the frame color at twice the grid width.
   `axis="x"` draws x = 0 and `"both"` draws both. The limits widen to include

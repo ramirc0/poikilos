@@ -1,4 +1,4 @@
-"""Figure helpers: spine trimming, point labels, zero lines and SVG + PNG export."""
+"""Figure helpers: spine trimming, point labels, zero lines and multi-format export."""
 
 from pathlib import Path
 
@@ -201,30 +201,36 @@ def label_points(ax, points, labels, **kwargs):
     return texts
 
 
-def save_figure(fig, path, **kwargs):
-    """Write ``fig`` as both SVG and PNG.
+def save_figure(fig, path, formats=("svg", "png"), **kwargs):
+    """Write ``fig`` once per format, SVG and PNG by default.
 
     Parameters
     ----------
     fig : matplotlib.figure.Figure
         Figure to save.
     path : str or pathlib.Path
-        Output path, with or without a ``.svg`` or ``.png`` suffix. Any other
-        suffix is part of the stem, so ``x.curve`` gives ``x.curve.svg`` and
-        ``x.curve.png``. Missing parent directories are created.
+        Output path, with or without a suffix naming a format matplotlib can
+        write, such as ``.svg`` or ``.pdf``. Any other suffix is part of the
+        stem, so ``x.curve`` gives ``x.curve.svg`` and ``x.curve.png``.
+        Missing parent directories are created.
+    formats : sequence of str, default ("svg", "png")
+        File formats to write, in order, e.g. ``("pdf", "png")``.
     **kwargs
         Passed to ``fig.savefig``.
 
     Returns
     -------
     list of pathlib.Path
-        The SVG path, then the PNG path.
+        The written paths, in the order of ``formats``.
     """
     path = Path(path)
-    stem = path.with_suffix("") if path.suffix.lower() in (".svg", ".png") else path
+    suffix = path.suffix.lower().removeprefix(".")
+    stem = (
+        path.with_suffix("") if suffix in fig.canvas.get_supported_filetypes() else path
+    )
     stem.parent.mkdir(parents=True, exist_ok=True)
     written = []
-    for fmt in ("svg", "png"):
+    for fmt in formats:
         out = Path(f"{stem}.{fmt}")
         fig.savefig(out, format=fmt, **kwargs)
         written.append(out)

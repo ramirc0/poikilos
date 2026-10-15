@@ -23,7 +23,8 @@ later and matplotlib 3.11 or later.
    resets every style rcParam first, so it can run before or after importing
    pyplot. Anything set by hand before it is lost.
 2. **Save with `pk.save_figure(fig, path)`.** It writes SVG and PNG side by
-   side. Never set `savefig.format`. The SVG keeps text as text
+   side. Pass `formats=("pdf", "png")` when a venue wants PDF. Never set
+   `savefig.format`. The SVG keeps text as text
    (`svg.fonttype: none`), and the PNG is for viewers without the fonts.
 3. **Keep constrained layout.** The themes turn it on. Never call
    `tight_layout()`, which fights it.
@@ -77,7 +78,7 @@ pk.PALETTES["rose-pine-dawn"].colors["love"] # palette colors as hex
 pk.PALETTES["plain"].cycle                   # cycle colors, in order
 pk.despine(ax, categorical_x=False, categorical_y=False)
 pk.label_points(ax, points, labels, **text_kwargs)
-pk.save_figure(fig, path, **savefig_kwargs)  # -> [svg path, png path]
+pk.save_figure(fig, path, formats=("svg", "png"), **savefig_kwargs)  # -> paths, in order
 pk.zero_line(ax, axis="y", **line_kwargs)    # bold y = 0 line; "x" or "both"
 ```
 
