@@ -413,7 +413,7 @@ L 0 1.5
      </g>
     </g>
     <g id="text_7">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="187.18263" transform="rotate(-0 131.62665 187.18263)">time (s)</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="187.18263" transform="rotate(-0 131.62665 187.18263)">time (s)</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -939,7 +939,7 @@ L -1.5 0
      </g>
     </g>
     <g id="text_15">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="14.154927" y="97.292088" transform="rotate(-90 14.154927 97.292088)">signal</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="14.154927" y="97.292088" transform="rotate(-90 14.154927 97.292088)">signal</text>
     </g>
    </g>
    <g id="line2d_126">
@@ -1143,7 +1143,7 @@ L 222.253061 36.567545
 " style="fill: none; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_16">
-    <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="31.067545" transform="rotate(-0 131.62665 31.067545)">Lines</text>
+    <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="31.067545" transform="rotate(-0 131.62665 31.067545)">Lines</text>
    </g>
    <g id="legend_1">
     <g id="patch_7">
@@ -1169,7 +1169,7 @@ L 175.401655 46.863545
      </g>
     </g>
     <g id="text_17">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: start; fill: #ffffff" x="182.001655" y="50.713545" transform="rotate(-0 182.001655 50.713545)">series 0</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: start; fill: #ffffff" x="182.001655" y="50.713545" transform="rotate(-0 182.001655 50.713545)">series 0</text>
     </g>
     <g id="line2d_130">
      <path d="M 153.401655 58.963545 
@@ -1181,7 +1181,7 @@ L 175.401655 58.963545
      </g>
     </g>
     <g id="text_18">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: start; fill: #ffffff" x="182.001655" y="62.813545" transform="rotate(-0 182.001655 62.813545)">series 1</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: start; fill: #ffffff" x="182.001655" y="62.813545" transform="rotate(-0 182.001655 62.813545)">series 1</text>
     </g>
     <g id="line2d_131">
      <path d="M 153.401655 71.063545 
@@ -1193,7 +1193,7 @@ L 175.401655 71.063545
      </g>
     </g>
     <g id="text_19">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: start; fill: #ffffff" x="182.001655" y="74.913545" transform="rotate(-0 182.001655 74.913545)">series 2</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: start; fill: #ffffff" x="182.001655" y="74.913545" transform="rotate(-0 182.001655 74.913545)">series 2</text>
     </g>
    </g>
   </g>
@@ -1523,7 +1523,7 @@ L 423.727302 36.567545
      </g>
     </g>
     <g id="text_25">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="187.18263" transform="rotate(-0 363.171264 187.18263)">x</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="187.18263" transform="rotate(-0 363.171264 187.18263)">x</text>
     </g>
    </g>
    <g id="matplotlib.axis_4">
@@ -1855,7 +1855,7 @@ L 453.797674 58.783574
      </g>
     </g>
     <g id="text_31">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="245.709853" y="97.292088" transform="rotate(-90 245.709853 97.292088)">y</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="245.709853" y="97.292088" transform="rotate(-90 245.709853 97.292088)">y</text>
     </g>
    </g>
    <g id="PathCollection_1">
@@ -1952,7 +1952,7 @@ Q 398.328484 104.009507 399.928484 104.009507
 z
 " style="fill: #242424; fill-opacity: 0.8; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
-    <text style="font-size: 8px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="412.468484" y="100.053257" transform="rotate(-0 412.468484 100.053257)">HepG2</text>
+    <text style="font-size: 8px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="412.468484" y="100.053257" transform="rotate(-0 412.468484 100.053257)">HepG2</text>
    </g>
    <g id="text_33">
     <g id="patch_21">
@@ -1968,7 +1968,7 @@ Q 332.44627 48.572524 334.04627 48.572524
 z
 " style="fill: #242424; fill-opacity: 0.8; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
-    <text style="font-size: 8px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="343.558145" y="45.216274" transform="rotate(-0 343.558145 45.216274)">K562</text>
+    <text style="font-size: 8px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="343.558145" y="45.216274" transform="rotate(-0 343.558145 45.216274)">K562</text>
    </g>
    <g id="text_34">
     <g id="patch_22">
@@ -1984,7 +1984,7 @@ Q 290.868358 53.571931 292.468358 53.571931
 z
 " style="fill: #242424; fill-opacity: 0.8; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
-    <text style="font-size: 8px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="301.868358" y="50.347556" transform="rotate(-0 301.868358 50.347556)">A549</text>
+    <text style="font-size: 8px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="301.868358" y="50.347556" transform="rotate(-0 301.868358 50.347556)">A549</text>
    </g>
    <g id="text_35">
     <g id="patch_23">
@@ -2000,7 +2000,7 @@ Q 285.235845 148.863259 286.835845 148.863259
 z
 " style="fill: #242424; fill-opacity: 0.8; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
-    <text style="font-size: 8px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="292.235845" y="145.595134" transform="rotate(-0 292.235845 145.595134)">H1</text>
+    <text style="font-size: 8px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="292.235845" y="145.595134" transform="rotate(-0 292.235845 145.595134)">H1</text>
    </g>
    <g id="text_36">
     <g id="patch_24">
@@ -2016,7 +2016,7 @@ Q 430.01409 48.572524 431.61409 48.572524
 z
 " style="fill: #242424; fill-opacity: 0.8; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
-    <text style="font-size: 8px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="441.29034" y="45.260649" transform="rotate(-0 441.29034 45.260649)">HeLa</text>
+    <text style="font-size: 8px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="441.29034" y="45.260649" transform="rotate(-0 441.29034 45.260649)">HeLa</text>
    </g>
    <g id="text_37">
     <g id="patch_25">
@@ -2032,7 +2032,7 @@ Q 410.017258 158.011651 411.617258 158.011651
 z
 " style="fill: #242424; fill-opacity: 0.8; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
-    <text style="font-size: 8px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="424.517258" y="154.743526" transform="rotate(-0 424.517258 154.743526)">MCF-7</text>
+    <text style="font-size: 8px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="424.517258" y="154.743526" transform="rotate(-0 424.517258 154.743526)">MCF-7</text>
    </g>
    <g id="text_38">
     <g id="patch_26">
@@ -2048,7 +2048,7 @@ Q 393.411494 82.439223 395.011494 82.439223
 z
 " style="fill: #242424; fill-opacity: 0.8; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
-    <text style="font-size: 8px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="412.219619" y="79.171098" transform="rotate(-0 412.219619 79.171098)">GM12878</text>
+    <text style="font-size: 8px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="412.219619" y="79.171098" transform="rotate(-0 412.219619 79.171098)">GM12878</text>
    </g>
    <g id="text_39">
     <g id="patch_27">
@@ -2064,10 +2064,10 @@ Q 415.466255 128.751839 417.066255 128.751839
 z
 " style="fill: #242424; fill-opacity: 0.8; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
-    <text style="font-size: 8px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="430.853755" y="125.395589" transform="rotate(-0 430.853755 125.395589)">IMR-90</text>
+    <text style="font-size: 8px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="430.853755" y="125.395589" transform="rotate(-0 430.853755 125.395589)">IMR-90</text>
    </g>
    <g id="text_40">
-    <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="31.067545" transform="rotate(-0 363.171264 31.067545)">Labelled scatter</text>
+    <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="31.067545" transform="rotate(-0 363.171264 31.067545)">Labelled scatter</text>
    </g>
   </g>
   <g id="axes_3">
@@ -2097,7 +2097,7 @@ L 562.491951 36.567545
       </g>
      </g>
      <g id="text_41">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="562.491951" y="171.18263" transform="rotate(-0 562.491951 171.18263)">a</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="562.491951" y="171.18263" transform="rotate(-0 562.491951 171.18263)">a</text>
      </g>
     </g>
     <g id="xtick_45">
@@ -2117,7 +2117,7 @@ L 605.07955 36.567545
       </g>
      </g>
      <g id="text_42">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="605.07955" y="171.18263" transform="rotate(-0 605.07955 171.18263)">b</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="605.07955" y="171.18263" transform="rotate(-0 605.07955 171.18263)">b</text>
      </g>
     </g>
     <g id="xtick_46">
@@ -2137,7 +2137,7 @@ L 647.667149 36.567545
       </g>
      </g>
      <g id="text_43">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="647.667149" y="171.18263" transform="rotate(-0 647.667149 171.18263)">c</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="647.667149" y="171.18263" transform="rotate(-0 647.667149 171.18263)">c</text>
      </g>
     </g>
     <g id="xtick_47">
@@ -2157,7 +2157,7 @@ L 690.254748 36.567545
       </g>
      </g>
      <g id="text_44">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="690.254748" y="171.18263" transform="rotate(-0 690.254748 171.18263)">d</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="690.254748" y="171.18263" transform="rotate(-0 690.254748 171.18263)">d</text>
      </g>
     </g>
    </g>
@@ -2553,7 +2553,7 @@ L 716.99976 38.668079
      </g>
     </g>
     <g id="text_51">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="517.612939" y="97.292088" transform="rotate(-90 517.612939 97.292088)">count</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="517.612939" y="97.292088" transform="rotate(-90 517.612939 97.292088)">count</text>
     </g>
    </g>
    <g id="patch_29">
@@ -2609,7 +2609,7 @@ L 716.99976 36.567545
 " style="fill: none; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_52">
-    <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="31.067545" transform="rotate(-0 626.37335 31.067545)">Bars</text>
+    <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="31.067545" transform="rotate(-0 626.37335 31.067545)">Bars</text>
    </g>
   </g>
   <g id="axes_4">
@@ -2880,7 +2880,7 @@ L 192.313979 210.40911
      </g>
     </g>
     <g id="text_57">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="361.024195" transform="rotate(-0 131.62665 361.024195)">value</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="361.024195" transform="rotate(-0 131.62665 361.024195)">value</text>
     </g>
    </g>
    <g id="matplotlib.axis_8">
@@ -3257,7 +3257,7 @@ L 222.253061 229.559437
      </g>
     </g>
     <g id="text_64">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="11.86624" y="271.133653" transform="rotate(-90 11.86624 271.133653)">count</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="11.86624" y="271.133653" transform="rotate(-90 11.86624 271.133653)">count</text>
     </g>
    </g>
    <g id="patch_38">
@@ -3537,7 +3537,7 @@ L 222.253061 210.40911
 " style="fill: none; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_65">
-    <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="204.90911" transform="rotate(-0 131.62665 204.90911)">Histograms</text>
+    <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="204.90911" transform="rotate(-0 131.62665 204.90911)">Histograms</text>
    </g>
   </g>
   <g id="axes_5">
@@ -3566,7 +3566,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_66">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="287.649255" y="344.717259" transform="rotate(-0 287.649255 344.717259)">A</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="287.649255" y="344.717259" transform="rotate(-0 287.649255 344.717259)">A</text>
      </g>
     </g>
     <g id="xtick_66">
@@ -3581,7 +3581,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_67">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="317.858059" y="344.717259" transform="rotate(-0 317.858059 344.717259)">B</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="317.858059" y="344.717259" transform="rotate(-0 317.858059 344.717259)">B</text>
      </g>
     </g>
     <g id="xtick_67">
@@ -3596,7 +3596,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_68">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="348.066862" y="344.717259" transform="rotate(-0 348.066862 344.717259)">C</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="348.066862" y="344.717259" transform="rotate(-0 348.066862 344.717259)">C</text>
      </g>
     </g>
     <g id="xtick_68">
@@ -3611,7 +3611,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_69">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="378.275666" y="344.717259" transform="rotate(-0 378.275666 344.717259)">D</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="378.275666" y="344.717259" transform="rotate(-0 378.275666 344.717259)">D</text>
      </g>
     </g>
     <g id="xtick_69">
@@ -3626,7 +3626,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_70">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="408.484469" y="344.717259" transform="rotate(-0 408.484469 344.717259)">E</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="408.484469" y="344.717259" transform="rotate(-0 408.484469 344.717259)">E</text>
      </g>
     </g>
     <g id="xtick_70">
@@ -3641,7 +3641,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_71">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="438.693273" y="344.717259" transform="rotate(-0 438.693273 344.717259)">F</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="438.693273" y="344.717259" transform="rotate(-0 438.693273 344.717259)">F</text>
      </g>
     </g>
    </g>
@@ -3658,7 +3658,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_72">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: end; fill: #ffffff" x="267.044853" y="230.253447" transform="rotate(-0 267.044853 230.253447)">w</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: end; fill: #ffffff" x="267.044853" y="230.253447" transform="rotate(-0 267.044853 230.253447)">w</text>
      </g>
     </g>
     <g id="ytick_106">
@@ -3673,7 +3673,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_73">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: end; fill: #ffffff" x="267.044853" y="260.462251" transform="rotate(-0 267.044853 260.462251)">x</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: end; fill: #ffffff" x="267.044853" y="260.462251" transform="rotate(-0 267.044853 260.462251)">x</text>
      </g>
     </g>
     <g id="ytick_107">
@@ -3688,7 +3688,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_74">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: end; fill: #ffffff" x="267.044853" y="290.671054" transform="rotate(-0 267.044853 290.671054)">y</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: end; fill: #ffffff" x="267.044853" y="290.671054" transform="rotate(-0 267.044853 290.671054)">y</text>
      </g>
     </g>
     <g id="ytick_108">
@@ -3703,7 +3703,7 @@ iVBORw0KGgoAAAANSUhEUgAAAXkAAAD8CAYAAACSCdTiAAAETUlEQVR4nO3WMUoWABzGYTWHiqba4oMg
       </g>
      </g>
      <g id="text_75">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: end; fill: #ffffff" x="267.044853" y="320.879858" transform="rotate(-0 267.044853 320.879858)">z</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: end; fill: #ffffff" x="267.044853" y="320.879858" transform="rotate(-0 267.044853 320.879858)">z</text>
      </g>
     </g>
    </g>
@@ -3728,7 +3728,7 @@ L 453.797674 210.716046
 " style="fill: none; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_76">
-    <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="205.216046" transform="rotate(-0 363.171264 205.216046)">Heatmap</text>
+    <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="205.216046" transform="rotate(-0 363.171264 205.216046)">Heatmap</text>
    </g>
   </g>
   <g id="axes_6">
@@ -3758,7 +3758,7 @@ L 565.955743 210.40911
       </g>
      </g>
      <g id="text_77">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="565.955743" y="345.024195" transform="rotate(-0 565.955743 345.024195)">ctrl</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="565.955743" y="345.024195" transform="rotate(-0 565.955743 345.024195)">ctrl</text>
      </g>
     </g>
     <g id="xtick_72">
@@ -3778,7 +3778,7 @@ L 626.37335 210.40911
       </g>
      </g>
      <g id="text_78">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="345.024195" transform="rotate(-0 626.37335 345.024195)">drug</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="345.024195" transform="rotate(-0 626.37335 345.024195)">drug</text>
      </g>
     </g>
     <g id="xtick_73">
@@ -3798,7 +3798,7 @@ L 686.790957 210.40911
       </g>
      </g>
      <g id="text_79">
-      <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="686.790957" y="345.024195" transform="rotate(-0 686.790957 345.024195)">both</text>
+      <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="686.790957" y="345.024195" transform="rotate(-0 686.790957 345.024195)">both</text>
      </g>
     </g>
    </g>
@@ -4049,7 +4049,7 @@ L 716.99976 214.598713
      </g>
     </g>
     <g id="text_84">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="509.032939" y="271.133653" transform="rotate(-90 509.032939 271.133653)">score</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="509.032939" y="271.133653" transform="rotate(-90 509.032939 271.133653)">score</text>
     </g>
    </g>
    <g id="line2d_451">
@@ -4225,7 +4225,7 @@ L 716.99976 210.40911
 " style="fill: none; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_85">
-    <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="204.90911" transform="rotate(-0 626.37335 204.90911)">Boxplot</text>
+    <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="204.90911" transform="rotate(-0 626.37335 204.90911)">Boxplot</text>
    </g>
   </g>
   <g id="axes_7">
@@ -4594,7 +4594,7 @@ L 212.543088 383.524675
      </g>
     </g>
     <g id="text_92">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="534.13976" transform="rotate(-0 131.62665 534.13976)">dose</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="534.13976" transform="rotate(-0 131.62665 534.13976)">dose</text>
     </g>
    </g>
    <g id="matplotlib.axis_14">
@@ -4930,7 +4930,7 @@ L 222.253061 387.771778
      </g>
     </g>
     <g id="text_99">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="17.365552" y="444.249218" transform="rotate(-90 17.365552 444.249218)">response</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="17.365552" y="444.249218" transform="rotate(-90 17.365552 444.249218)">response</text>
     </g>
    </g>
    <g id="LineCollection_1">
@@ -5051,7 +5051,7 @@ L 222.253061 383.524675
 " style="fill: none; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_100">
-    <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="378.024675" transform="rotate(-0 131.62665 378.024675)">Error bars</text>
+    <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="131.62665" y="378.024675" transform="rotate(-0 131.62665 378.024675)">Error bars</text>
    </g>
   </g>
   <g id="axes_8">
@@ -5420,7 +5420,7 @@ L 444.087702 383.524675
      </g>
     </g>
     <g id="text_107">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="534.13976" transform="rotate(-0 363.171264 534.13976)">time (s)</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="534.13976" transform="rotate(-0 363.171264 534.13976)">time (s)</text>
     </g>
    </g>
    <g id="matplotlib.axis_16">
@@ -5850,7 +5850,7 @@ L 453.797674 402.453674
      </g>
     </g>
     <g id="text_113">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="237.119541" y="444.249218" transform="rotate(-90 237.119541 444.249218)">signal</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="237.119541" y="444.249218" transform="rotate(-90 237.119541 444.249218)">signal</text>
     </g>
    </g>
    <g id="FillBetweenPolyCollection_1">
@@ -5951,7 +5951,7 @@ L 453.797674 383.524675
 " style="fill: none; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_114">
-    <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="378.024675" transform="rotate(-0 363.171264 378.024675)">Band</text>
+    <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="363.171264" y="378.024675" transform="rotate(-0 363.171264 378.024675)">Band</text>
    </g>
   </g>
   <g id="axes_9">
@@ -6316,7 +6316,7 @@ L 707.370744 383.524675
      </g>
     </g>
     <g id="text_120">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="534.13976" transform="rotate(-0 626.37335 534.13976)">step</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="534.13976" transform="rotate(-0 626.37335 534.13976)">step</text>
     </g>
     <g id="text_121">
      <!-- $\times\mathdefault{10^{3}}\mathdefault{}$ -->
@@ -6680,7 +6680,7 @@ L 716.99976 403.232873
      </g>
     </g>
     <g id="text_127">
-     <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="503.532939" y="444.249218" transform="rotate(-90 503.532939 444.249218)">walk</text>
+     <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="503.532939" y="444.249218" transform="rotate(-90 503.532939 444.249218)">walk</text>
     </g>
    </g>
    <g id="line2d_796">
@@ -7940,7 +7940,7 @@ L 716.99976 383.524675
 " style="fill: none; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_128">
-    <text style="font-size: 11px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="378.024675" transform="rotate(-0 626.37335 378.024675)">Dense line</text>
+    <text style="font-size: 11px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="626.37335" y="378.024675" transform="rotate(-0 626.37335 378.024675)">Dense line</text>
    </g>
   </g>
   <g id="axes_10">
@@ -8137,7 +8137,7 @@ z
    </g>
   </g>
   <g id="text_133">
-   <text style="font-size: 13.2px; font-family: 'NewComputerModern', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="360" y="13.63944" transform="rotate(-0 360 13.63944)">lilaq-moon</text>
+   <text style="font-size: 13.2px; font-family: 'NewComputerModern', 'Palatino Linotype', 'P052', 'DejaVu Serif', serif; text-anchor: middle; fill: #ffffff" x="360" y="13.63944" transform="rotate(-0 360 13.63944)">lilaq-moon</text>
   </g>
  </g>
  <defs>
