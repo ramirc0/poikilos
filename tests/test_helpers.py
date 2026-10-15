@@ -406,6 +406,23 @@ def test_label_points_leader_lines_touch_their_boxes():
     plt.close(fig)
 
 
+@pytest.mark.parametrize("theme", ["rose-pine", "lilaq"])
+def test_label_points_keeps_labels_off_the_axes_edge(theme):
+    # adjustText holds labels inside the axes but lets their boxes touch its edge.
+    with pk.context(theme, rc={"font.family": "DejaVu Sans"}):
+        fig, ax = plt.subplots(figsize=(3, 3))
+        points = ax.scatter([0, 0, 1, 1, 0.5], [0, 1, 0, 1, 1])
+        despine(ax)
+        texts = label_points(ax, points, ["HepG2", "K562", "A549", "HeLa", "MCF-7"])
+        fig.canvas.draw()
+        pad = plt.rcParams["legend.borderaxespad"] * texts[0].get_fontsize()
+        inner = ax.bbox.padded(-pad * fig.dpi / 72 + 0.5)
+        for text in texts:
+            box = text.get_bbox_patch().get_window_extent()
+            assert inner.contains(box.x0, box.y0) and inner.contains(box.x1, box.y1)
+    plt.close(fig)
+
+
 def test_label_points_without_leader_draws_no_lines():
     fig, ax = plt.subplots(figsize=(3, 3))
     points = ax.scatter([0.5, 0.5, 0.51], [0.5, 0.51, 0.5])

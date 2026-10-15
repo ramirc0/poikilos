@@ -62,6 +62,8 @@ The distribution and the import package are both `poikilos`.
   face. The box outline and the leader line to the marker share one stroke
   in the axes edge color. adjustText keeps the boxes apart and off the
   markers. `bbox=None` gives bare labels.
+- `label_points` keeps labels off the axes edge by the legend's gap to it,
+  `legend.borderaxespad`. adjustText alone let boxes touch the frame.
 - `save_figure` keeps dots in the stem: `x.curve` gives `x.curve.svg` and
   `x.curve.png`. It used to write `x.svg` and `x.png`.
 - Title, legend label, legend face and `savefig` face colors now inherit from

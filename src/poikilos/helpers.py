@@ -6,6 +6,7 @@ import matplotlib as mpl
 import numpy as np
 from matplotlib import cbook
 from matplotlib.colors import to_rgba
+from matplotlib.font_manager import FontProperties
 from matplotlib.lines import Line2D
 from matplotlib.text import Text
 from matplotlib.transforms import Bbox
@@ -214,20 +215,37 @@ def label_points(ax, points, labels, offsets=None, leader=True, **kwargs):
         ax.add_artist(_BoxedText(x, y, label, transform=ax.transData, **kwargs))
         for (x, y), label in zip(points.get_offsets(), labels)
     ]
-    adjust_text(
-        texts,
-        objects=points,
-        ax=ax,
-        expand=(1.2, 1.4),
-        force_text=(0.5, 1.0),
-        force_static=(0.2, 0.4),
-        pull_threshold=clear,
-        max_move=10 * px,
-        min_arrow_len=clear,
-        # adjustText's default is a 1 s time limit, which made placement depend on CPU speed.
-        iter_lim=1000,
-        **({"arrowprops": line} if leader else {}),
+    # adjustText holds labels inside ax.patch, flush with its edge. Inset the patch by
+    # the legend's gap to the axes edge while it runs.
+    margin = (
+        rc["legend.borderaxespad"]
+        * FontProperties(size=kwargs.get("fontsize")).get_size_in_points()
+        * px
     )
+    bounds = ax.patch.get_bbox().bounds
+    ax.patch.set_bounds(
+        margin / ax.bbox.width,
+        margin / ax.bbox.height,
+        1 - 2 * margin / ax.bbox.width,
+        1 - 2 * margin / ax.bbox.height,
+    )
+    try:
+        adjust_text(
+            texts,
+            objects=points,
+            ax=ax,
+            expand=(1.2, 1.4),
+            force_text=(0.5, 1.0),
+            force_static=(0.2, 0.4),
+            pull_threshold=clear,
+            max_move=10 * px,
+            min_arrow_len=clear,
+            # adjustText's default is a 1 s time limit, which made placement depend on CPU speed.
+            iter_lim=1000,
+            **({"arrowprops": line} if leader else {}),
+        )
+    finally:
+        ax.patch.set_bounds(*bounds)
     return texts
 
 
