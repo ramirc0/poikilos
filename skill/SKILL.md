@@ -1,13 +1,14 @@
 ---
 name: poikilos
-description: Style matplotlib and seaborn figures with the poikilos package (themes plain, plain-dark, rose-pine, rose-pine-moon, rose-pine-dawn, lilaq, lilaq-moon, pgl) and its helpers despine, label_points, save_figure and zero_line. Use whenever you create, edit, review or migrate any matplotlib or seaborn figure or plotting code, including spines, ticks, fonts, colors, DPI, legends, labelled scatter plots and figure export, even if the user never names poikilos. Also use when a project imports matplotlib_rosepine or a copied style.py with apply_style().
+description: Style matplotlib and seaborn figures with the poikilos package (themes plain, plain-dark, rose-pine, rose-pine-moon, rose-pine-dawn, lilaq, lilaq-moon, pgl) and its helpers despine, fit_legend, label_points, save_figure and zero_line. Use whenever you create, edit, review or migrate any matplotlib or seaborn figure or plotting code, including spines, ticks, fonts, colors, DPI, legends, labelled scatter plots and figure export, even if the user never names poikilos. Also use when a project imports matplotlib_rosepine or a copied style.py with apply_style().
 ---
 
 # poikilos
 
 Every figure uses a poikilos theme. A theme is a look (fonts, spines, ticks,
-sizes) plus a palette (colors). The package also has four helpers that
-finish a figure: `despine`, `label_points`, `save_figure` and `zero_line`.
+sizes) plus a palette (colors). The package also has five helpers that
+finish a figure: `despine`, `fit_legend`, `label_points`, `save_figure` and
+`zero_line`.
 
 ```bash
 uv add "poikilos[labels] @ git+https://github.com/ramirc0/poikilos"
@@ -35,6 +36,10 @@ later and matplotlib 3.11 or later.
    poikilos instead. Choices that depend on the data are fine per axes:
    legend placement (`ax.legend(loc="upper left")` when the data fills the
    default corner), `figsize`, limits, titles and labels.
+   After a legend outside the axes (`fig.legend(loc="outside right upper")`),
+   call `pk.fit_legend(fig)`. Without it, constrained layout takes the
+   legend's room from the axes and a square plot turns into a rectangle. It
+   grows the figure instead. Skip it when the venue fixes the figure width.
 5. **Plain look: call `pk.despine(ax)` on every axes**, after everything on
    the figure is drawn. It is what makes the plain look: spines offset by
    10 pt and trimmed to the end ticks. See
@@ -78,6 +83,7 @@ pk.THEMES                                    # name -> (look, palette)
 pk.PALETTES["rose-pine-dawn"].colors["love"] # palette colors as hex
 pk.PALETTES["plain"].cycle                   # cycle colors, in order
 pk.despine(ax, categorical_x=False, categorical_y=False)
+pk.fit_legend(fig)                           # grow fig so outside legends keep the axes size
 pk.label_points(ax, points, labels, offsets=None, leader=True, **text_kwargs)
 pk.save_figure(fig, path, formats=("svg", "png"), **savefig_kwargs)  # -> paths, in order
 pk.zero_line(ax, axis="y", **line_kwargs)    # bold y = 0 line; "x" or "both"

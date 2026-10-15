@@ -1,6 +1,6 @@
 # poikilos
 
-Matplotlib themes, plus four helpers for publication figures. *Poikilos* is
+Matplotlib themes, plus five helpers for publication figures. *Poikilos* is
 Greek for many-colored.
 
 A theme is a look (fonts, spines, ticks, sizes) plus a palette (colors). Any
@@ -111,6 +111,10 @@ color therefore carries through to them.
   axis has no spine or offset, so its labels sit by the data. Call it after
   everything on the figure is drawn. It picks ticks for the axes size after
   layout.
+- `fit_legend(fig)` grows the figure by the room legends outside the axes
+  take. Constrained layout otherwise keeps `figsize` and shrinks the axes, so
+  a square plot turns into a rectangle. The figure ends up larger than
+  `figsize`. Call it after adding every legend, before `despine`.
 - `label_points(ax, points, labels, offsets=None, leader=True, **text_kwargs)`
   labels the collection
   `ax.scatter` returns. Each label sits in a box outlined like its leader

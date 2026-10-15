@@ -22,6 +22,7 @@ def test_public_api():
         "THEMES",
         "context",
         "despine",
+        "fit_legend",
         "label_points",
         "rc_params",
         "save_figure",

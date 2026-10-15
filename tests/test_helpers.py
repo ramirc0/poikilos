@@ -11,7 +11,7 @@ from matplotlib.patches import BoxStyle
 from matplotlib.transforms import Bbox
 
 import poikilos as pk
-from poikilos import despine, label_points, save_figure, zero_line
+from poikilos import despine, fit_legend, label_points, save_figure, zero_line
 
 
 @pytest.fixture(autouse=True)
@@ -48,6 +48,48 @@ def test_save_figure_writes_no_date(tmp_path, monkeypatch, fmt):
         saved.append(save_figure(fig, tmp_path / epoch, formats=(fmt,))[0])
     first, second = (p.read_bytes() for p in saved)
     assert first == second
+    plt.close(fig)
+
+
+def _axes_inches(fig):
+    fig.draw_without_rendering()
+    box = Bbox.union([ax.bbox for ax in fig.axes])
+    return box.width / fig.dpi, box.height / fig.dpi
+
+
+@pytest.mark.parametrize(
+    "add_legend",
+    [
+        lambda fig, ax: fig.legend(loc="outside right upper"),
+        lambda fig, ax: fig.legend(loc="outside lower center", ncols=3),
+        lambda fig, ax: ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1)),
+    ],
+)
+@pytest.mark.parametrize("ncols", [1, 2])
+def test_fit_legend_keeps_the_axes_size(add_legend, ncols):
+    # Constrained layout kept the figure size and took the legend's room from the
+    # axes, so a square plot became a tall or wide rectangle.
+    def figure():
+        fig, axes = plt.subplots(1, ncols, figsize=(4 * ncols, 4), squeeze=False)
+        for i in range(3):
+            axes[0, -1].plot([0, 1], [0, i], label=f"series {i}")
+        return fig, axes[0, -1]
+
+    bare, _ = figure()
+    fig, ax = figure()
+    add_legend(fig, ax)
+    fit_legend(fig)
+    assert _axes_inches(fig) == pytest.approx(_axes_inches(bare), abs=0.01)
+    assert fig.get_size_inches().prod() > bare.get_size_inches().prod()
+    plt.close("all")
+
+
+def test_fit_legend_leaves_a_figure_without_outside_legends():
+    fig, ax = plt.subplots(figsize=(4, 4))
+    ax.plot([0, 1], [0, 1], label="a")
+    ax.legend()
+    fit_legend(fig)
+    assert tuple(fig.get_size_inches()) == (4, 4)
     plt.close(fig)
 
 

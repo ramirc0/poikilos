@@ -100,6 +100,49 @@ def despine(ax, categorical_x=False, categorical_y=False):
             artist.set_clip_on(False)
 
 
+def fit_legend(fig):
+    """Grow ``fig`` so legends outside the axes stop shrinking them.
+
+    Constrained layout keeps the figure size and takes the room a legend
+    outside the axes needs from the axes, so a square plot turns into a
+    rectangle. This grows the figure by that room instead, and the axes keep
+    the size they have without the legends. The figure ends up larger than
+    its ``figsize``. Legends inside the axes take no room, so a figure with
+    only those keeps its size. Call after adding every legend, title and
+    label, before :func:`despine` and :func:`label_points`.
+
+    Parameters
+    ----------
+    fig : matplotlib.figure.Figure
+        Figure laid out by constrained layout.
+    """
+    legends = [
+        legend
+        for legend in (ax.get_legend() for ax in fig.axes)
+        if legend and legend.get_in_layout()
+    ]
+
+    def axes_size():
+        fig.draw_without_rendering()
+        box = Bbox.union([ax.bbox for ax in fig.axes])
+        return np.array([box.width, box.height]) / fig.dpi
+
+    # Constrained layout makes room for figure legends whatever their in_layout.
+    fig_legends, fig.legends = fig.legends, []
+    for legend in legends:
+        legend.set_in_layout(False)
+    target = axes_size()
+    fig.legends = fig_legends
+    for legend in legends:
+        legend.set_in_layout(True)
+    # The space between subplots scales with the figure, so one step can fall short.
+    for _ in range(3):
+        missing = target - axes_size()
+        if np.allclose(missing, 0, atol=1e-3):
+            break
+        fig.set_size_inches(fig.get_size_inches() + missing)
+
+
 class _BoxedText(Text):
     """Text whose window extent includes its box, so adjustText keeps boxes apart."""
 
