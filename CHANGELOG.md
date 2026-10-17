@@ -10,7 +10,7 @@ every name in `poikilos.__all__`, every theme name and each theme's look.
   image baselines and a line here.
 - A bug fix that leaves the API and the looks alone is a patch release.
 
-## 1.0.0 (unreleased)
+## 1.0.0 (2026-10-17)
 
 `matplotlib-rosepine` 0.2.0 is now `poikilos` 1.0.0. The distribution and the
 import package are both `poikilos`. The rename breaks code written for 0.2.0,
