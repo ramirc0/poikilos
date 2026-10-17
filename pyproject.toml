@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "poikilos"
-version = "0.1.0"
+version = "1.0.0"
 description = "Matplotlib themes and figure helpers"
 readme = "README.md"
 requires-python = ">=3.11"
