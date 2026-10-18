@@ -38,6 +38,7 @@ def test_public_api():
         "lilaq",
         "lilaq-moon",
         "pgl",
+        "zed",
     ]
 
 
@@ -137,6 +138,64 @@ def test_pgl_look_keeps_skill_rules():
     assert rc["axes.grid"] and rc["axes.axisbelow"] is True
     assert rc["grid.linestyle"] == "--"
     assert not rc["legend.frameon"]
+
+
+def test_zed_look_keeps_reference_values():
+    pk.use("zed")
+    rc = mpl.rcParams
+    assert rc["font.sans-serif"] == [
+        "Helvetica Neue",
+        "Helvetica",
+        "Nimbus Sans",
+        "Arial",
+        "DejaVu Sans",
+    ]
+    assert rc["mathtext.fontset"] == "custom"
+    sizes = {
+        "font.size": 10,
+        "xtick.labelsize": 8,
+        "ytick.labelsize": 8,
+        "axes.labelsize": 10,
+        "axes.titlesize": 12,
+        "figure.labelsize": 12,
+        "figure.titlesize": 14,
+    }
+    assert {key: rc[key] for key in sizes} == sizes
+    assert rc["axes.titleweight"] == rc["figure.titleweight"] == "medium"
+    assert not rc["axes.spines.top"] and not rc["axes.spines.right"]
+    for axis in ("xtick", "ytick"):
+        assert rc[f"{axis}.direction"] == "in"
+        assert (rc[f"{axis}.major.size"], rc[f"{axis}.minor.size"]) == (5, 3)
+        assert rc[f"{axis}.major.width"] == rc[f"{axis}.minor.width"] == 0.75
+    assert rc["axes.linewidth"] == 0.75
+    assert rc["lines.linewidth"] == 0.5
+    assert rc["lines.solid_capstyle"] == "round"
+    assert (rc["lines.markersize"], rc["lines.markeredgewidth"]) == (2, 0.25)
+    assert not rc["lines.scale_dashes"] and rc["lines.dashed_pattern"] == [2, 1]
+    assert rc["grid.linewidth"] == 0.25 and not rc["axes.grid"]
+    assert not rc["legend.frameon"]
+    assert rc["boxplot.patchartist"] and not rc["boxplot.showfliers"]
+    assert rc["boxplot.boxprops.linewidth"] == 0
+    assert rc["boxplot.medianprops.linewidth"] == 1.5
+    assert rc["boxplot.medianprops.color"] == "#ffffff"
+    assert rc["boxplot.whiskerprops.linewidth"] == rc["boxplot.capprops.linewidth"]
+    assert rc["boxplot.whiskerprops.linewidth"] == 0.5
+    assert (rc["errorbar.capsize"], rc["errorbar.capthick"]) == (2, 0.5)
+    assert rc["scatter.edgecolors"] == "#ffffff"
+
+
+def test_zed_palette_starts_with_warm_black_and_red():
+    palette = pk.PALETTES["zed"]
+    assert palette.foreground == palette.frame == palette.ticks == "#231f20"
+    assert palette.cycle == (
+        "#231f20",
+        "#ed1c24",
+        "#2e3192",
+        "#f7941d",
+        "#00a651",
+        "#92278f",
+    )
+    assert palette.scatter_edge == "#ffffff"
 
 
 def test_pgl_zero_line_is_solid_black_at_1_6_pt():
