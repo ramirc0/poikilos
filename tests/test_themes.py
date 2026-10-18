@@ -168,6 +168,9 @@ def test_zed_look_keeps_reference_values():
         assert (rc[f"{axis}.major.size"], rc[f"{axis}.minor.size"]) == (5, 3)
         assert rc[f"{axis}.major.width"] == rc[f"{axis}.minor.width"] == 0.75
     assert rc["axes.linewidth"] == 0.75
+    assert (rc["xtick.major.pad"], rc["ytick.major.pad"]) == (2.03, 2)
+    assert (rc["axes.labelpad"], rc["axes.titlepad"]) == (2.8, 8.4)
+    assert rc["figure.figsize"] == [2.57, 2.83]
     assert rc["lines.linewidth"] == 0.5
     assert rc["lines.solid_capstyle"] == "round"
     assert (rc["lines.markersize"], rc["lines.markeredgewidth"]) == (2, 0.25)

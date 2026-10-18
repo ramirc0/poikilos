@@ -10,7 +10,7 @@ mathtext.it: sans:italic
 mathtext.bf: sans:bold
 mathtext.sf: sans
 
-figure.figsize: 2.8, 2.8
+figure.figsize: 2.57, 2.83
 figure.titlesize: 14
 figure.titleweight: medium
 figure.labelsize: 12
@@ -19,9 +19,10 @@ axes.linewidth: 0.75
 axes.spines.top: False
 axes.spines.right: False
 axes.labelsize: 10
-axes.labelpad: 3
+axes.labelpad: 2.8
 axes.titlesize: 12
 axes.titleweight: medium
+axes.titlepad: 8.4
 axes.formatter.use_mathtext: True
 
 xtick.direction: in
@@ -30,16 +31,16 @@ xtick.major.size: 5
 xtick.minor.size: 3
 xtick.major.width: 0.75
 xtick.minor.width: 0.75
-xtick.major.pad: 2.1
-xtick.minor.pad: 2.1
+xtick.major.pad: 2.03
+xtick.minor.pad: 2.03
 ytick.direction: in
 ytick.labelsize: 8
 ytick.major.size: 5
 ytick.minor.size: 3
 ytick.major.width: 0.75
 ytick.minor.width: 0.75
-ytick.major.pad: 2.1
-ytick.minor.pad: 2.1
+ytick.major.pad: 2
+ytick.minor.pad: 2
 
 lines.linewidth: 0.5
 lines.solid_capstyle: round
