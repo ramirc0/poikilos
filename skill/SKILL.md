@@ -1,6 +1,6 @@
 ---
 name: poikilos
-description: Style matplotlib and seaborn figures with the poikilos package (themes plain, plain-dark, rose-pine, rose-pine-moon, rose-pine-dawn, lilaq, lilaq-moon, pgl) and its helpers despine, fit_legend, label_points, save_figure and zero_line. Use whenever you create, edit, review or migrate any matplotlib or seaborn figure or plotting code, including spines, ticks, fonts, colors, DPI, legends, labelled scatter plots and figure export, even if the user never names poikilos. Also use when a project imports matplotlib_rosepine or a copied style.py with apply_style().
+description: Style matplotlib and seaborn figures with the poikilos package (themes plain, plain-dark, rose-pine, rose-pine-moon, rose-pine-dawn, lilaq, lilaq-moon, pgl, zed) and its helpers despine, fit_legend, label_points, save_figure and zero_line. Use whenever you create, edit, review or migrate any matplotlib or seaborn figure or plotting code, including spines, ticks, fonts, colors, DPI, legends, labelled scatter plots and figure export, even if the user never names poikilos. Also use when a project imports matplotlib_rosepine or a copied style.py with apply_style().
 ---
 
 # poikilos
@@ -55,6 +55,9 @@ later and matplotlib 3.11 or later.
 8. **pgl look: never call `despine`.** It brings the spines back. Apply the
    categorical-axis and zero-line recipes from
    [references/pgl.md](references/pgl.md).
+9. **zed look: call `pk.despine(ax, offset=7.5)` on every axes**, and pass
+   scatter colors with `c=` and `linewidths=0.25`. Apply the tick, label and
+   box plot recipes from [references/zed.md](references/zed.md).
 
 ## Themes
 
@@ -67,6 +70,7 @@ later and matplotlib 3.11 or later.
 | `lilaq` | lilaq | figures next to Typst documents that use lilaq |
 | `lilaq-moon` | lilaq | lilaq's dark moon theme |
 | `pgl` | pgl | Programmable Genomics Laboratory papers; no spines, dashed grid |
+| `zed` | zed | Illustrator artwork at 1:1; Helvetica Neue, inward ticks, CMYK swatches |
 
 `palette=` mixes them: `pk.use("lilaq", palette="rose-pine-dawn")` is the lilaq
 look in Rosé Pine Dawn colors.
@@ -149,6 +153,8 @@ inside the block. matplotlib reads `savefig.dpi` when saving.
   and the per-axes recipes. Read it when using `lilaq` or `lilaq-moon`.
 - [references/pgl.md](references/pgl.md): what the pgl look sets, its
   per-axes recipes and signed tick labels. Read it when using `pgl`.
+- [references/zed.md](references/zed.md): what the zed look sets, its
+  per-axes recipes and known differences. Read it when using `zed`.
 - [references/fonts.md](references/fonts.md): font chains, installing New
   Computer Modern, checking that a font resolves, PDF and SVG font output.
 - [references/migration.md](references/migration.md): moving a project from

@@ -12,6 +12,7 @@ look takes any palette.
 | `rose-pine`, `rose-pine-moon`, `rose-pine-dawn` | plain | [Rosé Pine](https://rosepinetheme.com) |
 | `lilaq`, `lilaq-moon` | lilaq | [lilaq](https://lilaq.org) 0.6.0, default and moon |
 | `pgl` | pgl | seaborn's whitegrid greys, tab10 |
+| `zed` | zed | Illustrator's CMYK swatches, warm black `#231F20` |
 
 | Light | Dark |
 | --- | --- |
@@ -19,6 +20,7 @@ look takes any palette.
 | ![rose-pine-dawn](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/rose-pine-dawn.png) | ![rose-pine](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/rose-pine.png) |
 | ![lilaq](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/lilaq.png) | ![lilaq-moon](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/lilaq-moon.png) |
 | ![pgl](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/pgl.png) | |
+| ![zed](https://raw.githubusercontent.com/ramirc0/poikilos/main/assets/gallery/zed.png) | |
 
 [`rose-pine-moon`](https://github.com/ramirc0/poikilos/blob/main/assets/gallery/rose-pine-moon.png)
 has its own gallery image.
@@ -201,9 +203,31 @@ ax.xaxis.set_major_formatter(SignedFormatter())
 
 It keeps matplotlib's formatting, so `+1.50` sits next to `−0.50`.
 
+**zed.** The zed look reproduces figures drawn in Adobe Illustrator at 1:1:
+Helvetica Neue, 0.75 pt spines with 5 pt inward ticks, 8 pt tick labels and
+10 pt axis labels. Call `despine` with a 7.5 pt offset on every axes. Pass
+scatter colors with `c=`, because `color=` also replaces the white marker edge.
+matplotlib ties the scatter edge width to the line width, so pass
+`linewidths=0.25` for the look's 0.25 pt edge.
+
+```python
+import numpy as np
+
+zed = pk.PALETTES["zed"].colors
+ax.scatter(x, y, c=zed["silver"], linewidths=0.25)
+ax.set_yticks(np.linspace(0, 1, 6), ["0", "", "", "", "", "1"])  # label the ends only
+pk.despine(ax, offset=7.5)
+```
+
+Box plots come filled, with a white median and no outliers. Set `widths=0.67`
+and color each box. Take black from `zed["black"]`, because matplotlib's
+`"black"` is `#000000`. The skill's `references/zed.md` has the other recipes:
+direct labels, base-2 log ticks, reference lines, grey bands and panel letters.
+
 **PDF text as TrueType.** `rc={"pdf.fonttype": 42}` embeds fonts as TrueType.
 Use it only with a TrueType font. Anthropic Sans Text and New Computer Modern
 are CFF (`.otf`) fonts. So is Overpass from Debian's `fonts-overpass` package.
+macOS's Helvetica Neue (`HelveticaNeue.ttc`) is TrueType and works.
 With them, matplotlib writes CFF outlines into a TrueType font stream. Common
 viewers still render that PDF, but it breaks the PDF spec and strict checkers
 flag it.
@@ -217,6 +241,9 @@ DejaVu family bundled with matplotlib, so a missing font falls back silently.
 - lilaq: New Computer Modern, Palatino Linotype, P052, DejaVu Serif. Math uses
   matplotlib's bundled Computer Modern.
 - pgl: Overpass, Arial, Arimo, DejaVu Sans.
+- zed: Helvetica Neue, Helvetica, Nimbus Sans, Arial, DejaVu Sans. Titles use
+  the Medium weight. matplotlib 3.11 reads each face of macOS's
+  `HelveticaNeue.ttc`. The fallbacks have Helvetica's shapes but no Medium.
 
 matplotlib knows New Computer Modern as `NewComputerModern`. From
 [CTAN](https://ctan.org/pkg/newcomputermodern), install only the 10 pt cuts
@@ -248,6 +275,9 @@ everywhere.
   `spy`. Palettes do not reach them.
 - rcParams cannot fix the size of the data area. The lilaq look's figure size
   gives about lilaq's 6 × 4 cm for a plot with a title and both axis labels.
+  The zed look's figure size gives the same plot a 150 pt square.
+- Mathtext draws scripts at 70 % of the text size. Illustrator's default, which
+  zed copies elsewhere, is 58.3 %.
 - matplotlib's `scatter` draws from its own color cycle, separate from `plot`.
 - Some cycle colors have under 3:1 contrast with their background, such as two
   petroff10 colors on `lilaq-moon`. `scripts/gallery.py` prints the ratios.

@@ -34,6 +34,14 @@ regular weight. Debian's `fonts-overpass` package installs static CFF (`.otf`)
 cuts instead. `pdf.fonttype: 42` suits this chain only when Overpass resolves
 to a `.ttf` file.
 
+**zed** (`font.sans-serif`): `Helvetica Neue`, `Helvetica`, `Nimbus Sans`,
+`Arial`, `DejaVu Sans`. Titles use the Medium weight. macOS ships Helvetica Neue
+as `/System/Library/Fonts/HelveticaNeue.ttc`. matplotlib 3.11 reads every face
+of a TrueType collection, Medium included. Copy the file to
+`~/.local/share/fonts/` on Linux and clear the font cache. The collection is
+TrueType, so `pdf.fonttype: 42` suits it. Nimbus Sans, URW's Helvetica, has no
+Medium, so titles fall back to Regular. Its `.otf` cuts are CFF.
+
 ## New Computer Modern
 
 Typst calls it `New Computer Modern`. matplotlib names the family

@@ -48,7 +48,7 @@ def draw(axes, look, rng):
 
     ax = axes["scatter"]
     xs, ys = rng.uniform(0, 1, (2, 8))
-    points = ax.scatter(xs, ys)
+    points = ax.scatter(xs, ys, linewidths=0.25 if look == "zed" else None)
     ax.set(title="Labelled scatter", xlabel="x", ylabel="y")
     names = ["HepG2", "K562", "A549", "H1", "HeLa", "MCF-7", "GM12878", "IMR-90"]
 
@@ -113,6 +113,8 @@ def render(theme):
             cat_x, cat_y = categorical.get(name, (False, False))
             if look == "plain":
                 pk.despine(ax, categorical_x=cat_x, categorical_y=cat_y)
+            elif look == "zed":
+                pk.despine(ax, categorical_x=cat_x, categorical_y=cat_y, offset=7.5)
             elif look == "pgl":
                 for axis, cat in ((ax.xaxis, cat_x), (ax.yaxis, cat_y)):
                     if cat:

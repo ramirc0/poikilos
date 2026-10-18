@@ -14,6 +14,9 @@ every name in `poikilos.__all__`, every theme name and each theme's look.
 
 ### Added
 
+- Theme `zed`: figures drawn in Illustrator at 1:1. Helvetica Neue, 0.75 pt
+  spines with 5 pt inward ticks, and Illustrator's CMYK swatches with a warm
+  black. Pair it with `despine(ax, offset=7.5)`.
 - `despine(..., offset=10)` sets the distance in points between the data area
   and the spines.
 - Palettes may set `scatter_edge`, the edge color of scatter markers.
