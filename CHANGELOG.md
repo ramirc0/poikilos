@@ -16,6 +16,8 @@ every name in `poikilos.__all__`, every theme name and each theme's look.
 
 - `despine(..., offset=10)` sets the distance in points between the data area
   and the spines.
+- Palettes may set `scatter_edge`, the edge color of scatter markers.
+  `Palette.scatter_edge` is `None` for palettes that leave it out.
 
 ## 1.0.0 (2026-10-17)
 

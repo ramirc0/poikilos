@@ -47,6 +47,7 @@ _ROLES = {
         "boxplot.meanprops.markerfacecolor",
         "boxplot.meanprops.markeredgecolor",
     ),
+    "scatter_edge": ("scatter.edgecolors",),
 }
 
 
@@ -76,6 +77,9 @@ class Palette:
         Property cycle colors, in order.
     colors : Mapping[str, str]
         The palette's own named colors, e.g. ``"love"`` for Rosé Pine.
+    scatter_edge : str or None
+        Edge of scatter markers. ``None`` keeps matplotlib's default, the
+        marker's face color.
     """
 
     background: str
@@ -88,6 +92,7 @@ class Palette:
     mean: str
     cycle: tuple[str, ...]
     colors: Mapping[str, str]
+    scatter_edge: str | None = None
 
 
 def _load_palette(path):
@@ -158,7 +163,8 @@ def rc_params(theme, palette=None):
     for path in (_HERE / "base.mplstyle", _HERE / "looks" / f"{look}.mplstyle"):
         params.update(mpl.rc_params_from_file(path, use_default_template=False))
     for role, keys in _ROLES.items():
-        params.update(dict.fromkeys(keys, getattr(colors, role)))
+        if (color := getattr(colors, role)) is not None:
+            params.update(dict.fromkeys(keys, color))
     params["axes.prop_cycle"] = cycler(color=colors.cycle)
     return params
 

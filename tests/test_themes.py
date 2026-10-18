@@ -72,10 +72,17 @@ def test_theme_references_existing_look_and_palette(theme):
 @pytest.mark.parametrize("name", pk.PALETTES)
 def test_palette_colors_are_hex(name):
     palette = pk.PALETTES[name]
-    roles = [getattr(palette, role) for role in _ROLES]
+    roles = [c for role in _ROLES if (c := getattr(palette, role)) is not None]
     assert palette.cycle
     for color in [*roles, *palette.cycle, *palette.colors.values()]:
         assert re.fullmatch("#[0-9a-f]{6}", color)
+
+
+def test_scatter_edge_is_optional():
+    assert pk.PALETTES["plain"].scatter_edge is None
+    assert "scatter.edgecolors" not in pk.rc_params("plain")
+    pk.use("plain")
+    assert mpl.rcParams["scatter.edgecolors"] == "face"
 
 
 @pytest.mark.parametrize("name", pk.PALETTES)

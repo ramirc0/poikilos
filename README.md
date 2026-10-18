@@ -97,7 +97,9 @@ dawn.colors["love"]  # '#b4637a', by the palette's own name
 `pk.THEMES` maps each theme name to its `(look, palette)` pair.
 
 A palette sets root colors only: background, foreground, frame, ticks, grid,
-legend edge, boxplot median and mean, and the cycle. Legend face, title,
+legend edge, boxplot median and mean, and the cycle. It may also set
+`scatter_edge`, the edge of scatter markers. A palette without it keeps
+matplotlib's default, the face color. Legend face, title,
 `savefig` and hatch colors inherit from those. An `rc=` override of a root
 color therefore carries through to them.
 
