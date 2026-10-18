@@ -12,8 +12,8 @@ from matplotlib.text import Text
 from matplotlib.transforms import Bbox
 
 
-def despine(ax, categorical_x=False, categorical_y=False):
-    """Offset the continuous axes' spines by 10 pt and trim them to the end ticks.
+def despine(ax, categorical_x=False, categorical_y=False, offset=10):
+    """Offset the continuous axes' spines and trim them to the end ticks.
 
     Each continuous axis is fitted to its data without margins, then widened
     to the nearest ticks enclosing the data, so the trimmed spine never ends
@@ -39,6 +39,9 @@ def despine(ax, categorical_x=False, categorical_y=False):
         Hide the bottom spine and x tick marks (bar charts, heatmaps).
     categorical_y : bool, default False
         Hide the left spine and y tick marks (horizontal bars, heatmaps).
+    offset : float, default 10
+        Distance in points between the data area and each continuous axis's
+        spine.
     """
     ax.margins(0)
     ax.autoscale_view()
@@ -55,7 +58,7 @@ def despine(ax, categorical_x=False, categorical_y=False):
     # A tick's parts depend on the spine only through their transforms.
     kept = [(axis, axis.majorTicks, axis.minorTicks) for axis, _ in moved]
     for _, side in moved:
-        ax.spines[side].set_position(("outward", 10))
+        ax.spines[side].set_position(("outward", offset))
     for axis, major, minor in kept:
         for old, rebuilt in ((major, axis.majorTicks[0]), (minor, axis.minorTicks[0])):
             for tick in old:

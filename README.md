@@ -103,9 +103,10 @@ color therefore carries through to them.
 
 ## Helpers
 
-- `despine(ax, categorical_x=False, categorical_y=False)` fits each continuous
-  axis to its data and widens it to the enclosing ticks. It then offsets the
-  left and bottom spines by 10 pt and trims them to the end ticks. The top and
+- `despine(ax, categorical_x=False, categorical_y=False, offset=10)` fits each
+  continuous axis to its data and widens it to the enclosing ticks. It then
+  offsets the left and bottom spines by `offset` points and trims them to the
+  end ticks. The top and
   right spines and their ticks go. Pass `categorical_x=True` for bar charts,
   `categorical_y=True` for horizontal bars, and both for heatmaps. A categorical
   axis has no spine or offset, so its labels sit by the data. Call it after

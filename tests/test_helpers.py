@@ -110,6 +110,15 @@ def test_despine_numeric_axis_ends_on_ticks():
     plt.close(fig)
 
 
+def test_despine_offset_moves_both_spines():
+    fig, ax = plt.subplots()
+    ax.plot([0, 1], [0, 1])
+    despine(ax, offset=7.5)
+    for side in ("left", "bottom"):
+        assert ax.spines[side].get_position() == ("outward", 7.5)
+    plt.close(fig)
+
+
 def test_despine_date_axis():
     fig, ax = plt.subplots()
     start = dt.datetime(2026, 8, 27, tzinfo=dt.UTC)

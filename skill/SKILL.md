@@ -82,7 +82,7 @@ pk.rc_params(theme, palette=None)            # dict, applies nothing
 pk.THEMES                                    # name -> (look, palette)
 pk.PALETTES["rose-pine-dawn"].colors["love"] # palette colors as hex
 pk.PALETTES["plain"].cycle                   # cycle colors, in order
-pk.despine(ax, categorical_x=False, categorical_y=False)
+pk.despine(ax, categorical_x=False, categorical_y=False, offset=10)
 pk.fit_legend(fig)                           # grow fig so outside legends keep the axes size
 pk.label_points(ax, points, labels, offsets=None, leader=True, **text_kwargs)
 pk.save_figure(fig, path, formats=("svg", "png"), **savefig_kwargs)  # -> paths, in order

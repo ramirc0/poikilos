@@ -8,7 +8,7 @@ colorbars too. The rest of the look comes from `despine`.
 ## despine
 
 `pk.despine(ax)` offsets the left and bottom spines by 10 pt and trims them to
-the end ticks. Call it on every axes after everything on the figure is drawn,
+the end ticks. `offset=` sets another distance in points. Call it on every axes after everything on the figure is drawn,
 titles and legends included. It lays out the figure first, so the ticks fit the
 axes size after layout.
 

@@ -10,6 +10,13 @@ every name in `poikilos.__all__`, every theme name and each theme's look.
   image baselines and a line here.
 - A bug fix that leaves the API and the looks alone is a patch release.
 
+## 1.1.0 (unreleased)
+
+### Added
+
+- `despine(..., offset=10)` sets the distance in points between the data area
+  and the spines.
+
 ## 1.0.0 (2026-10-17)
 
 `matplotlib-rosepine` 0.2.0 is now `poikilos` 1.0.0. The distribution and the
