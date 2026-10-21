@@ -138,12 +138,12 @@ def _get(mapping, name, kind):
     return mapping[name]
 
 
-def rc_params(theme, palette=None):
+def rc_params(theme="zed", palette=None):
     """Return the rcParams a theme sets.
 
     Parameters
     ----------
-    theme : str
+    theme : str, default "zed"
         A key of :data:`THEMES`.
     palette : str, optional
         A key of :data:`PALETTES` that replaces the theme's own palette.
@@ -170,7 +170,7 @@ def rc_params(theme, palette=None):
     return params
 
 
-def use(theme, *, palette=None, rc=None):
+def use(theme="zed", *, palette=None, rc=None):
     """Reset matplotlib's style to its defaults, then apply a theme.
 
     Every style rcParam is reset first, so settings made before this call
@@ -180,7 +180,7 @@ def use(theme, *, palette=None, rc=None):
 
     Parameters
     ----------
-    theme : str
+    theme : str, default "zed"
         A key of :data:`THEMES`.
     palette : str, optional
         A key of :data:`PALETTES` that replaces the theme's own palette.
@@ -199,7 +199,7 @@ def use(theme, *, palette=None, rc=None):
 
 
 @contextmanager
-def context(theme, *, palette=None, rc=None):
+def context(theme="zed", *, palette=None, rc=None):
     """Apply a theme inside a ``with`` block and restore rcParams on exit.
 
     Save figures inside the block: settings such as ``savefig.dpi`` are read
@@ -207,7 +207,7 @@ def context(theme, *, palette=None, rc=None):
 
     Parameters
     ----------
-    theme : str
+    theme : str, default "zed"
         A key of :data:`THEMES`.
     palette : str, optional
         A key of :data:`PALETTES` that replaces the theme's own palette.

@@ -42,6 +42,16 @@ def test_public_api():
     ]
 
 
+def test_default_theme_is_zed():
+    assert pk.rc_params() == pk.rc_params("zed")
+    pk.use()
+    expected = dict(mpl.rcParams)
+    with pk.context():
+        assert dict(mpl.rcParams) == expected
+    pk.use("zed")
+    assert dict(mpl.rcParams) == expected
+
+
 def test_import_has_no_side_effects():
     code = (
         "import matplotlib as mpl; before = dict(mpl.rcParams); import poikilos; "

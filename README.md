@@ -84,6 +84,8 @@ seaborn's `set_theme()` also resets rcParams. Call it before `pk.use()`.
 `pk.rc_params(theme, palette=None)` returns a theme's rcParams as a dict
 without applying them.
 
+All three default to `zed`, so `pk.use()` applies it.
+
 ### Palettes as data
 
 Palettes are TOML files in `src/poikilos/palettes/`. `pk.PALETTES` holds them

@@ -20,7 +20,7 @@ later and matplotlib 3.11 or later.
 ## Rules
 
 1. **Apply a theme with `pk.use(theme)` before drawing.** Keep the theme the
-   project already uses. Otherwise pick `zed` for papers and reports. `use()`
+   project already uses. Otherwise, call `pk.use()`, which applies `zed`. `use()`
    resets every style rcParam first, so it can run before or after importing
    pyplot. Anything set by hand before it is lost.
 2. **Save with `pk.save_figure(fig, path)`.** It writes SVG and PNG side by
@@ -80,9 +80,9 @@ look in Rosé Pine Dawn colors.
 ```python
 import poikilos as pk
 
-pk.use(theme, *, palette=None, rc=None)      # apply globally
-pk.context(theme, *, palette=None, rc=None)  # with-block; restores rcParams on exit
-pk.rc_params(theme, palette=None)            # dict, applies nothing
+pk.use(theme="zed", *, palette=None, rc=None)      # apply globally
+pk.context(theme="zed", *, palette=None, rc=None)  # with-block; restores rcParams on exit
+pk.rc_params(theme="zed", palette=None)            # dict, applies nothing
 pk.THEMES                                    # name -> (look, palette)
 pk.PALETTES["rose-pine-dawn"].colors["love"] # palette colors as hex
 pk.PALETTES["plain"].cycle                   # cycle colors, in order
@@ -107,7 +107,7 @@ Take colors from `pk.PALETTES` rather than copying hex values. A palette's
 import matplotlib.pyplot as plt
 import poikilos as pk
 
-pk.use("zed")
+pk.use()
 
 fig, ax = plt.subplots()
 ax.bar(df["condition"], df["value"], width=0.67)
