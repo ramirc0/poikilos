@@ -20,7 +20,7 @@ later and matplotlib 3.11 or later.
 ## Rules
 
 1. **Apply a theme with `pk.use(theme)` before drawing.** Keep the theme the
-   project already uses. Otherwise pick `plain` for papers and reports. `use()`
+   project already uses. Otherwise pick `zed` for papers and reports. `use()`
    resets every style rcParam first, so it can run before or after importing
    pyplot. Anything set by hand before it is lost.
 2. **Save with `pk.save_figure(fig, path)`.** It writes SVG and PNG side by
@@ -63,14 +63,14 @@ later and matplotlib 3.11 or later.
 
 | Theme | Look | Use for |
 | --- | --- | --- |
-| `plain` | plain | default; matplotlib colors (tab10) on white |
+| `plain` | plain | matplotlib colors (tab10) on white |
 | `plain-dark` | plain | dark slides; tab10 on `#242424` |
 | `rose-pine-dawn` | plain | Rosé Pine, light |
 | `rose-pine`, `rose-pine-moon` | plain | Rosé Pine, dark |
 | `lilaq` | lilaq | figures next to Typst documents that use lilaq |
 | `lilaq-moon` | lilaq | lilaq's dark moon theme |
 | `pgl` | pgl | Programmable Genomics Laboratory papers; no spines, dashed grid |
-| `zed` | zed | Illustrator artwork at 1:1; Helvetica Neue, inward ticks, CMYK swatches |
+| `zed` | zed | default; Illustrator artwork at 1:1; Helvetica Neue, inward ticks, CMYK swatches |
 
 `palette=` mixes them: `pk.use("lilaq", palette="rose-pine-dawn")` is the lilaq
 look in Rosé Pine Dawn colors.
@@ -107,18 +107,18 @@ Take colors from `pk.PALETTES` rather than copying hex values. A palette's
 import matplotlib.pyplot as plt
 import poikilos as pk
 
-pk.use("plain")
+pk.use("zed")
 
-fig, ax = plt.subplots(figsize=(4, 3))
-ax.bar(df["condition"], df["value"])
+fig, ax = plt.subplots()
+ax.bar(df["condition"], df["value"], width=0.67)
 ax.set_ylabel("expression")
-pk.despine(ax, categorical_x=True)
+pk.despine(ax, categorical_x=True, offset=7.5)
 pk.save_figure(fig, "results/expression")
 
-fig, ax = plt.subplots(figsize=(4, 4))
-points = ax.scatter(df["x"], df["y"])
+fig, ax = plt.subplots()
+points = ax.scatter(df["x"], df["y"], linewidths=0.25)
 ax.set(xlabel="x", ylabel="y", title="Cell lines")
-pk.despine(ax)
+pk.despine(ax, offset=7.5)
 pk.label_points(ax, points, df["name"], fontsize=8)  # last: after despine and titles
 pk.save_figure(fig, "results/labelled")
 ```
