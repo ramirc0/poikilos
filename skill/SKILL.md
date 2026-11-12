@@ -127,18 +127,20 @@ pk.save_figure(fig, "results/labelled")
 rule can pass its declared SVG output. Other dots stay in the name.
 
 For one figure in another theme, wrap it in `with pk.context("lilaq"):` and save
-inside the block. matplotlib reads fonts and `savefig.dpi` when it draws.
+inside the block. matplotlib reads fonts when it draws and `savefig.dpi` when
+it saves.
 
 ## Gotchas
 
 - Themes set `savefig.dpi: 300` and leave `figure.dpi` at 100. Saved files are
   300 dpi. `fig.dpi` reads 100 unless you pass `dpi=`.
 - Notebooks (Jupyter, marimo) draw a returned figure after the cell's code
-  runs. A figure made in `pk.context()` then shows DejaVu Sans. Call
-  `pk.use()` in notebooks instead.
-- zed and lilaq size figures for print, so a notebook shows them small. Pass
-  `rc={"figure.dpi": 150}` to enlarge them on screen. Saved files keep
-  `savefig.dpi`.
+  runs. A figure made in `pk.context()` then draws with the outer fonts.
+  Call `pk.use()` in notebooks instead.
+- zed and lilaq size figures for print, so a notebook shows them small. In
+  Jupyter, pass `rc={"figure.dpi": 150}` to enlarge them on screen. Saved files
+  keep `savefig.dpi`. marimo shows figures at 100 px per inch whatever
+  `figure.dpi` is.
 - poikilos never sets the backend. A batch script on a machine with a display
   may need `matplotlib.use("Agg")` before importing pyplot.
 - seaborn: `sns.set_theme()` resets rcParams too. Call it before `pk.use()`, or

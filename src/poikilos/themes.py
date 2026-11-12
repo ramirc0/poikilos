@@ -202,8 +202,8 @@ def use(theme="zed", *, palette=None, rc=None):
 def context(theme="zed", *, palette=None, rc=None):
     """Apply a theme inside a ``with`` block and restore rcParams on exit.
 
-    matplotlib reads fonts and ``savefig.dpi`` when it draws, so save figures
-    inside the block. A notebook draws a figure after the block exits, with
+    matplotlib reads fonts when it draws and ``savefig.dpi`` when it saves,
+    so save figures inside the block. A notebook draws a figure after the block exits, with
     the outer rcParams. Use :func:`use` in notebooks.
 
     Parameters

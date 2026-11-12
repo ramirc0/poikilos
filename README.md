@@ -54,9 +54,9 @@ theme. It leaves the backend alone, so it works before or after importing
 pyplot. Importing `poikilos` changes nothing.
 
 For one figure in another theme, use `context()`. It restores the previous
-rcParams on exit. Save inside the block, because matplotlib reads fonts and
-`savefig.dpi` when it draws. A notebook draws a figure after the block exits,
-in the outer style. Call `use()` in notebooks instead.
+rcParams on exit. Save inside the block, because matplotlib reads fonts when
+it draws and `savefig.dpi` when it saves. A notebook draws a figure after the
+block exits, with the outer rcParams. Call `use()` in notebooks instead.
 
 ```python
 with pk.context("lilaq"):
