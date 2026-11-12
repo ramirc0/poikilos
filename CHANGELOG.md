@@ -10,7 +10,7 @@ every name in `poikilos.__all__`, every theme name and each theme's look.
   image baselines and a line here.
 - A bug fix that leaves the API and the looks alone is a patch release.
 
-## 1.2.1 (unreleased)
+## 1.2.1 (2026-11-12)
 
 ### Fixed
 
