@@ -125,22 +125,29 @@ def fit_legend(fig):
         if legend and legend.get_in_layout()
     ]
 
-    def axes_size():
+    def drawn_and_layout_sizes():
         fig.draw_without_rendering()
-        box = Bbox.union([ax.bbox for ax in fig.axes])
-        return np.array([box.width, box.height]) / fig.dpi
+        drawn = Bbox.union([ax.bbox for ax in fig.axes])
+        layout = Bbox.union([ax.get_position(original=True) for ax in fig.axes])
+        return (
+            np.array([drawn.width, drawn.height]) / fig.dpi,
+            np.array([layout.width, layout.height]) * fig.get_size_inches(),
+        )
 
     # Constrained layout makes room for figure legends whatever their in_layout.
     fig_legends, fig.legends = fig.legends, []
     for legend in legends:
         legend.set_in_layout(False)
-    target = axes_size()
+    target, _ = drawn_and_layout_sizes()
     fig.legends = fig_legends
     for legend in legends:
         legend.set_in_layout(True)
     # The space between subplots scales with the figure, so one step can fall short.
     for _ in range(3):
-        missing = target - axes_size()
+        drawn, layout = drawn_and_layout_sizes()
+        # A fixed aspect leaves the axes short of their layout box on one side.
+        # More room on that side only adds blank space.
+        missing = np.where(drawn < layout - 1e-3, 0, target - drawn)
         if np.allclose(missing, 0, atol=1e-3):
             break
         fig.set_size_inches(fig.get_size_inches() + missing)

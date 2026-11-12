@@ -84,6 +84,28 @@ def test_fit_legend_keeps_the_axes_size(add_legend, ncols):
     plt.close("all")
 
 
+@pytest.mark.parametrize(
+    "fix_aspect",
+    [lambda ax: ax.set_box_aspect(1), lambda ax: ax.set_aspect("equal")],
+)
+def test_fit_legend_grows_only_the_width_for_fixed_aspect_axes(fix_aspect):
+    # The fixed aspect shrank the axes height with the width, and fit_legend grew
+    # the figure height too, leaving blank bands above and below the axes.
+    def figure():
+        fig, ax = plt.subplots(figsize=(4, 4))
+        fix_aspect(ax)
+        ax.plot([0, 1], [0, 1], label="a long legend label")
+        return fig, ax
+
+    bare, _ = figure()
+    fig, ax = figure()
+    ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1))
+    fit_legend(fig)
+    assert fig.get_size_inches()[1] == pytest.approx(4, abs=0.01)
+    assert _axes_inches(fig) == pytest.approx(_axes_inches(bare), abs=0.01)
+    plt.close("all")
+
+
 def test_fit_legend_leaves_a_figure_without_outside_legends():
     fig, ax = plt.subplots(figsize=(4, 4))
     ax.plot([0, 1], [0, 1], label="a")

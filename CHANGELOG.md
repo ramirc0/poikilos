@@ -10,6 +10,13 @@ every name in `poikilos.__all__`, every theme name and each theme's look.
   image baselines and a line here.
 - A bug fix that leaves the API and the looks alone is a patch release.
 
+## 1.2.1 (unreleased)
+
+### Fixed
+
+- `fit_legend` grows only the side the legend takes room from when the axes
+  have a fixed aspect. It used to grow both sides and leave blank bands.
+
 ## 1.2.0 (2026-10-21)
 
 ### Added
