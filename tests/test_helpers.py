@@ -51,10 +51,9 @@ def test_save_figure_writes_no_date(tmp_path, monkeypatch, fmt):
     plt.close(fig)
 
 
-def _axes_inches(fig):
+def _axes_sizes(fig):
     fig.draw_without_rendering()
-    box = Bbox.union([ax.bbox for ax in fig.axes])
-    return box.width / fig.dpi, box.height / fig.dpi
+    return np.array([ax.bbox.size for ax in fig.axes]) / fig.dpi
 
 
 @pytest.mark.parametrize(
@@ -79,7 +78,7 @@ def test_fit_legend_keeps_the_axes_size(add_legend, ncols):
     fig, ax = figure()
     add_legend(fig, ax)
     fit_legend(fig)
-    assert _axes_inches(fig) == pytest.approx(_axes_inches(bare), abs=0.01)
+    assert _axes_sizes(fig) == pytest.approx(_axes_sizes(bare), abs=0.01)
     assert fig.get_size_inches().prod() > bare.get_size_inches().prod()
     plt.close("all")
 
@@ -102,7 +101,52 @@ def test_fit_legend_grows_only_the_width_for_fixed_aspect_axes(fix_aspect):
     ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1))
     fit_legend(fig)
     assert fig.get_size_inches()[1] == pytest.approx(4, abs=0.01)
-    assert _axes_inches(fig) == pytest.approx(_axes_inches(bare), abs=0.01)
+    assert _axes_sizes(fig) == pytest.approx(_axes_sizes(bare), abs=0.01)
+    plt.close("all")
+
+
+@pytest.mark.parametrize(
+    ("width", "legend_axes"),
+    [
+        pytest.param(12, 1, id="legend-right-of-grid"),
+        pytest.param(8, 0, id="legend-between-axes"),
+    ],
+)
+@pytest.mark.parametrize("fixed", [0, 1])
+def test_fit_legend_keeps_each_axes_size_in_a_mixed_grid(width, legend_axes, fixed):
+    def make():
+        fig, axes = plt.subplots(1, 2, figsize=(width, 4))
+        axes[fixed].set_box_aspect(1)
+        for ax in axes:
+            ax.plot([0, 1], [0, 1], label="a long legend label")
+        return fig
+
+    bare = make()
+    fig = make()
+    fig.axes[legend_axes].legend(loc="upper left", bbox_to_anchor=(1.02, 1))
+    fit_legend(fig)
+    assert _axes_sizes(fig) == pytest.approx(_axes_sizes(bare), abs=0.01)
+    plt.close("all")
+
+
+@pytest.mark.parametrize("image", [False, True])
+def test_fit_legend_keeps_the_axes_size_next_to_a_colorbar(image):
+    def make():
+        fig, ax = plt.subplots(figsize=(5, 4))
+        if image:
+            mappable = ax.imshow(np.arange(4).reshape(2, 2))
+        else:
+            mappable = ax.scatter([0, 1], [0, 1], c=[0, 1])
+        ax.plot([0, 1], [0, 1], label="a long legend label")
+        fig.colorbar(mappable, ax=ax)
+        return fig, ax
+
+    bare, _ = make()
+    fig, ax = make()
+    ax.legend(loc="upper left", bbox_to_anchor=(1.3, 1))
+    fit_legend(fig)
+    assert _axes_sizes(fig) == pytest.approx(_axes_sizes(bare), abs=0.01)
+    assert fig.get_figheight() == pytest.approx(4, abs=0.01)
     plt.close("all")
 
 

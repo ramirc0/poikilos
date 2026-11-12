@@ -16,6 +16,9 @@ every name in `poikilos.__all__`, every theme name and each theme's look.
 
 - `fit_legend` grows only the side the legend takes room from when the axes
   have a fixed aspect. It used to grow both sides and leave blank bands.
+- `fit_legend` keeps each axes at its size next to a colorbar or with a
+  legend between subplots. It used to measure the axes together and miss the
+  room taken between them.
 
 ## 1.2.0 (2026-10-21)
 

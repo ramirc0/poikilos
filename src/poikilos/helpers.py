@@ -117,7 +117,8 @@ def fit_legend(fig):
     Parameters
     ----------
     fig : matplotlib.figure.Figure
-        Figure laid out by constrained layout.
+        Figure laid out by constrained layout. Compressed layout fits the
+        layout boxes to fixed-aspect axes, so the figure grows on both sides.
     """
     legends = [
         legend
@@ -127,12 +128,12 @@ def fit_legend(fig):
 
     def drawn_and_layout_sizes():
         fig.draw_without_rendering()
-        drawn = Bbox.union([ax.bbox for ax in fig.axes])
-        layout = Bbox.union([ax.get_position(original=True) for ax in fig.axes])
-        return (
-            np.array([drawn.width, drawn.height]) / fig.dpi,
-            np.array([layout.width, layout.height]) * fig.get_size_inches(),
-        )
+        drawn = [ax.bbox.size / fig.dpi for ax in fig.axes]
+        layout = [
+            ax.get_position(original=True).size * fig.get_size_inches()
+            for ax in fig.axes
+        ]
+        return np.array(drawn), np.array(layout)
 
     # Constrained layout makes room for figure legends whatever their in_layout.
     fig_legends, fig.legends = fig.legends, []
@@ -142,12 +143,12 @@ def fit_legend(fig):
     fig.legends = fig_legends
     for legend in legends:
         legend.set_in_layout(True)
-    # The space between subplots scales with the figure, so one step can fall short.
-    for _ in range(3):
+    # Axes in a row share each step's new room, so one step falls short.
+    for _ in range(10):
         drawn, layout = drawn_and_layout_sizes()
-        # A fixed aspect leaves the axes short of their layout box on one side.
+        # A fixed aspect leaves an axes short of its layout box on one side.
         # More room on that side only adds blank space.
-        missing = np.where(drawn < layout - 1e-3, 0, target - drawn)
+        missing = np.where(drawn < layout - 1e-3, 0, target - drawn).max(axis=0)
         if np.allclose(missing, 0, atol=1e-3):
             break
         fig.set_size_inches(fig.get_size_inches() + missing)
